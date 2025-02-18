@@ -1,42 +1,65 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* não precisa de import porque o index.css é global*/
+
+#product-details-section {
+  padding: 20px 0; /* espaço 20 px em cima e embaixo e na horizontal 0 
+    padding é o verdinho no inspecionar*/
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.dsc-product-details-top {
+  padding: 10px;
+  display: flex;
+  justify-content: center; /* alinha no centro na horizontal*/
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dsc-product-details-top img {
+  width: 220px;
+  display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.dsc-product-details-bottom {
+  /*card da descrição do produto */
+  padding: 10px 20px; /* 10 no topo enos demais lados 20 px */
 }
 
-.card {
-  padding: 2em;
+.dsc-product-details-bottom h3 {
+  /*preço do produto */
+  color: var(--color-font-secondary);
+  font-size: 20px;
+  /*todo h ja vem negrito então n precisa colocar */
 }
 
-.read-the-docs {
-  color: #888;
+.dsc-product-details-bottom h4 {
+  color: var(--color-font-primary);
+  font-size: 12px;
+}
+
+.dsc-product-details-bottom p {
+  color: var(--color-font-primary);
+  font-size: 12px;
+  margin: 10px 0; /* 10px na vertical
+    e 0 nas laterais */
+}
+
+.dsc-category {
+  background-color: var(--color-bg-tertiary);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  height: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--color-font-tertiary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px; /* colocando
+    espaço interno nas laterais ao texto
+    da categoria, no topo não precisa
+    porque a altura já pega */
+  margin-right: 20px;
+}
+
+.dsc-category-container {
+  display: flex;
+  flex-wrap: wrap; /*quebra a linha
+    quando estoura a largura */
 }

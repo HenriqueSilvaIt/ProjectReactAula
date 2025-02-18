@@ -1,68 +1,559 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* root é o admin  html*/
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --color-bg-primary: #e8e8e8;
+  --color-bg-secondary: #ffe500;
+  --color-bg-tertiary: #636363;
+  --color-bg-quartenary: #0caf1d;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-card-bg: #fff;
+  --color-card-border: #d9d9d9;
+
+  /* se amanhã precisar mudar o fundo só dos botôes só mudar por aqui
+    por isso que repetimos as cores */
+  --color-btn-primary: #3483fa;
+  --color-btn-inverse: #fff;
+
+  --color-font-primary: #636363;
+  --color-font-secondary: #0caf1d;
+  --color-font-tertiary: #fff;
+  --color-font-placeholder: #d9d9d9;
+
+  --dsc-color-error: #f33;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+* {
+  box-sizing: border-box; /* para que a borda desconte do espaço interno e não externo */
+  padding: 0px; /*remove  margin interna*/
+  margin: 0px; /* remove margin (espaço externo) */
+  font-family: "Open Sans"; /* aqui tem que colcoar o mesmo nome que está no link,  mas sem caractere especial */
 }
+
+a,
 a:hover {
-  color: #535bf2;
+  /* hover é quando passa o mouse em cima do link*/
+  text-decoration: none; /*  remove subilinhado*/
+  color: unset; /*remove cor da letra dos links */
 }
 
+html,
 body {
-  margin: 0;
+  background-color: var(
+    --color-bg-primary
+  ); /* deixando o plano de fundo cinza */
+}
+
+main {
+  /*reseponsividade */
+  padding: 0 20px;
+}
+/*****************************************************************************/
+/*generic style */
+
+.dsc-container {
+  /*imporante o container ficar no nav(barra de navegação, para que centralize só o conteúdo
+    se ficar no header a cordo cabelaçho não pega 100% da largura, queremos centralizar só o conteúdo*/
+  width: 100%; /*para cobrir toda largura da  tela, no caso tela pequena */
+  max-width: 960px; /* deixando 960px de largura máxima se for tela grande  para o conteúdo */
+  margin: 0 auto; /* essa margin espaço externo que centraliza o conteúdo n omeio da página */
+}
+
+.dsc-mb20 {
+  /* vai ser um estilo
+    que vamos usar quando  quiser
+    colocar uma margin abaixo em alguma classe*, 
+    para  n deixar o card atrelado a ess margin
+     vai que em outra página eu queira usar o mesmo
+     card só que sem margin, então
+     poir isso é bom ter uma classe específica
+     para margn e quando quiser aplica ela  no elemento*/
+  margin-bottom: 20px;
+}
+
+.dsc-mt20 {
+  /* vai ser um estilo
+    que vamos usar quando  quiser
+    colocar uma margin abaixo em alguma classe*, 
+    para  n deixar o card atrelado a ess margin
+     vai que em outra página eu queira usar o mesmo
+     card só que sem margin, então
+     poir isso é bom ter uma classe específica
+     para margn e quando quiser aplica ela  no elemento*/
+  margin-top: 20px;
+}
+
+.dsc-section-title {
+  /*pode ser
+    utilizado como título a esquerda  no corpo  de qualquer
+    página */
+  text-align: center;
+  color: var(--color-font-primary);
+  font-size: 16px;
+}
+
+/* ajustando texto do título para ir para direita e ficar maior
+no 576 */
+@media (min-width: 576px) {
+  .dsc-section-title {
+    text-align: left;
+    font-size: 24px;
+  }
+}
+
+.dsc-text-left {
+  text-align: left;
+  /* por padrão
+     o td  é a alinhado ao centro
+
+     e o tr é a linhado a equerda */
+}
+
+/************************************************************************************************/
+
+/*Cabeçalho */
+header {
+  height: 70px;
+  background-color: var(--color-bg-secondary);
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center; /*alinha com o display flex o conteúdo no centro na vertical */
+  padding: 0 20px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.dsc-header-client {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-font-primary);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.dsc-header-admin {
+  background-color: var(--color-bg-quartenary);
+  color: var(--color-font-tertiary);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+nav a {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dsc-logged-user {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+nav h1 {
+  font-size: 16px;
+}
+
+/* Barra de navegação */
+nav {
+  /* border: 1px solid red; importante
+    colocar uma bordar só para 
+    fazer a centralização do
+    conteúdo no centro, ai
+     criamos um container para centralizar
+     o conteúdo na tela */
+  display: flex;
+  justify-content: space-between; /* separando
+     um contéudo do outro igual no rodapé */
+  align-items: center; /* aqui n precisa inverter o eixto
+     porque estamos alinhando ao centro na vertical, conteúdos que
+     estão na horizontal, agora se eu tivesse vários conteúdos
+     um debaixo do outro na vertical ai teria que inverter o eixo*/
+}
+
+.dsc-nav-bar-right {
+  display: flex;
+  align-items: center;
+}
+
+.dsc-menu-itens-container {
+  display: flex;
+}
+
+.dsc-menu-itens-container img {
+  width: 20px;
+  height: 20px;
+}
+
+.dsc-menu-item p {
+  margin-left: 5px;
+  display: none; /* para n aparecer na tela mobile */
+  font-size: 14px;
+}
+
+.dsc-menu-item-active {
+  /* classe para ficar em negrito o item de menu
+     no qual o usuário estiver acessando */
+  font-weight: bold;
+}
+.dsc-menu-item {
+  margin-right: 20px; /*colocando um espaçamento entre os icones do menu */
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 576px) {
+  nav h1 {
+    font-size: 24px;
   }
-  a:hover {
-    color: #747bff;
+
+  .dsc-menu-item p {
+    display: unset; /* para começar aparecer os textos
+        dos itens de menu produto e inicio */
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+/*************************************************************************************/
+/*card-style*/
+
+.dsc-card {
+  /*classe tem que ter um ponto */
+  background-color: var(--color-card-bg);
+  border-radius: 4px;
+  border: 1px solid var(--color-card-border); /*borda do card do produto*/
+}
+
+/*************************************************************************************/
+/*button-style*/
+
+.dsc-line-bottom {
+  border-bottom: 1px solid var(--color-card-border);
+}
+
+.dsc-btn-page-container {
+  /* botões abaixo do card dos produto */
+  width: 100%;
+  display: grid; /*grade é para criar um
+    espaço entre conteúdo na vertical */
+  grid-gap: 20px; /* tamanho do espaço entre os conteúdo do grif na vertical */
+}
+
+/* media query para responsividade */
+/* abordagem mobile fisrt (Resolver
+primeiro o first para essa
+utilizamos o min-width semp */
+@media (min-width: 576px) {
+  /* a partir dessa largura acima
+    da página a largura do botão
+    vai ser essa abaixo */
+  .dsc-btn-page-container {
+    width: 220px;
+  }
+}
+
+.dsc-btn {
+  /* botões configuração gerais*/
+  width: 100%;
+  height: 42px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center; /* deixar no centero da página na horizontal */
+  align-items: center; /* deixar no centro na vertical */
+}
+
+/*botões configurações especificas */
+
+.dsc-btn-blue {
+  border: none;
+  background-color: var(--color-btn-primary);
+  color: var(--color-btn-inverse);
+}
+
+.dsc-btn-white {
+  background-color: var(--color-btn-inverse);
+  color: var(--color-btn-primary);
+  border: 1px solid var(--color-btn-primary);
+}
+
+.dsc-btn-next-page {
+  border: 1px solid var(--color-btn-primary);
+  padding: 10px;
+
+  border-radius: 4px;
+  color: var(--color-btn-primary);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer; /*mao*/
+}
+
+/*************************************************************************************/
+/*search-bar-style*/
+.dsc-search-bar {
+  height: 40px;
+  display: flex;
+  color: var(--color-font-primary);
+}
+
+.dsc-search-bar button,
+.dsc-search-bar input {
+  border: 1px solid var(--color-card-border);
+}
+
+.dsc-search-bar input {
+  width: calc(100% - 80px);
+  border-right: none;
+  border-left: none;
+  padding: 0 10px; /* colocando
+    espaço dentro do place holder*/
+  font-size: 16px;
+  color: var(
+    --color-font-primary
+  ); /*
+    cor da barra de pesquisa quando digita */
+}
+
+.dsc-search-bar input ::placeholder {
+  color: var(
+    --color-font-placeholder
+  ); /*
+    cor do place holder 'nome do produto' */
+}
+.dsc-search-bar input :focus {
+  /* input quando tiver clicado na caixa
+    de texto*/
+  outline: none; /* ai n vai ficar
+    ficar com uma borda quando clicarmos */
+}
+
+.dsc-search-bar button {
+  width: 40px;
+  color: var(--color-font-primary); /* cor dos botões*/
+}
+
+.dsc-search-bar button[type="submit"] {
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.dsc-search-bar button[type="reset"] {
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+
+/*************************************************************************************/
+/*form-style*/
+
+.dsc-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.dsc-form h2 {
+  color: var(--color-font-primary);
+  font-size: 16px;
+  text-transform: uppercase; /*deixa
+    tudo em maiúsculo */
+  font-weight: 400; /* um pouco de negrito */
+  text-align: center;
+  /* alinha o texto no centro */
+}
+
+.dsc-form-controls-container {
+  display: grid;
+  grid-gap: 20px; /* faz um
+    espaço na vertical entre os conteúdos
+     é preciso t o display grid antes */
+  margin: 20px 0;
+  width: 100%;
+}
+
+.dsc-form-control {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  padding: 0 20px; /*colando
+    padding no place holder dentro
+    do formulário*/
+  color: var(--color-font-primary); /* cor da
+    fonte quando clciar*/
+  border-radius: 4px; /*arredondamento */
+  border: 1px solid var(--color-card-border);
+}
+
+.dsc-form-control :focus {
+  outline: none; /* removendo
+    contorno bord quando tiver clicado
+    na caix de text*/
+}
+
+.dsc-form-control::placeholder {
+  color: var(--color-font-placeholder); /*cor da fonte
+    do place holder*/
+}
+
+.dsc-input-error {
+  border: 1px solid var(--dsc-color-error);
+}
+
+.dsc-form-error {
+  color: var(--dsc-color-error);
+  font-size: 12px;
+  padding-left: 4px;
+}
+
+.dsc-select:invalid {
+  /* invalid
+     é para dizer enquanto no for
+     clicacado fica com essa formatação */
+  color: var(--color-font-placeholder);
+}
+
+.dsc-select option[disabled] {
+  display: none; /* quando clicar na listinha de categoria
+    a categoria para de aparecer na lista de opções por
+    causa do disabled*/
+}
+
+.des-select-option {
+  color: var(--color-font-primary);
+}
+
+.dsc-textarea {
+  resize: none; /*retira a opção
+    de redimencionar o tamanho da caixinha com o mouse*/
+  height: 128px;
+  padding-top: 10px; /* para
+    quando digitar ficar com espaço na
+    caixa de texto */
+}
+
+@media (min-width: 576px) {
+  .dsc-form h2 {
+    font-size: 24px;
+  }
+}
+
+/*************************************************************************************/
+/*table-style*/
+
+.dsc-table {
+  width: 100%;
+  border-spacing: 0; /*retira
+    o espaçamento entre as bordas
+    da tabela */
+  border-collapse: collapse; /*
+    para n ter problema de colocar alguma
+    linha entre uma linha e a linha debaixo
+     e ocorrer de ela n aparecer */
+}
+
+.dsc-table thead {
+  /*formtação nome das colunas da tablea */
+  background-color: var(--color-card-bg);
+  height: 55px;
+  font-size: 14px;
+  /* por padrão o th que é o nome
+    da coluna da tabela, já tem negrito
+     então não precisa colocar */
+  color: var(--color-font-primary);
+}
+
+.dsc-table tbody {
+  /*formtação do corpo da tabela*/
+  text-align: center;
+  font-size: 12px;
+  background-color: var(--color-card-bg);
+  color: var(--color-font-primary);
+}
+
+.dsc-table tbody tr {
+  /* formatando
+    a linha que tiver dentro do corpo da tabela */
+  border-top: 1px solid var(--color-card-border);
+  /* colocando borda na parte do topo
+    da linha que contém os valores */
+  height: 70px; /* aqui estamos
+    colocando a altura da linha
+    como na imagem também já tem a altura
+    da linha n precisava, mas por boa
+    medida estamos colocando aqui */
+}
+
+/* no mobile a primeira coluna aparecer é a coluna do computador
+ por isso no mobile nós arredondamos a coluna 2 que é a coluna do computador
+ porque ela vai ser a prieira coluna no mobile no 576 nós mudamos o arredondamento para coluna 1 que é 
+ a coluna id */
+.dsc-table th:nth-child(2) {
+  /* pegando
+    os valores da segunda coluna o nth-child() voCê
+     coloca qual posição da coluna você quer formatar */
+  border-top-left-radius: 10px; /*
+    arredondamento  esquerda em cima e embaixo */
+}
+
+.dsc-table th:last-child {
+  /* pegando
+    os valores da segunda coluna o nth-child() voCê
+     coloca qual posição da coluna você quer formatar */
+  border-top-right-radius: 10px; /*
+    arredondamento  a direita em cima e embaixo */
+}
+
+.dsc-table td:nth-child(2) {
+  /* pegando
+    os valores da segunda coluna o nth-child() voCê
+     coloca qual posição da coluna você quer formatar */
+  padding-left: 10px;
+}
+
+.dsc-table td:last-child {
+  /* last child
+     é parecido com o nth-child, porém o last child
+     pega a última coluna da tablea */
+  padding-right: 5px;
+}
+
+.dsc-tb576 {
+  /* 576 é uma tela do bootstrap 
+breakpoints */
+  display: none; /* estilo utilizado
+    para quem estiver abaixo de 576px */
+}
+
+.dsc-tb768 {
+  /* 768 é uma tela do bootstrap 
+    breakpoints */
+  display: none; /* estilo utilizado
+        para quem estiver abaixo de 576px */
+}
+
+@media (min-width: 576px) {
+  .dsc-tb576 {
+    display: table-cell; /*
+        a partir do 576 vai ser mostrado */
+  }
+
+  .dsc-table td:nth-child(1) {
+    padding-left: 20px;
+  }
+
+  .dsc-table th:nth-child(1) {
+    padding-left: 20px;
+    border-top-left-radius: 10px;
+  }
+  .dsc-table td:nth-child(2) {
+    /* pegando
+    os valores da segunda coluna o nth-child() voCê
+     coloca qual posição da coluna você quer formatar */
+    padding-left: 0px;
+  }
+}
+
+@media (min-width: 768px) {
+  .dsc-tb768 {
+    display: table-cell;
+    /*
+        a partir do 768 vai ser mostrado */
+  }
+}
+
+@media (min-width: 992px) {
+  .dsc-table tbody {
+    font-size: 16px;
   }
 }
