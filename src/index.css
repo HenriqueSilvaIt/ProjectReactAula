@@ -119,10 +119,7 @@ header {
   padding: 0 20px;
 }
 
-.dsc-header-client {
-  background-color: var(--color-bg-secondary);
-  color: var(--color-font-primary);
-}
+
 
 .dsc-header-admin {
   background-color: var(--color-bg-quartenary);
@@ -254,18 +251,6 @@ utilizamos o min-width semp */
 }
 
 /*botões configurações especificas */
-
-.dsc-btn-blue {
-  border: none;
-  background-color: var(--color-btn-primary);
-  color: var(--color-btn-inverse);
-}
-
-.dsc-btn-white {
-  background-color: var(--color-btn-inverse);
-  color: var(--color-btn-primary);
-  border: 1px solid var(--color-btn-primary);
-}
 
 .dsc-btn-next-page {
   border: 1px solid var(--color-btn-primary);

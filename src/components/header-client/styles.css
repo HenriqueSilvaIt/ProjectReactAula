@@ -1,0 +1,11 @@
+.dsc-header-client {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-font-primary);
+  }
+  
+  .dsc-category-container {
+    display: flex;
+    flex-wrap: wrap; /*quebra a linha
+      quando estoura a largura */
+  }
+  
