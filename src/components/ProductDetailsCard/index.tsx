@@ -1,25 +1,40 @@
-import computerImg from '../../assets/compute.png'
 import './styles.css'
 import ProductCategory from '../ProductCategory';
+import { ProductDTO } from '../../models/product';
 
-export default function ProductDetailsCard() {
+
+type Props = {
+    product: ProductDTO;
+}
+
+export default function ProductDetailsCard({ product }: Props) {
     return (
         <div className="dsc-card dsc-mb20">
             <div className="dsc-product-details-top dsc-line-bottom">
-                <img src={computerImg} alt="Computer" />
+                <img src={product.imgUrl} alt={product.name} />
             </div>
             <div className="dsc-product-details-bottom">
-                <h3>R$ 5000,00</h3>
-                <h4>Computador Gamer XT</h4>
+                <h3>R$ {product.price.toFixed(2)}</h3>
+                <h4>{product.name}</h4>
                 <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla
-                    aliquam neque incidunt aperiam, magnam dolorum et, facere officiis
-                    ad iste accusantium ipsam impedit nesciunt delectus obcaecati
-                    nihil, assumenda natus sint?
+                    {product.description}
                 </p>
                 <div className="dsc-category-container">
-                    <ProductCategory/>
-                    <ProductCategory/>    
+                    {
+                        product.categories.map(x => {
+                            return <ProductCategory key={x.id} name={x.name} /> /* todo componente react
+                           pode ter a propriedade key (ele é necessário para o react
+                           ele precisa que cada item da coleção que ele renderiza
+                           tenha uma chave única), mesmo que você n tenha uma prop, e dentro do key
+                           você vai ter que colocar um valor único para cada elemento
+                           que estiver renderizando dentro da sua prop, no nosso caso
+                           como temos o atributo id que é único vamos utilizar ele */
+                            /* o map, com predicado
+                    x vai retorna como argumento para productcategory
+                    x que é o objeto product .name que é o atributo name dos objeto dentro do array categories*/
+                        }) /* é possível tirar o return e trocar as chaves pelo
+                   parentese que também funciona */
+                    }
                 </div>
             </div>
         </div>

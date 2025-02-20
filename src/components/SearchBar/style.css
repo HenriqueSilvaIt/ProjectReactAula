@@ -30,7 +30,7 @@
     ); /*
       cor do place holder 'nome do produto' */
   }
-  .dsc-search-bar input :focus {
+  .dsc-search-bar input:focus {
     /* input quando tiver clicado na caixa
       de texto*/
     outline: none; /* ai n vai ficar

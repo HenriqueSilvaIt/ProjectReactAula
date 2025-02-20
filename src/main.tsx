@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById('root')!).render(  /* selecionsa o elemento html que tem o root e renderiza dentro dele o resultado processamento do react */
   <StrictMode>
     <App /> 
   </StrictMode>,
