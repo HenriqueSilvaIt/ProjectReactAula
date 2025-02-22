@@ -45,10 +45,12 @@
   .dsc-search-bar button[type="submit"] {
     border-right: none;
     border-radius: 4px 0 0 4px;
+    border: 1px solid var(--color-card-border);
   }
   
   .dsc-search-bar button[type="reset"] {
     border-left: none;
     border-radius: 0 4px 4px 0;
+    border: 1px solid var(--color-card-border);
   }
   
