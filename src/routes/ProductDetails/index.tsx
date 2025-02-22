@@ -4,6 +4,7 @@ import ProductDetailsCard from "../../components/ProductDetailsCard";
 import './styeles.css'
 import * as productSerivce from '../../services/product-services';
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -44,7 +45,9 @@ por padrão é string), com isso vamos mudar de
         
                 <div className="dsc-btn-page-container">
                     <ButtonPrimary text="Comprar" />
+                    <Link to="/"> 
                     <ButtonSecondy text="Início" />
+                    </Link>
                 </div>
             </section>
         </main>
