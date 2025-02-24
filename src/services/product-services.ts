@@ -2,7 +2,6 @@
 // Aqui vai ser um código que terá funcionalidades de négocio relacionadas ao produto
 
 import axios from "axios";
-import { ProductDTO } from "../models/product";
 import { BASE_URL } from "../utils/system";
 
 /* retorna todos os produtos */

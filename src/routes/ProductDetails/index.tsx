@@ -3,7 +3,7 @@ import ButtonSecondy from "../../components/ButtonSecondy";
 import ProductDetailsCard from "../../components/ProductDetailsCard";
 import './styeles.css'
 import * as productSerivce from '../../services/product-services';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProductDTO } from "../../models/product";
@@ -20,6 +20,10 @@ como colocamos o nome do parâmetro no app.tsx de productid para rota do product
 vamos colocar esse mesmo nome dentro do findbyId, passando params.productId
 com isso estamos dizendo que o parâmetro da rota é o que tiver digitado lá */
 
+ 
+/* variavel navigate para direcionar para outra tela caso
+n seja encontrado o id do produto */
+const navigate = useNavigate(); /* tem que importar o useNavigate do react router dom */
 
 /* para buscar objeto por id do backend tem que ser assíncrono, por isso temos que usar o react
 hook useState e userEffect */
@@ -51,6 +55,10 @@ ele vai começar com undefined recebendo o productDto */
             do objeto da api*/
             setProduct(response.data); /*estamos pegando objeto que veio do backend e atribuindo apara
             o objeto product aqui front end*/
+        }).catch(() => {
+            /*navigate redireciona para outra página caso der error */
+            navigate("/");  /*response.data imprimi só os dados da resposta que é os dados
+            do objeto da api, normal aparecer na console o erro 404 é padrão do http para n encontrado*/
         });
 /* o strict mode vai fazer imprimir o objeto na console 2 vezes, ele faz isso para fazermos teste no ambiente
 de dev mas podemos tirar */
@@ -82,8 +90,13 @@ por padrão é string), com isso vamos mudar de
             redenderizar(mostrar na tela) ele já verifica
             se existe algo no product Estamos testando se o product exist
              */
-                    product &&
+                    product ? /* se product n for undefinied faça:*/
                             <ProductDetailsCard product={product} />
+                            : /* caso for undefnied faça: */
+                           <>
+                           <h1>Não encontrado</h1>
+                            <img src="https://www.casasbahia-imagens.com.br/App_Themes/CasasBahia/img/error/cb.png?imwidth=500" alt="i" />
+                            </>
                 }
         
                 <div className="dsc-btn-page-container">
