@@ -38,7 +38,15 @@ ele vai começar com undefined recebendo o productDto */
         /*Fazendo requisição na API do backend com axios */
 
         /* tem que importa o objeto axios */
-        axios.get("http://localhost:8090/products/1" ) /*dentro do ("") no axios você chama url, ele faz tanto get tanto post e etc */
+        /* para associar o objeto ao catalogo card, vamos pegar a variavel do useParams que é params
+        que pega o id que colocamos lá na rota no app.tsx caso cliquemos em alguma produto
+        
+        Então em resumo a rota do ProductDetail que é pagina do site de lista do produtos, tem uma
+        rota no app.tsx que o nome é productId, estamos associadando esse productId ao objeto product
+        através do useState e useEffect, o useState pega o objeto product e o  useEffect
+        troca a informação no objeto pelo id*/
+        
+        axios.get(`http://localhost:8090/products/${params.productId}` ) /*dentro do ("") no axios você chama url, ele faz tanto get tanto post e etc */
         /* o axios retorna uma promisse por isso vamos usar o then e dentro do then que pega a resposta
         da requisição e faz alguma coisa */
         .then(response => {
