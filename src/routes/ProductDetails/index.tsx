@@ -5,6 +5,9 @@ import './styeles.css'
 import * as productSerivce from '../../services/product-services';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { ProductDTO } from "../../models/product";
+import axios from "axios";
 
 
 
@@ -21,7 +24,43 @@ como colocamos o nome do parâmetro no app.tsx de productid para rota do product
 vamos colocar esse mesmo nome dentro do findbyId, passando params.productId
 com isso estamos dizendo que o parâmetro da rota é o que tiver digitado lá */
 
-const product = productSerivce.findById(Number(params.productId)); /* ele ta 
+
+/* para buscar objeto por id do backend tem que ser assíncrono, por isso temos que usar o react
+hook useState e userEffect */
+
+const [product, setProduct] = useState<ProductDTO>(); /* esse atributo product do useState
+ele vai começar com undefined recebendo o productDto */
+
+/* useEffect para quando o componente for montado ele faça a requisiçãop pegando informação do backend */
+
+    useEffect(() => {
+
+        /*Fazendo requisição na API do backend com axios */
+
+        /* tem que importa o objeto axios */
+        axios.get("http://localhost:8090/products/1" ) /*dentro do ("") no axios você chama url, ele faz tanto get tanto post e etc */
+        /* o axios retorna uma promisse por isso vamos usar o then e dentro do then que pega a resposta
+        da requisição e faz alguma coisa */
+        .then(response => {
+            console.log(response.data); /*response é a variavel que retorna o produto 2 do banco de dados
+            que estamos pegando na url, response.data imprimi só os dados da resposta que é os dados
+            do objeto da api*/
+            setProduct(response.data); /*estamos pegando objeto que veio do backend e atribuindo apara
+            o objeto product aqui front end*/
+        });
+/* o strict mode vai fazer imprimir o objeto na console 2 vezes, ele faz isso para fazermos teste no ambiente
+de dev mas podemos tirar */
+
+        /*const prod = productSerivce.findById(Number(params.productId)); /* quando o componente
+        for montado, essa variavel, busca produto por id (com a função findbyId) lá no ProductService
+        o productService pega do productDTo o id do objeto específico, e esse id vai retornar 
+        nessa variavel prod
+        use params para ler o parâmetro que está sendo passado na rota(url)
+        setProduct(prod);*/
+    }, []);
+
+
+/*const product = productSerivce.findById(Number(params.productId)); /* ele ta 
 reclamando, porque o findById nós colocamos lá nos services que ele espera um number,
 mais importe é saber que TUDo no protcolo HTTP é tudo string( então o params do useParams
 por padrão é string), com isso vamos mudar de 
