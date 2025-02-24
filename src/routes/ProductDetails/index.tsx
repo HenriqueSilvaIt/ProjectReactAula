@@ -7,10 +7,6 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProductDTO } from "../../models/product";
-import axios from "axios";
-
-
-
 
 export default function ProductDetails() {
 
@@ -46,7 +42,7 @@ ele vai começar com undefined recebendo o productDto */
         através do useState e useEffect, o useState pega o objeto product e o  useEffect
         troca a informação no objeto pelo id*/
         
-        axios.get(`http://localhost:8090/products/${params.productId}` ) /*dentro do ("") no axios você chama url, ele faz tanto get tanto post e etc */
+        productSerivce.findById(Number(params.productId)) /*dentro do ("") no axios você chama url, ele faz tanto get tanto post e etc */
         /* o axios retorna uma promisse por isso vamos usar o then e dentro do then que pega a resposta
         da requisição e faz alguma coisa */
         .then(response => {

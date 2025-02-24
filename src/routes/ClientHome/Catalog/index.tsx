@@ -6,7 +6,6 @@ import ButtonNextPage from '../../../components/ButtonNextPage';
 import * as productService from '../../../services/product-services'; /*importando
 todas as funções do service, com o apelido productService */
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { ProductDTO } from '../../../models/product';
 
 export default function Catalog() {
@@ -18,7 +17,8 @@ export default function Catalog() {
 [] para dizer que é uma lista vazia */
 
     useEffect(() => {
-        axios.get("http://localhost:8090/products/?size=12") /*size é a quantidade
+        productService.findAll() /*MÉTODO do service que vai chamar a requisição com axios */
+        /* axios.get("http://localhost:8090/products/?size=12") size é a quantidade
         de objetos que quero que retorna dessa requisição http */
         .then(response => { /*retorno acima é uma promisse, então vamos usar o then para dizer
             oque vai fazer se essa resposta retornar com sucesso */
