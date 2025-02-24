@@ -57,6 +57,8 @@ ele vai começar com undefined recebendo o productDto */
             o objeto product aqui front end*/
         }).catch(() => {
             /*navigate redireciona para outra página caso der error */
+           /*console.log(error)*/
+           
             navigate("/");  /*response.data imprimi só os dados da resposta que é os dados
             do objeto da api, normal aparecer na console o erro 404 é padrão do http para n encontrado*/
         });
@@ -90,13 +92,17 @@ por padrão é string), com isso vamos mudar de
             redenderizar(mostrar na tela) ele já verifica
             se existe algo no product Estamos testando se o product exist
              */
-                    product ? /* se product n for undefinied faça:*/
+            product &&/* se product n for undefinied faça:*/
                             <ProductDetailsCard product={product} />
-                            : /* caso for undefnied faça: */
+                            
+            /* usando página de n encontrado 
+                    product ? /* se product n for undefinied faça:
+                            <ProductDetailsCard product={product} />
+                            : /* caso for undefnied faça: 
                            <>
                            <h1>Não encontrado</h1>
                             <img src="https://www.casasbahia-imagens.com.br/App_Themes/CasasBahia/img/error/cb.png?imwidth=500" alt="i" />
-                            </>
+                            </> */
                 }
         
                 <div className="dsc-btn-page-container">
