@@ -8,8 +8,6 @@ import * as productService from '../../../services/product-services'; /*importan
 todas as funções do service, com o apelido productService */
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
-import ProductDetailsCard from '../../../components/ProductDetailsCard';
-import { CategoryDTO } from '../../../models/category';
 
 export default function Catalog() {
 
