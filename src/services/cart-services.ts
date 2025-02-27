@@ -43,3 +43,19 @@ export function increaseItem(productId: number) {
         cartRepository.save(cart);  
     }
 }
+
+export function decreaseItem(productId: number) {
+    const cart = cartRepository.get(); // PEGANDO o cart do localStorage;
+    const item = cart.items.find(x => x.productId === productId); //ele vai tentar encontrar o item
+    if (item) {// se encontrar o item
+        item.quantity --; // remove um item que tem mais 1  pode user também o ++
+    
+        if (item.quantity < 1) {// exclui item do carrinho se a quantidade for menor que 1
+            
+            cart.items = cart.items.filter(x => x.productId !== productId); /*filtra
+            os itens do carrinho que seja diferente do item que passamos o id */
+        }
+
+        cartRepository.save(cart);  
+    }
+}

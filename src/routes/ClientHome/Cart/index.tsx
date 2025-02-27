@@ -16,12 +16,20 @@ export default function Cart() {
         length === 0 vai atualziar também, porque vai ver que está zerado o carrinho  */
     }
 
-
+/* função para acrescentar novo produto no carrinho */
     function handleIncreaseItem(productId: number) {
         cartService.increaseItem(productId); // incrementa o item no local storage
         setCart(cartService.getCart());// atualizar no use state para atualizar no visual
 
     }
+
+    /* função para remover novo produto no carrinho */
+    function handleDecreaseItem(productId: number) {
+        cartService.decreaseItem(productId); // incrementa o item no local storage
+        setCart(cartService.getCart());// atualizar no use state para atualizar no visual
+
+    }
+
 
     return (/* quando abrimos chaves dentro do return é uma expressão do react */
         /* no primeiro elemento dentro da função map tem que colocar o key
@@ -47,7 +55,7 @@ export default function Cart() {
                                     <div className="dsc-cart-item-description">
                                         <h3>{item.name}</h3>
                                         <div className="dsc-cart-item-quantity-container">
-                                            <div className="dsc-cart-item-quantity-btn">-</div>
+                                            <div onClick={() => handleDecreaseItem(item.productId)}className="dsc-cart-item-quantity-btn">-</div>
                                             <p>{item.quantity}</p>
                                             <div onClick={() => handleIncreaseItem(item.productId)} className="dsc-cart-item-quantity-btn">+</div>
                                         </div>
