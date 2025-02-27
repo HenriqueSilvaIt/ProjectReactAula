@@ -19,6 +19,10 @@ export default function ProductDetailsCard({ product }: Props) {
                 <p>
                     {product.description}
                 </p>
+                <p>
+                    Código de barras: 
+                    {product.barCode}
+                </p>
                 <div className="dsc-category-container">
                     {
                         product.categories.map(x => {

@@ -3,10 +3,13 @@ import SerachBar from '../../../components/SearchBar';
 import CatalogCards from '../../../components/CatalogCards';
 import ButtonNextPage from '../../../components/ButtonNextPage';
 
+
 import * as productService from '../../../services/product-services'; /*importando
 todas as funções do service, com o apelido productService */
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
+import ProductDetailsCard from '../../../components/ProductDetailsCard';
+import { CategoryDTO } from '../../../models/category';
 
 export default function Catalog() {
 
@@ -16,7 +19,9 @@ export default function Catalog() {
     , dentro do parentese () no useStat sempre é o valor iniciar no caso estamos colocando
 [] para dizer que é uma lista vazia */
 
+
     useEffect(() => {
+
         productService.findAll() /*MÉTODO do service que vai chamar a requisição com axios */
         /* axios.get("http://localhost:8090/products/?size=12") size é a quantidade
         de objetos que quero que retorna dessa requisição http */
@@ -28,7 +33,7 @@ export default function Catalog() {
             mas como no Json da api os objetos estão dentro de um vetor/list nós colocamos o .content no final
             (content é o nome do vetor/lista que criamos  no json) */
         })
-    }, [])
+    }, []);
 
 
     /*como estamos chamando o componente      <HeaderClient /> temos o html todo mais esse compoenente
@@ -61,7 +66,7 @@ export default function Catalog() {
             )
         }
 
-            
+
             </div>
             <ButtonNextPage />
         </section>

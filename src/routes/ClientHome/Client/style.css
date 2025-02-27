@@ -1,0 +1,103 @@
+#cart-container-section{
+    padding: 20px 0;
+}
+
+.dsc-cart-total-container {
+
+    padding: 10px 20px;
+    text-align: right;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 14px;
+    color: var(--color-font-secondary);
+}
+
+.dsc-cart-total-container h4 {
+    color: var(--color-font-primary);
+    margin: 0 10px 0 0;
+    font-size: 13px;
+}
+
+.dsc-cart-item-container {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dsc-cart-item-container img{ /* formatando imagem */
+    width: 78px;
+    height: 78px;
+
+
+}
+
+.dsc-cart-item-left {
+    display: flex;
+}
+
+.dsc-cart-item-quantity-container{
+    display: flex;
+    
+}
+
+
+.dsc-cart-item-right {
+    padding-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-font-secondary);
+}
+
+.dsc-cart-item-description {
+    padding: 10px 0;
+    color: var(--color-font-primary);
+}
+
+.dsc-cart-item-description h3 {
+    font-size: 12px;
+}
+
+.dsc-cart-item-quantity-container {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-font-primary);
+}
+
+.dsc-cart-item-quantity-btn{
+    color: var(--color-btn-primary);
+    font-weight: 700;
+    cursor: pointer; /* para deixar a mãozinha
+    quando passar o mouse em cima */
+}
+
+.dsc-cart-item-quantity-container p {
+    margin: 0 5px;
+}
+
+/* media query responsiidade */
+
+@media(min-width: 576px) {
+    .dsc-cart-item-container {
+      
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .dsc-cart-item-right {
+        padding-top: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .dsc-cart-total-container {
+        font-size: 16px;
+        justify-content: right;
+        
+    }
+
+    .dsc-cart-total-container h4 {
+        font-size: 14px;
+    }
+
+}

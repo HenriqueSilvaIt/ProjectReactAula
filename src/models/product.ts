@@ -14,6 +14,7 @@ import { CategoryDTO } from "./category";
     imgUrl: string;
     /* como é um array dentro do JSON do backend fazemos a chamada
     do outro arquivo dessa forma */
+    barCode: string;
     categories: CategoryDTO[]; /* CTRL + espaço para
     importa o objeto do outro arquivo, Tem que colocar o [] porque é um array */
 

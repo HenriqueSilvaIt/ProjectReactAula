@@ -74,6 +74,9 @@ de dev mas podemos tirar */
     }, []);
 
 
+
+
+
 /*const product = productSerivce.findById(Number(params.productId)); /* ele ta 
 reclamando, porque o findById nós colocamos lá nos services que ele espera um number,
 mais importe é saber que TUDo no protcolo HTTP é tudo string( então o params do useParams

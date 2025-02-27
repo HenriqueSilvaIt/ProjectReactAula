@@ -20,3 +20,7 @@ export function findById(id: number) {
     // tem que converter o id para number */
 
 }
+
+export function findByBarCode(code:string) {
+    return axios.get(`${BASE_URL}/products/?barCode=${code}`);
+}
