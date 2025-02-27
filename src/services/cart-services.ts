@@ -33,3 +33,13 @@ export function addProduct(product: ProductDTO) {
 export function clearCart() {
     cartRepository.clear(); /*pega a função do repository de limpar o carrinho*/
 }
+
+export function increaseItem(productId: number) {
+    const cart = cartRepository.get(); // PEGANDO o cart do localStorage;
+    const item = cart.items.find(x => x.productId === productId); //ele vai tentar encontrar o item
+    if (item) {// se encontrar o item
+        item.quantity ++; // incrementar o item que tem mais 1  pode user também o ++
+        /* SALVA no local storage*/
+        cartRepository.save(cart);  
+    }
+}

@@ -11,11 +11,17 @@ export default function Cart() {
 
     function handleClearClick() {
         cartService.clearCart(); /* aqui limpa no localstorage */
-        setCart(cartService.getCart); /* a variavel cart no use state vai pegar
+        setCart(cartService.getCart()); /* a variavel cart no use state vai pegar
         o resultado local storage e atualizar o no vizual, e a função que renderiza o carrinho lá em baixo 
         length === 0 vai atualziar também, porque vai ver que está zerado o carrinho  */
     }
 
+
+    function handleIncreaseItem(productId: number) {
+        cartService.increaseItem(productId); // incrementa o item no local storage
+        setCart(cartService.getCart());// atualizar no use state para atualizar no visual
+
+    }
 
     return (/* quando abrimos chaves dentro do return é uma expressão do react */
         /* no primeiro elemento dentro da função map tem que colocar o key
@@ -43,7 +49,7 @@ export default function Cart() {
                                         <div className="dsc-cart-item-quantity-container">
                                             <div className="dsc-cart-item-quantity-btn">-</div>
                                             <p>{item.quantity}</p>
-                                            <div className="dsc-cart-item-quantity-btn">+</div>
+                                            <div onClick={() => handleIncreaseItem(item.productId)} className="dsc-cart-item-quantity-btn">+</div>
                                         </div>
                                     </div>
                                 </div>
