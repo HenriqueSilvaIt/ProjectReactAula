@@ -9,7 +9,14 @@ todas as funções do service, com o apelido productService */
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
 
+type QueryParams = {
+    page: number;
+    name: string;
+}
+
 export default function Catalog() {
+
+    const [isLastPage, setIsLastPage] = useState(false); /*false para dizer que n é a ultima pagina ainda */
 
     /* Use state para armazenar a lista de produtos */
     const [products, setProducts] = useState<ProductDTO[]> ([]); /* o tipo do useState vai ser uma lista de productDTO 
@@ -17,32 +24,56 @@ export default function Catalog() {
     , dentro do parentese () no useStat sempre é o valor iniciar no caso estamos colocando
 [] para dizer que é uma lista vazia */
 
-    const [productName, setProductName ] = useState("");
+    /* ante const [productName, setProductName ] = useState("");*/
+
+    /* useState composto dentro de um objeto com todos parâmetros */
+
+    const [queryParams, setQueryParam] = useState<QueryParams>({
+        page: 0,
+        name: ""
+    })
 
     useEffect(() => {
 
-        productService.findPageRequest(0, productName) /*MÉTODO do service que vai chamar a requisição com axios */
+        productService.findPageRequest(queryParams.page, queryParams.name) /*MÉTODO do service que vai chamar a requisição com axios */
         /* axios.get("http://localhost:8090/products/?size=12") size é a quantidade
         de objetos que quero que retorna dessa requisição http */
         .then(response => { /*retorno acima é uma promisse, então vamos usar o then para dizer
             oque vai fazer se essa resposta retornar com sucesso */
-            setProducts(response.data.content) /* set Product vai pegar o retorno da Http que é os objetos
+            const nextPage = response.data.content;
+            setProducts(products.concat(nextPage)); /*para aparecer os produtos
+            na mesma página, estamos pegando o resultado do products + resultado próxima tela /* set Product vai pegar o retorno da Http que é os objetos
             e colocar no objeto Product
             response.data pega só a informação do objeto
             mas como no Json da api os objetos estão dentro de um vetor/list nós colocamos o .content no final
             (content é o nome do vetor/lista que criamos  no json) */
+            setIsLastPage(response.data.last); /* dentro do http tem um atributo last
+            que ele mostra quando é a ultima pagina da pesquisa */  
         })
-    }, [productName]); /*sempre que mudar productName tem que refazer a consulta do useEffect*/
+    }, [queryParams]); /*sempre que mudar productName tem que refazer a consulta do useEffect*/
 
     function handleSearch(searchText: string) {
-        setProductName(searchText) /* quando for realizdo uma busca no SearchBar com
+        setProducts([]); /* eu vou zerar a lista , para quando eu digitar ele 
+        começar denovo na primeria página*/
+        setQueryParam({...queryParams, page: 0, name: searchText}) /* o queryParams vai receber oque tinha nele
+        ... , page = 0 para quando ele for pequisar zerar a página o nome dele vai receber oque for atualizado na variavel searchText(que puxa do que está sendo
+        escrito no input) quando for realizdo uma busca no SearchBar com
         a função onSearch, automaticamente ele vai chamar essa função handleSearch que vai atualizar o
         estado do productName (utilizando o setProductName e atualizar na request do useEffect) com o valor que estiver digitado lá no SearchBar
         que é o argumento (searchText) dessa função handleSearch */
    } 
 
+  /*função carregar mais itens da página */
+
+   function handleNextPageClick() {
+        setQueryParam({...queryParams, page: queryParams.page + 1}); /*
+        ao clicar no botão, ele ta dizendo que vai receber os produtos que já tinha na página
+        ...queryParams + page: queryParama.page + 1, e mais o produto da página seguinte */
+   }
     /*como estamos chamando o componente      <HeaderClient /> temos o html todo mais esse compoenente
     como é dois tem que colocar dentro do fragment <>  </*/
+
+
     return (
 
       
@@ -73,7 +104,14 @@ export default function Catalog() {
 
 
             </div>
+            {
+                !isLastPage && /* só vai aparecer quando n for a última página, na
+                requisição do http tem um atributo que sinfica last */
+            <div onClick={handleNextPageClick}> 
             <ButtonNextPage />
+            </div>
+
+}
         </section>
         </main >
 

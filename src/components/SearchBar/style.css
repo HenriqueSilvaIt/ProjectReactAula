@@ -41,6 +41,9 @@
     width: 40px;
     color: var(--color-font-primary); /* cor dos botões*/
     cursor: pointer;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid var(--color-card-border);
   }
   
   .dsc-search-bar button[type="submit"] {
@@ -48,10 +51,4 @@
     border-radius: 4px 0 0 4px;
     border: 1px solid var(--color-card-border);
   }
-  
-  .dsc-search-bar button[type="reset"] {
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-    border: 1px solid var(--color-card-border);
-  }
-  
+ 
