@@ -1,4 +1,4 @@
-import { OrderDTO } from "../models/order";
+import { OrderDTO, OrderItemDTO } from "../models/order";
 
     import { CART_KEY } from "../utils/system";
 
@@ -11,6 +11,15 @@ export function save(cart: OrderDTO) { /* tem que importa o objeto OrderDt*/
 /*método utilziado para buscar do local storage */
 
 export function get(): OrderDTO {
-    const obj = localStorage.getItem(CART_KEY) || '{"items":[]}';
-    return JSON.parse(obj);
+    const str = localStorage.getItem(CART_KEY) || '{"items":[]}';
+    const obj = JSON.parse(str) as OrderDTO;
+
+    /* criando objeto e percorrendo item dto para o proto type reconhecer o objet 
+    OrderItem */
+    const cart = new OrderDTO();
+    obj.items.forEach(x   => { 
+        cart.items.push(new OrderItemDTO(x.productId, x.quantity, x.name, x.price, x.imgUrl))
+    });
+
+    return cart;
 }

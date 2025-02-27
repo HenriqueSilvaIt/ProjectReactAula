@@ -241,6 +241,7 @@ utilizamos o min-width semp */
 .dsc-btn {
   /* botões configuração gerais*/
   width: 100%;
+  cursor: pointer;
   height: 42px;
   border-radius: 4px;
   font-size: 16px;
