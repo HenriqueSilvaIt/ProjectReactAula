@@ -10,6 +10,12 @@ export default function SerachBar({onSearch} : Props) {
 
     const [text, setText] = useState("");
 
+    /* limpar formulário quando clicar no x */
+
+        function handleResetClick() {
+            setText("");
+            onSearch(text);
+        }
 
     /* função para popular a variavel formData quando for preenchida*/
 
@@ -34,7 +40,7 @@ export default function SerachBar({onSearch} : Props) {
             <button type="submit">🔎︎</button>
             <input value={text}  type="text" placeholder="Nome do produto" 
             onChange={handleInputChange} /> 
-            <button type="reset">🗙</button>
+            <button  onClick={handleResetClick}>🗙</button>
         </form>
     
  
