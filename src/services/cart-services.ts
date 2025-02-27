@@ -29,3 +29,7 @@ export function addProduct(product: ProductDTO) {
         cartRepository.save(cart);
     }
 }
+
+export function clearCart() {
+    cartRepository.clear(); /*pega a função do repository de limpar o carrinho*/
+}

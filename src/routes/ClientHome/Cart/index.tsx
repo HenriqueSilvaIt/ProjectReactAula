@@ -9,6 +9,14 @@ export default function Cart() {
     o use state pegando p rimeiro valor que está lá no localStorage */
 
 
+    function handleClearClick() {
+        cartService.clearCart(); /* aqui limpa no localstorage */
+        setCart(cartService.getCart); /* a variavel cart no use state vai pegar
+        o resultado local storage e atualizar o no vizual, e a função que renderiza o carrinho lá em baixo 
+        length === 0 vai atualziar também, porque vai ver que está zerado o carrinho  */
+    }
+
+
     return (/* quando abrimos chaves dentro do return é uma expressão do react */
         /* no primeiro elemento dentro da função map tem que colocar o key
         que ai pegamos o id do objeto porrque tem que ser um elemento único */
@@ -65,6 +73,9 @@ export default function Cart() {
                         Continuar comprando
                     </div>
                     </Link>
+                    <div  onClick={handleClearClick} className="dsc-btn dsc-btn-white">
+                        Limpar Carrinho
+                    </div>
                 </div>
                 
             </section>

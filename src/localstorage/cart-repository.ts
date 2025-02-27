@@ -23,3 +23,9 @@ export function get(): OrderDTO {
 
     return cart;
 }
+
+export function clear() {
+    /* colocando vazio para variavel CART_KEY, isso zera tudo que está no localStorage
+    do carrinho */
+    localStorage.setItem(CART_KEY, '{"items":[]}')
+}
