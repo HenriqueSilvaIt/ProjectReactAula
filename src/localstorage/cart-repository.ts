@@ -11,6 +11,6 @@ export function save(cart: OrderDTO) { /* tem que importa o objeto OrderDt*/
 /*método utilziado para buscar do local storage */
 
 export function get(): OrderDTO {
-    const obj = localStorage.getItem(CART_KEY) || '{"items"=[]}';
+    const obj = localStorage.getItem(CART_KEY) || '{"items":[]}';
     return JSON.parse(obj);
 }

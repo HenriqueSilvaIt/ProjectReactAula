@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProductDTO } from "../../models/product";
-
+import * as cartService from '../../services/cart-services';
 export default function ProductDetails() {
 
 
@@ -83,6 +83,12 @@ mais importe é saber que TUDo no protcolo HTTP é tudo string( então o params 
 por padrão é string), com isso vamos mudar de 
 (params.productId) para (Number(params.productId) para converter para número */
 
+
+function handleBuyClick() {
+  product &&  cartService.addProduct(product);
+  navigate("/cart");
+
+}
     return (
 
         <main>
@@ -109,7 +115,9 @@ por padrão é string), com isso vamos mudar de
                 }
         
                 <div className="dsc-btn-page-container">
+                    <div onClick={handleBuyClick}>
                     <ButtonPrimary text="Comprar" />
+                    </div>
                     <Link to="/"> 
                     <ButtonSecondy text="Início" />
                     </Link>
