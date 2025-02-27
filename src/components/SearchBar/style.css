@@ -40,6 +40,7 @@
   .dsc-search-bar button {
     width: 40px;
     color: var(--color-font-primary); /* cor dos botões*/
+    cursor: pointer;
   }
   
   .dsc-search-bar button[type="submit"] {

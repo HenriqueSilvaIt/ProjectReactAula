@@ -17,10 +17,11 @@ export default function Catalog() {
     , dentro do parentese () no useStat sempre é o valor iniciar no caso estamos colocando
 [] para dizer que é uma lista vazia */
 
+    const [productName, setProductName ] = useState("");
 
     useEffect(() => {
 
-        productService.findAll() /*MÉTODO do service que vai chamar a requisição com axios */
+        productService.findPageRequest(0, productName) /*MÉTODO do service que vai chamar a requisição com axios */
         /* axios.get("http://localhost:8090/products/?size=12") size é a quantidade
         de objetos que quero que retorna dessa requisição http */
         .then(response => { /*retorno acima é uma promisse, então vamos usar o then para dizer
@@ -31,18 +32,24 @@ export default function Catalog() {
             mas como no Json da api os objetos estão dentro de um vetor/list nós colocamos o .content no final
             (content é o nome do vetor/lista que criamos  no json) */
         })
-    }, []);
+    }, [productName]); /*sempre que mudar productName tem que refazer a consulta do useEffect*/
 
+    function handleSearch(searchText: string) {
+        setProductName(searchText) /* quando for realizdo uma busca no SearchBar com
+        a função onSearch, automaticamente ele vai chamar essa função handleSearch que vai atualizar o
+        estado do productName (utilizando o setProductName e atualizar na request do useEffect) com o valor que estiver digitado lá no SearchBar
+        que é o argumento (searchText) dessa função handleSearch */
+   } 
 
     /*como estamos chamando o componente      <HeaderClient /> temos o html todo mais esse compoenente
     como é dois tem que colocar dentro do fragment <>  </*/
     return (
 
-       
+      
 
         < main >
         <section id="catalog-section" className="dsc-container">
-            <SerachBar />
+            <SerachBar onSearch={handleSearch}/> 
             <div className="dsc-catalog-cards dsc-mb20 dsc-mt20">
 
             {

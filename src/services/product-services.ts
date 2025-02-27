@@ -1,13 +1,29 @@
 
 // Aqui vai ser um código que terá funcionalidades de négocio relacionadas ao produto
 
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "../utils/system";
 
 /* retorna todos os produtos */
 
-export function findAll() {
-    return axios.get(`${BASE_URL}/products/?size=12`); /*tem que importa o axios */
+export function findPageRequest(page: number, name: string, size = 12, sort = "name") { /* 1º argumento número da página, 2º nome
+    do produto, 3º qtd de produto na página        */
+    const config : AxiosRequestConfig = { 
+        method: "GET",
+        baseURL: BASE_URL, 
+        url: "/products",
+        params: {
+            page: page,
+            name: name,
+            size: size,
+            sort: sort
+
+        }
+    }
+    /*return axios.get(`${BASE_URL}/products/?size=12`); /*tem que importa o axios */
+
+return axios(config);
+
 }
 
 /* retorna o produto pelo id usando método find do java script */
