@@ -5,9 +5,10 @@ import './styeles.css'
 import * as productSerivce from '../../services/product-services';
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProductDTO } from "../../models/product";
 import * as cartService from '../../services/cart-services';
+import { ContextCartCount } from "../../utils/context-cart";
 export default function ProductDetails() {
 
 
@@ -24,6 +25,11 @@ com isso estamos dizendo que o parâmetro da rota é o que tiver digitado lá */
 /* variavel navigate para direcionar para outra tela caso
 n seja encontrado o id do produto */
 const navigate = useNavigate(); /* tem que importar o useNavigate do react router dom */
+
+/* pegando useState contexto global */
+
+const {setContextCartCount} = useContext(ContextCartCount); /*dentro do useContext
+colocamos  a função do util */
 
 /* para buscar objeto por id do backend tem que ser assíncrono, por isso temos que usar o react
 hook useState e userEffect */
@@ -86,6 +92,8 @@ por padrão é string), com isso vamos mudar de
 
 function handleBuyClick() {
   product &&  cartService.addProduct(product);
+  /*número de itens do carrinho vai ser onúmero após o cartService.addProduct acima*/
+  setContextCartCount(cartService.getCart().items.length);
   navigate("/cart");
 
 }

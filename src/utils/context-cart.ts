@@ -3,7 +3,7 @@ import { createContext } from "react";
 
 export type ContextCartCountType = {
     contextCartCount: number; /*dado*/
-    setContextCartCount: (contextCartCounter: number) => void /*função que altera o dado */
+    setContextCartCount: (contextCartCount: number) => void; /*função que altera o dado */
 
     /*  setContextCartCount: Function;  */
 }
