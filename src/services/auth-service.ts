@@ -1,9 +1,9 @@
 import QueryString from "qs";
 import { CredentialsDTO } from "../models/auth";
-import { CLIENT_ID, CLIENT_SECRET} from "../utils/system";
+import { CLIENT_ID, CLIENT_SECRET, TOKEN_KEy} from "../utils/system";
 import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "../utils/requests";
-
+import * as acessTokenRepository from '../localstorage/acess-token-repository'
 
 export function loginRequest(loginData: CredentialsDTO) {
 
@@ -28,4 +28,17 @@ export function loginRequest(loginData: CredentialsDTO) {
     }
 
    return requestBackend(config);
+}
+
+/* função para realizar logout, ou seja limpa o token do local storage */
+export function logout {
+    acessTokenRepository.remove(TOKEN_KEy); /* n passamos o local storage aqui direto
+    para remover, porque na pdronização que estamos fazendo o localstorage repository é a camada
+    que chamada os dados do localstorage e aqui  chamamos o serviço do repository */
+}
+
+export function saveAcessToken(token: string) {
+
+    acessTokenRepository.save(TOKEN_KEy);
+
 }
