@@ -1,13 +1,27 @@
+import { useState } from 'react';
 import './style.css';
+import { CredentialsDTO } from '../../../models/auth';
+import { loginRequest } from '../../../services/auth-service';
 
 export default function Login() {
+
+    const [formData, setFormData] = useState<CredentialsDTO> ({
+        username: '',
+        password: ''
+    })
+
+    function handleSubmit(event: any) {
+        event.preventDefault();
+        loginRequest(formData);
+    }
+
     return (
 /* no input tem que ter o fecha / elemento aqui no tsx é diferente do html que n precisa fechar
  no dsc-form erro depois tem que colocar erro caso não preencha campo */
         <main>
             <section id="login-section" className="dsc-container">
                 <div className="dsc-login-form-container">
-                    <form className="dsc-card dsc-form">
+                    <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
                         <h2>Login</h2>
                         <div className="dsc-form-controls-container">
                             <div>
