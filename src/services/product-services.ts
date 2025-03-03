@@ -3,6 +3,7 @@
 
 import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "../utils/system";
+import { requestBackend } from "../utils/requests";
 
 /* retorna todos os produtos */
 
@@ -22,14 +23,18 @@ export function findPageRequest(page: number, name: string, size = 12, sort = "n
     }
     /*return axios.get(`${BASE_URL}/products/?size=12`); /*tem que importa o axios */
 
-return axios(config);
+return requestBackend(config);/* config do AxiosRequestConfi vai receber ele mesmo
+mais o baseURL, ai no caso lá no serviço do product chamado findPageRequest, não precisa mais
+colocar a varavel do BASE_URL porque já está configurada no config, é só chamar o requestBackend dentro
+do product-service.t*/
 
 }
 
 /* retorna o produto pelo id usando método find do java script */
 
 export function findById(id: number) {
-    return  axios.get(`${BASE_URL}/products/${id}`);  /*
+    return requestBackend({url: `/products/${id}`});
+    /*  axios.get(`${BASE_URL}/products/${id}`); 
     // agora aqui o product service pega o id do produto do backend
     // então o número que eu setar quando clicar no produto específco que tem seu id, ele vai
     // buscar no backend e exibir na tela 

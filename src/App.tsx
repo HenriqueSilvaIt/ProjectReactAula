@@ -7,6 +7,7 @@ import ClientHome from './routes/ClientHome';
 import Cart from './routes/ClientHome/Cart';
 import { useState } from 'react';
 import { ContextCartCount } from './utils/context-cart';
+import Login from './routes/ClientHome/Login';
 
 
 export default function App() { /*export default quer dizer que estamos exportando e o default quer dizer que desse
@@ -30,6 +31,7 @@ export default function App() { /*export default quer dizer que estamos exportan
             <Route path="catalog" element={<Catalog />} />
             <Route path="product-details/:productId" element={<ProductDetails />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="login" element={<Login/>}/>
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
