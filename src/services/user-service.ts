@@ -12,7 +12,7 @@ export function findLoggedUser() {
         Authorization: "Bearer " + authService.getAcessToken()
 
     }
-    /* o preparamos o cabeçalho acima, e vamos passar o cabeçalho já com o token na requisição na url abaixo */
+    /* o preparamos o cabeçalho acima, e vamos passar o cabeçalho já com o token na requisição na url abaixo*/
     console.log(headers);
 
     return requestBackend({ url: '/users/me', headers });
