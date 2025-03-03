@@ -8,6 +8,8 @@ import Cart from './routes/ClientHome/Cart';
 import { useState } from 'react';
 import { ContextCartCount } from './utils/context-cart';
 import Login from './routes/ClientHome/Login';
+import AdminHome from './routes/Admin/AdminHome';
+import Admin from './routes/Admin';
 
 
 export default function App() { /*export default quer dizer que estamos exportando e o default quer dizer que desse
@@ -33,11 +35,15 @@ export default function App() { /*export default quer dizer que estamos exportan
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login/>}/>
           </Route>
+          <Route path="/admin/" element={<Admin />}>
+            <Route index element={<AdminHome/>} /> 
+          </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </ContextCartCount.Provider>
-  ); /* o primeiro route é a rota principal
+  ); /* cria uma rota irm para o admi
+  /* o primeiro route é a rota principal
   vamos deixar o cabeçalho na rota mãe e os conteúdo da página vamos deixar
   como subrota da rota do cabeçalho */
 }

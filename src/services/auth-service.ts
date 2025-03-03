@@ -31,14 +31,18 @@ export function loginRequest(loginData: CredentialsDTO) {
 }
 
 /* função para realizar logout, ou seja limpa o token do local storage */
-export function logout {
-    acessTokenRepository.remove(TOKEN_KEy); /* n passamos o local storage aqui direto
+export function logout() {
+    acessTokenRepository.remove(); /* n passamos o local storage aqui direto
     para remover, porque na pdronização que estamos fazendo o localstorage repository é a camada
     que chamada os dados do localstorage e aqui  chamamos o serviço do repository */
 }
 
 export function saveAcessToken(token: string) {
 
-    acessTokenRepository.save(TOKEN_KEy);
+    acessTokenRepository.save(token);
 
+}
+
+export function getAcessToken() {
+    acessTokenRepository.get();
 }
