@@ -1,3 +1,4 @@
+import QueryString from "qs";
 import { CredentialsDTO } from "../models/auth";
 import { CLIENT_ID, CLIENT_SECRET} from "../utils/system";
 
@@ -12,5 +13,8 @@ export function loginRequest(loginData: CredentialsDTO) {
         /* O algoritmo Base64.encode  do java script é o window.btoa mós colocamos depois do basic */
     }
 
-    console.log(headers);
+    const requestBody = QueryString.stringify({...loginData, grant_type: "password"}); /*stringfy converte para texto
+    tem que importa o QueryString*/
+
+    console.log(requestBody);
 }
