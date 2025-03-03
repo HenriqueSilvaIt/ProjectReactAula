@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './style.css';
 import { CredentialsDTO } from '../../../models/auth';
-import { loginRequest } from '../../../services/auth-service';
-
+import * as authService from '../../../services/auth-service';
 export default function Login() {
 
     const [formData, setFormData] = useState<CredentialsDTO> ({
@@ -20,8 +19,14 @@ export default function Login() {
 
 
     function handleSubmit(event: any) {
-        event.preventDefault();
-        loginRequest(formData);
+        event.preventDefault();/*mesmo o formData tendo 2 informações  ele puxo argumento */
+        authService.loginRequest(formData)
+        .then(response => {
+                console.log(response.data);
+        })
+        .catch(error =>{
+            console.log("Erro de no login", error);
+        })
     }
 
     return (

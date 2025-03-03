@@ -6,6 +6,7 @@ a parte de passa o token */
 export function requestBackend(config: AxiosRequestConfig) {
     return axios({...config, baseURL: BASE_URL}); /* config do AxiosRequestConfi vai receber ele mesmo
      mais o baseURL, ai no caso lá no serviço do product chamado findPageRequest, não precisa mais
-     colocar a varavel do BASE_URL porque já está configurada no config */
+     colocar a varavel do BASE_URL porque já está configurada no config, é só chamar o requestBackend dentro
+     do product-service.t*/
 
 }
