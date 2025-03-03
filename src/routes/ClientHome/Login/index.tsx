@@ -22,6 +22,8 @@ export default function Login() {
         event.preventDefault();/*mesmo o formData tendo 2 informações  ele puxo argumento */
         authService.loginRequest(formData)
         .then(response => {
+                authService.saveAcessToken(response.data.access_token); /* response.data e pega o campo
+                acess token do postman*/
                 console.log(response.data);
         })
         .catch(error =>{

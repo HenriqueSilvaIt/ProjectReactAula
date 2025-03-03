@@ -44,5 +44,5 @@ export function saveAcessToken(token: string) {
 }
 
 export function getAcessToken() {
-    acessTokenRepository.get();
+   return  acessTokenRepository.get(); /* tem que ter o return porque ele  vai retorna o token*/
 }
