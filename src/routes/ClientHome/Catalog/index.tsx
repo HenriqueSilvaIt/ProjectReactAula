@@ -8,6 +8,7 @@ import * as productService from '../../../services/product-services'; /*importan
 todas as funções do service, com o apelido productService */
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
+import { hasAnyRoles } from '../../../services/auth-service';
 
 type QueryParams = {
     page: number;
@@ -15,7 +16,8 @@ type QueryParams = {
 }
 
 export default function Catalog() {
-
+    console.log("T", hasAnyRoles([]));
+    
     const [isLastPage, setIsLastPage] = useState(false); /*false para dizer que n é a ultima pagina ainda */
 
     /* Use state para armazenar a lista de produtos */
