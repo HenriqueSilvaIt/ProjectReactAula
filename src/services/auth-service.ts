@@ -62,3 +62,14 @@ export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
       return undefined;
     }
 }
+
+export function isAuthenticated(): boolean {
+    let tokenPayload = getAccessTokenPayload();
+    if ( tokenPayload && tokenPayload.exp * 1000 > Date.now()) // o vezes mil é para deixar em segundo também no java Scriptt
+        return true
+    else {
+        return false;
+    } 
+
+    }
+ 
