@@ -11,7 +11,7 @@ import Login from './routes/ClientHome/Login';
 import AdminHome from './routes/Admin/AdminHome';
 import Admin from './routes/Admin';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import {history} from './utils/history';
+import {history} from './utils/history.ts';
 
 export default function App() { /*export default quer dizer que estamos exportando e o default quer dizer que desse
   documento só estamos exportando essa função */

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './style.css';
 import { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service';
-import { useNavigate } from 'react-router-dom';
 export default function Login() {
 
     const [formData, setFormData] = useState<CredentialsDTO> ({
@@ -18,7 +17,6 @@ export default function Login() {
         vamos colocar o novo valor value que  está digitado l */
     }
 
-        const navigate = useNavigate();
 
     function handleSubmit(event: any) {
         event.preventDefault();/*mesmo o formData tendo 2 informações  ele puxo argumento */
@@ -26,13 +24,10 @@ export default function Login() {
         .then(response => {
                 authService.saveAcessToken(response.data.access_token); /* response.data e pega o campo
                 acess token do postman*/
-                console.log(response.data);
+                console.log(authService.getAccessTokenPayload()?.user_name);
         })
         .catch(error =>{
-            if (error.response.status === 401) {
-                /*fazendo redirecionamento  p tel de login*/
-            navigate("/login");
-            }
+            console.log("Erro de no login", error);
         })
     }
 

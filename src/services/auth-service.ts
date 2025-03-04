@@ -1,9 +1,10 @@
 import QueryString from "qs";
-import { CredentialsDTO } from "../models/auth";
-import { CLIENT_ID, CLIENT_SECRET, TOKEN_KEy} from "../utils/system";
+import { AccessTokenPayloadDTO, CredentialsDTO } from "../models/auth";
+import { CLIENT_ID, CLIENT_SECRET} from "../utils/system";
 import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "../utils/requests";
 import * as acessTokenRepository from '../localstorage/acess-token-repository'
+import jwtDecode from "jwt-decode";
 
 export function loginRequest(loginData: CredentialsDTO) {
 
@@ -45,4 +46,19 @@ export function saveAcessToken(token: string) {
 
 export function getAcessToken() {
    return  acessTokenRepository.get(); /* tem que ter o return porque ele  vai retorna o token*/
+}
+
+
+/* função utilizada para pegar as informações do Payload(dados do usuário no token decodificado)*/
+export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
+    try {
+      const token = acessTokenRepository.get(); // pegar o token do localStorage
+      return token == null ? undefined : (jwtDecode(token) as  AccessTokenPayloadDTO); /* se token for nulo
+      n exist, é undefined, caso existir vamos usar o jwtDecode do token ele vai retornar todos o campos
+      do payload( das informações do usuário decodificad) e as AcessTokenPayloadDTO vai retornar só os 3 
+      campos que quermos */
+    } catch (error) {
+  
+      return undefined;
+    }
 }

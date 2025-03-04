@@ -1,6 +1,5 @@
 import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "../utils/requests";
-import * as authService from './auth-service';
 
 /*Busc usuário logado*/
 
@@ -8,7 +7,7 @@ export function findLoggedUser() {
 
     const config: AxiosRequestConfig = {
         url: '/users/me',
-        withCredentials: false
+        withCredentials: true
     }
 
  
