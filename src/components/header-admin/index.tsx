@@ -1,6 +1,7 @@
 import './styles.css' /* importando css */
 import  homeIm from '../../assets/home.svg';
 import productsIcon from '../../assets/products.svg'
+import LoggedUser from '../LoggedUser';
 
 
 
@@ -24,10 +25,8 @@ export default function HeaderAdmin() { /* por organização a função java scr
           <p className="dsc-menu-item-active">Produtos</p>
         </div>
       </div>
-      <div className="dsc-logged-user">
-        <p>Maria Gonsalve</p>
-        <a href="#">Sair</a>
-      </div>
+   
+    <LoggedUser/>
     </div>
     </nav>
   </header>

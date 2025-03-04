@@ -134,6 +134,13 @@ nav a {
   flex-direction: column;
 }
 
+
+.dsc-logged-user span {
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;  
+
+}
 nav h1 {
   font-size: 16px;
 }
