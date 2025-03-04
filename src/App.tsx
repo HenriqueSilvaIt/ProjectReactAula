@@ -11,7 +11,8 @@ import Login from './routes/ClientHome/Login';
 import AdminHome from './routes/Admin/AdminHome';
 import Admin from './routes/Admin';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import {history} from './utils/history.ts';
+import { history } from './utils/history.ts';
+import { PrivateRoute } from './components/PrivateRoute/index.tsx';
 
 export default function App() { /*export default quer dizer que estamos exportando e o default quer dizer que desse
   documento só estamos exportando essa função */
@@ -26,7 +27,7 @@ export default function App() { /*export default quer dizer que estamos exportan
      a primeira rota como sendo o caminho "/"que é  a rota raiz e no element dela
      você passa a página que você quer colocar como inicial (normalmente colocamos
      o componente dessa página) */
-    <ContextCartCount.Provider value={{contextCartCount, setContextCartCount}}>
+    <ContextCartCount.Provider value={{ contextCartCount, setContextCartCount }}>
       <HistoryRouter history={history}>
         <Routes>
           <Route path="/" element={<ClientHome />}>
@@ -34,10 +35,10 @@ export default function App() { /*export default quer dizer que estamos exportan
             <Route path="catalog" element={<Catalog />} />
             <Route path="product-details/:productId" element={<ProductDetails />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="login" element={<Login/>}/>
+            <Route path="login" element={<Login />} />
           </Route>
-          <Route path="/admin/" element={<Admin />}>
-            <Route index element={<AdminHome/>} /> 
+          <Route path="/admin/" element={<PrivateRoute><Admin /></PrivateRoute>}>
+            <Route index element={<AdminHome />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

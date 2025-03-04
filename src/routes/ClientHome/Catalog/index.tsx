@@ -8,7 +8,6 @@ import * as productService from '../../../services/product-services'; /*importan
 todas as funções do service, com o apelido productService */
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
-import { isAuthenticated } from '../../../services/auth-service';
 
 type QueryParams = {
     page: number;
@@ -35,7 +34,6 @@ export default function Catalog() {
     })
 
     useEffect(() => {
-        console.log("Autenticado", isAuthenticated());
 
         productService.findPageRequest(queryParams.page, queryParams.name) /*MÉTODO do service que vai chamar a requisição com axios */
         /* axios.get("http://localhost:8090/products/?size=12") size é a quantidade
