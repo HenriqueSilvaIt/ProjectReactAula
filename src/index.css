@@ -122,10 +122,6 @@ header {
 
 
 
-.dsc-header-admin {
-  background-color: var(--color-bg-quartenary);
-  color: var(--color-font-tertiary);
-}
 
 nav a {
   font-size: 14px;

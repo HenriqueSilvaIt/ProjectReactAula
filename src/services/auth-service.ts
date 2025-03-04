@@ -82,15 +82,22 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean { /* tem que importa o R
       return true;
     }
 
-const tokenPayload = getAccessTokenPayload();
+const tokenPayload = getAccessTokenPayload(); /*essa variavel tem as informações do token 
+exp, usário e authorizaty*/
 
-  if (tokenPayload !== undefined) {
+  if (tokenPayload !== undefined) { /* se esse tokenPayload existe, vamos fazer um for para percorrer
+    a lista desses token(informação do usuário no token) porém pegando
+    só o autorities que é ROLE_ADMIN ou CLIENT ou os 2, se tiver retornando
+    esses roles ele vai retorna verdadeiro
+    
+    então vamos passar como argumento um usuário*/
     for (var i = 0; i < roles.length; i++) {
       if (tokenPayload.authorities.includes(roles[i])) {
         return true;
       }
     }
-    // return roles.some(role => tokenData.authorities.includes(roles));
+    // return roles.some(role => tokenData.authorities.includes(roles));, toda função do for
+    // pode ser feita com esse some, o some verifica se algum elemento atende esse predicado
   }
 
   return false;

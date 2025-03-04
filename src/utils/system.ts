@@ -7,4 +7,4 @@ export const CLIENT_ID = "myclientid";
 
 export const CLIENT_SECRET = "myclientsecret";
 
-export const TOKEN_KEy = "com.devsuperior.ecommerce/Cart";
+export const TOKEN_KEy = "com.devsuperior.ecommerce/art";
