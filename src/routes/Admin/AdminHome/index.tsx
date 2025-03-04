@@ -8,6 +8,7 @@ export default function AdminHome() {
 
     const [user, setUser] = useState<UserDTO>();
 
+
     /* Use effect para fazer requisição no banco */
 
     useEffect(() => {
@@ -15,10 +16,8 @@ export default function AdminHome() {
         .then(response =>{
             setUser(response.data);
             console.log(response.data)
-        })
-        .catch(erro => {
-            console.log("Erro: ", erro);
-        })
+        });
+       
     }, [])
 
     return ( 

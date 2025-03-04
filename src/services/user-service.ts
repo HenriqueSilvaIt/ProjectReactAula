@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "../utils/requests";
 import * as authService from './auth-service';
 
@@ -5,15 +6,16 @@ import * as authService from './auth-service';
 
 export function findLoggedUser() {
 
-
-
-    /* passando o token na autorização na hora do login */
-    const headers = {
-        Authorization: "Bearer " + authService.getAcessToken()
-
+    const config: AxiosRequestConfig = {
+        url: '/users/me',
+        withCredentials: false
     }
-    /* o preparamos o cabeçalho acima, e vamos passar o cabeçalho já com o token na requisição na url abaixo*/
-    console.log(headers);
 
-    return requestBackend({ url: '/users/me', headers });
+ 
+
+        return requestBackend(config);
+
+/* o preparamos o cabeçalho acima, e vamos passar o cabeçalho já com o token na requisição na url abaixo*/
+
+
 }
