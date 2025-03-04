@@ -1,8 +1,9 @@
 import './style.css';
 import { useContext, useState } from 'react';
 import * as cartService from '../../../services/cart-services';
+import * as orderService from '../../../services/order-service';
 import { OrderDTO, OrderItemDTO } from '../../../models/order';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ContextCartCount } from '../../../utils/context-cart';
 
 export default function Cart() {
@@ -10,6 +11,8 @@ export default function Cart() {
     o use state pegando p rimeiro valor que está lá no localStorage */
 
     const { setContextCartCount } = useContext(ContextCartCount);
+
+    const navigate = useNavigate();
 
     function handleClearClick() {
         cartService.clearCart(); /* aqui limpa no localstorage */
@@ -34,12 +37,26 @@ export default function Cart() {
 
     }
 
+
     function updateCart() {
 
         const newCart = cartService.getCart();
         setCart(newCart); 
         setContextCartCount(newCart.items.length);
     }
+
+    function handlePlaceOrderClick() {
+        orderService.placeOrderRequest(cart)
+        .then(response=> {
+            cartService.clearCart();/*se salvou o produto agora vamos usa clear para limpar o carrinho*/
+            setContextCartCount(0); /* é importante colocar isso porque uma
+             vez que vocÊ fez o pedido e limpo o carrinho tem que zerar aquela quantidade de items 
+             no carrinho do cabeçalho*/ 
+             navigate(`/confirmation/${response.data.id}`) /*uma vez que já fez o pedido
+             agora ele direciona para  o confirmation do id específico*/
+        })
+    }
+
 
     return (/* quando abrimos chaves dentro do return é uma expressão do react */
         /* no primeiro elemento dentro da função map tem que colocar o key
@@ -89,7 +106,7 @@ export default function Cart() {
 
                 <div className="dsc-btn-page-container">
 
-                    <div className="dsc-btn dsc-btn-blue">
+                    <div onClick={handlePlaceOrderClick} className="dsc-btn dsc-btn-blue">
                         Finalizar Pedido
                     </div>
                     <Link to="/catalog">

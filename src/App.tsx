@@ -60,7 +60,7 @@ export default function App() { /*export default quer dizer que estamos exportan
             <Route path="product-details/:productId" element={<ProductDetails />} />
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login />} />
-            <Route path="confirmation/:orderId" element={<Confirmation/>} />
+            <Route path="confirmation/:orderId" element={<PrivateRoute><Confirmation/></PrivateRoute>} />
           </Route>
           <Route path="/admin/" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
             <Route index element={<AdminHome />} />
@@ -75,3 +75,6 @@ export default function App() { /*export default quer dizer que estamos exportan
   vamos deixar o cabeçalho na rota mãe e os conteúdo da página vamos deixar
   como subrota da rota do cabeçalho */
 }
+
+/*Confirmation ta dentro do privateRoute, porém o private route n precisa de role, porque qualquer
+usuário pode acessar essa página, mas precisa estar logado, por isso colocamos o private route*/
