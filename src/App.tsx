@@ -17,6 +17,7 @@ import { AccessTokenPayloadDTO } from './models/auth.ts';
 import * as authService from './services/auth-service.ts';
 import * as cartService from './services/cart-services.ts';
 import { ContextToken } from './utils/context-token.ts';
+import Confirmation from './routes/ClientHome/Confirmation/index.tsx';
 
 export default function App() { /*export default quer dizer que estamos exportando e o default quer dizer que desse
   documento só estamos exportando essa função */
@@ -59,6 +60,7 @@ export default function App() { /*export default quer dizer que estamos exportan
             <Route path="product-details/:productId" element={<ProductDetails />} />
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login />} />
+            <Route path="confirmation/:orderId" element={<Confirmation/>} />
           </Route>
           <Route path="/admin/" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
             <Route index element={<AdminHome />} />
