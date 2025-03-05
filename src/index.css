@@ -527,5 +527,8 @@ breakpoints */
 
 .dsc-dialog-btn-container {
 
-  width: 100% /* para o botão n perde largura */
+  width: 100%; /* para o botão n perde largura */  
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* vai ocupar 2 metades do espaç*/
+  grid-gap: 20px;
 }

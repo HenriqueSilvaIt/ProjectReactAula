@@ -9,6 +9,7 @@ import { ProductDTO } from '../../../models/product';
 import SerachBar from '../../../components/SearchBar';
 import ButtonNextPage from '../../../components/ButtonNextPage';
 import DialogInfo from '../../../components/DialogInfo';
+import DialogConfirmation from '../../../components/DialogConfirmation';
 
 type QueryParams = {
     page: number,
@@ -22,6 +23,11 @@ export default function ProductListing() {
     const [dialogInfoData, setDialogInfoData] = useState({
         visable: false,
         message: 'Sucesso'
+    })
+
+    const [dialogConfirmationData, setDialogConfirmationData] = useState({
+        visable: false,
+        message: 'Tem certeza?'
     })
 
     const [products, setProducts] = useState<ProductDTO[]>([]);
@@ -59,13 +65,22 @@ export default function ProductListing() {
     /*como estamos chamando o componente      <HeaderClient /> temos o html todo mais esse compoenente
     como é dois tem que colocar dentro do fragment <>  </*/
 
-   function handleDeleteClick() {
-        setDialogInfoData({...dialogInfoData, visable: true});
-   }
+
 
    function handleDialogInfoClose() {
         setDialogInfoData({...dialogInfoData, visable: false});
 
+   }
+
+
+   function handleDeleteClick() {
+    setDialogConfirmationData({...dialogConfirmationData, visable: true});
+}
+   /* Funação que responde a resposta se quer deletar o item ou não*/
+
+   function handleDialogConfirmationAnswer(answer: boolean) {
+        console.log("Respot", answer);
+        setDialogConfirmationData({...dialogConfirmationData, visable: false});
    }
 
     function handleSearch(searchText: string) {
@@ -144,6 +159,10 @@ export default function ProductListing() {
             {dialogInfoData.visable && 
             <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>}
             
+            {dialogConfirmationData.visable && 
+            <DialogConfirmation message={dialogConfirmationData.message} onDialogAnswer={handleDialogConfirmationAnswer}/>
+            }
+
         </main>
     );
 } 
