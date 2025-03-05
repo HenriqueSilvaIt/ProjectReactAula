@@ -7,6 +7,7 @@ import * as productService from '../../../services/product-services';
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
 import SerachBar from '../../../components/SearchBar';
+import ButtonNextPage from '../../../components/ButtonNextPage';
 
 type QueryParams = {
     page: number,
@@ -42,6 +43,15 @@ export default function ProductListing() {
                 que ele mostra quando é a ultima pagina da pesquisa */
             })
     }, [queryParams]); /*sempre que mudar productName tem que refazer a consulta do useEffect*/
+
+
+    function handleNextPageClick() {
+        setQueryParams({...queryParams, page: queryParams.page + 1}); /*
+        ao clicar no botão, ele ta dizendo que vai receber os produtos que já tinha na página
+        ...queryParams + page: queryParama.page + 1, e mais o produto da página seguinte */
+   }
+    /*como estamos chamando o componente      <HeaderClient /> temos o html todo mais esse compoenente
+    como é dois tem que colocar dentro do fragment <>  </*/
 
     function handleSearch(searchText: string) {
         setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
@@ -111,7 +121,10 @@ export default function ProductListing() {
                         }   
                     </tbody>
                 </table>
-                <div className="dsc-btn-next-page">Carregar mais</div>
+                { !isLastPage && 
+                <ButtonNextPage onNextPage={handleNextPageClick}/>
+
+            }
             </section>
         </main>
     );

@@ -110,7 +110,7 @@ export default function Catalog() {
                 !isLastPage && /* só vai aparecer quando n for a última página, na
                 requisição do http tem um atributo que sinfica last */
             <div onClick={handleNextPageClick}> 
-            <ButtonNextPage />
+            <ButtonNextPage onNextPage={handleNextPageClick} />
             </div>
 
 }
