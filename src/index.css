@@ -532,3 +532,9 @@ breakpoints */
   grid-template-columns: 1fr 1fr; /* vai ocupar 2 metades do espaç*/
   grid-gap: 20px;
 }
+
+
+.dsc-dialog-btn {
+
+  width: 100%; /* para o botão n perde largura */  
+}

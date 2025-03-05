@@ -45,3 +45,15 @@ export function findById(id: number) {
 export function findByBarCode(code:string) {
     return requestBackend({url: `/products/?barCode=${code}`});
 }
+
+
+export function deleteById(id: number) {
+    const config : AxiosRequestConfig = { 
+        method: "DELETE",
+        url: `/products/${id}`,
+        withCredentials: true /* só posso deletar se tiver logado com admin */ 
+
+    }
+
+    return requestBackend(config);
+}

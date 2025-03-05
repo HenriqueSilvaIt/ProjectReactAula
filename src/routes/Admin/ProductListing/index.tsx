@@ -1,7 +1,6 @@
 
 import deleteImg from '../../../assets/delete.svg';
 import editIm from '../../../assets/edit.svg';
-import computerIm from '../../../assets/compute.png';
 import './style.css';
 import * as productService from '../../../services/product-services';
 import { useEffect, useState } from 'react';
@@ -27,6 +26,7 @@ export default function ProductListing() {
 
     const [dialogConfirmationData, setDialogConfirmationData] = useState({
         visable: false,
+        id: 0,
         message: 'Tem certeza?'
     })
 
@@ -73,15 +73,38 @@ export default function ProductListing() {
    }
 
 
-   function handleDeleteClick() {
-    setDialogConfirmationData({...dialogConfirmationData, visable: true});
+   function handleDeleteClick(productId: number) {
+    setDialogConfirmationData({...dialogConfirmationData, id: productId, visable: true});
 }
+
+
+
+
    /* Funação que responde a resposta se quer deletar o item ou não*/
 
-   function handleDialogConfirmationAnswer(answer: boolean) {
-        console.log("Respot", answer);
+   function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
+        if (answer === true) {
+            productService.deleteById(productId)
+            .then(() => {
+                /*depois que deleta ele vai atualizar página de produtos*/
+                setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
+        começar denovo na primeria página*/
+        setQueryParams({...queryParams, page: 0}); /* o queryParams vai receber oque tinha nele
+        ... , page = 0 para quando ele for pequisar zerar a página o nome dele vai receber oque for atualizado na variavel searchText(que puxa do que está sendo
+        escrito no input) quando for realizdo uma busca no SearchBar com
+        a função onSearch, automaticamente ele vai chamar essa função handleSearch que vai atualizar o
+        estado do productName (utilizando o setProductName e atualizar na request do useEffect) com o valor que estiver digitado lá no SearchBar
+        que é o argumento (searchText) dessa função handleSearch */
+            }).catch(error => {
+                setDialogInfoData({
+                    visable: true,
+                    message: error.response.data.error
+                })
+            })
+        }
         setDialogConfirmationData({...dialogConfirmationData, visable: false});
    }
+
 
     function handleSearch(searchText: string) {
         setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
@@ -140,7 +163,7 @@ export default function ProductListing() {
                                         />
                                     </td>
                                     <td>
-                                        <img onClick={handleDeleteClick}
+                                        <img onClick={() => handleDeleteClick(product.id)}
                                             className="dsc-product-listing-btn"
                                             src={deleteImg}
                                             alt="delet"
@@ -160,7 +183,9 @@ export default function ProductListing() {
             <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>}
             
             {dialogConfirmationData.visable && 
-            <DialogConfirmation message={dialogConfirmationData.message} onDialogAnswer={handleDialogConfirmationAnswer}/>
+            <DialogConfirmation id={dialogConfirmationData.id} 
+                message={dialogConfirmationData.message}
+             onDialogAnswer={handleDialogConfirmationAnswer}/>
             }
 
         </main>
