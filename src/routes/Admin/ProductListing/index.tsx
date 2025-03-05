@@ -6,6 +6,7 @@ import './style.css';
 import * as productService from '../../../services/product-services';
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
+import SerachBar from '../../../components/SearchBar';
 
 type QueryParams = {
     page: number,
@@ -42,6 +43,19 @@ export default function ProductListing() {
             })
     }, [queryParams]); /*sempre que mudar productName tem que refazer a consulta do useEffect*/
 
+    function handleSearch(searchText: string) {
+        setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
+        começar denovo na primeria página*/
+        setQueryParams({...queryParams, page: 0, name: searchText}) /* o queryParams vai receber oque tinha nele
+        ... , page = 0 para quando ele for pequisar zerar a página o nome dele vai receber oque for atualizado na variavel searchText(que puxa do que está sendo
+        escrito no input) quando for realizdo uma busca no SearchBar com
+        a função onSearch, automaticamente ele vai chamar essa função handleSearch que vai atualizar o
+        estado do productName (utilizando o setProductName e atualizar na request do useEffect) com o valor que estiver digitado lá no SearchBar
+        que é o argumento (searchText) dessa função handleSearch */
+        
+    }
+
+
     return (
         <main>
             <section id="product-listing-section" className="dsc-container">
@@ -51,25 +65,23 @@ export default function ProductListing() {
                         Novo
                     </div>
                 </div>
-                <form className="dsc-search-bar">
-                    <button type="submit">🔎︎</button>
-                    <input type="text" placeholder="Nome do produto" />
-                    <button type="reset">🗙</button>
-                </form>
+              <SerachBar onSearch={handleSearch}/>
 
                 <table className="dsc-table dsc-mb20 dsc-mt20">
                     <thead>
+                        <tr> 
                         <th className="dsc-tb576">Id</th>
                         <th></th>
                         <th className="dsc-tb768">Preço</th>
                         <th className="dsc-text-left">Nome</th>
                         <th></th>
                         <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {
                             products.map(product => (
-                                <tr>
+                                <tr key={product.id}>
                                     <td className="dsc-tb576">{product.id}</td>
                                     <td>
                                         <img
@@ -96,7 +108,7 @@ export default function ProductListing() {
                                     </td>
                                 </tr>
                             ))
-                        }
+                        }   
                     </tbody>
                 </table>
                 <div className="dsc-btn-next-page">Carregar mais</div>
