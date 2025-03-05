@@ -83,3 +83,6 @@ export default function App() { /*export default quer dizer que estamos exportan
 
 /*Confirmation ta dentro do privateRoute, porém o private route n precisa de role, porque qualquer
 usuário pode acessar essa página, mas precisa estar logado, por isso colocamos o private route*/
+
+
+/* Tem como colegar um path home e usar o navigate para redirecionar a pasta inicial /admin para /admin/home*/  
