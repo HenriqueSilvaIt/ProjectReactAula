@@ -524,3 +524,8 @@ breakpoints */
   margin-bottom: 20px;
   color: var(--color-font-primary);
 }
+
+.dsc-dialog-btn-container {
+
+  width: 100% /* para o botão n perde largura */
+}

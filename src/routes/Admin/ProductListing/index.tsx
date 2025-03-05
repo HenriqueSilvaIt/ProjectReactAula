@@ -19,6 +19,11 @@ export default function ProductListing() {
 
     const [isLastPage, setIsLastPage] = useState(false);
 
+    const [dialogInfoData, setDialogInfoData] = useState({
+        visable: false,
+        message: 'Sucesso'
+    })
+
     const [products, setProducts] = useState<ProductDTO[]>([]);
 
     const [queryParams, setQueryParams] = useState<QueryParams>({
@@ -53,6 +58,15 @@ export default function ProductListing() {
    }
     /*como estamos chamando o componente      <HeaderClient /> temos o html todo mais esse compoenente
     como é dois tem que colocar dentro do fragment <>  </*/
+
+   function handleDeleteClick() {
+        setDialogInfoData({...dialogInfoData, visable: true});
+   }
+
+   function handleDialogInfoClose() {
+        setDialogInfoData({...dialogInfoData, visable: false});
+
+   }
 
     function handleSearch(searchText: string) {
         setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
@@ -111,7 +125,7 @@ export default function ProductListing() {
                                         />
                                     </td>
                                     <td>
-                                        <img
+                                        <img onClick={handleDeleteClick}
                                             className="dsc-product-listing-btn"
                                             src={deleteImg}
                                             alt="delet"
@@ -127,7 +141,9 @@ export default function ProductListing() {
 
             }
             </section>
-            <DialogInfo/>
+            {dialogInfoData.visable && 
+            <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>}
+            
         </main>
     );
 } 
