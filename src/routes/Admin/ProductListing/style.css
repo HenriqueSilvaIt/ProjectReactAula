@@ -1,0 +1,19 @@
+#product-listing-section {
+    padding: 20px 0;
+}
+
+
+.dsc-product-listing-image { /* imagem do computador da tabela*/
+    width: 69px;
+    height: 69 px;
+    display: block; /* desconta
+    espaço  da imagem do interno e n do externo */
+}
+
+.dsc-product-listing-btn { /*formatação
+    das imagens dos botões da tabela (editar e excluir*/
+    height: 20px;
+    width: auto;
+    cursor: pointer;
+    margin: 5px; /*espaçamento entre os botões */
+}
