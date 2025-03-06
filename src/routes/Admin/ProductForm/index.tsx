@@ -24,11 +24,16 @@ export default function ProductForm() {
             placeholder: "Nome",
         },
         price: {
-            value: "",
+            value: 200,
             id: "price",
             name: "price",
             type: "number", /* para aceitar somente númeroes*/
             placeholder: "Preço",
+            validation: function(value: any) {
+                return Number(value)/*v convertido para Number*/ > 0;
+            },
+            /*messagem de erro caso essa função de falso*/
+            message: "Favor informar um valor positivo"
         },
         imgUrl: {
             value: "",
@@ -41,6 +46,11 @@ export default function ProductForm() {
 
 
     useEffect(() => {
+
+        const obj = forms.validate(formData, "price"); /*estamos mandando validar o texto
+        e gerar uma informação para retornar o novo campo invalid informando se é verdadeiro ou falso*/
+        console.log(obj);
+
         if(isEditing)/* se for verdade o iediting quer
         dizer que a rota n é create, é de edição de produto */ {
             productervice.findById(Number(params.productId)) /*number para converter para número

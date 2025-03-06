@@ -35,3 +35,23 @@ export function updateAll(inputs: any, newValues: any) {
 
     return newInputs;
 }
+
+export function validate(inputs: any, name: string) {
+
+
+    if(!inputs[name].validation === true) /* valida se existe a função validation
+    no objeto do input em determinado campo, exmplo price,name etc
+    porque essa função validade só funciona se tiver a função validation
+    que tem o parâmetro de validação no objeto */ {
+        return inputs;
+    }
+
+    const isInvalid = !inputs[name].validation(inputs[name].value); /*estamos aplicando
+    a função de validation no própio value do input, para saber se o valor que o usuário 
+    está digitando invalido*/
+
+    return { ...inputs, [name]: { ...inputs[name], inValid: isInvalid.toString()}}; /*acrescentando um
+    campo invalid dentro do input que a função validade vai fazer o check se o value ta ok
+    usamos o toString no final, porque no objeto n queremos salvar na forma de booleano o  valo do
+    isValid e sim na forma de texto*/
+}
