@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import './style.css';
-import { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service';
+import * as forms from '../../../utils/form';
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/context-token';
 import FormInput from '../../../components/FormInput';
@@ -37,7 +37,9 @@ export default function Login() {
         const value = event.target.value; /* para pegar o valor que está digitado na caixinha de texto*/
         const name = event.target.name; /* para pegar o nome da caixinha, é o mesmo nome que você coloca
          no input name=" */
-        setFormData({...formData, [name]: { ...formData[name], value: value}}); /* destruturamos
+        setFormData(forms.update(formData/*objeto já com as informações do input */, name/*campo da cainha
+            do input que estou mexendo*/, value/*valor que
+            digitar*/)); /* destruturamos
         o formData para aproveitar o que tinha nele e onde tem o cmapo com o nome name
         vamos colocar o novo valor value que  está digitado 
         
