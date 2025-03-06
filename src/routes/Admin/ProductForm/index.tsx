@@ -24,7 +24,7 @@ export default function ProductForm() {
             placeholder: "Nome",
         },
         price: {
-            value: 200,
+            value: "",
             id: "price",
             name: "price",
             type: "number", /* para aceitar somente númeroes*/
@@ -47,9 +47,7 @@ export default function ProductForm() {
 
     useEffect(() => {
 
-        const obj = forms.validate(formData, "price"); /*estamos mandando validar o texto
-        e gerar uma informação para retornar o novo campo invalid informando se é verdadeiro ou falso*/
-        console.log(obj);
+      
 
         if(isEditing)/* se for verdade o iediting quer
         dizer que a rota n é create, é de edição de produto */ {
@@ -68,15 +66,29 @@ export default function ProductForm() {
 
 
      function handleInputChange(event: any) {
-      
-            setFormData(forms.update(formData/*objeto já com as informações do input */, event.target.name/*campo da cainha
-                do input que estou mexendo*/, event.target.value/*valor que
-                digitar*/)); /* destruturamos
-            o formData para aproveitar o que tinha nele e onde tem o cmapo com o nome name
-            vamos colocar o novo valor value que  está digitado 
-            
-            Agora novo formulário temos que preservar todo objeto, então vamos pegar tudo que já tinha no objeto, porém no campo
-       value, vamos colocar o value criado na função event.target.valu*/
+
+        
+        /* chamando função para atualizar oque o usuário ta escrevendo no input*/
+
+           const dataUpdate = forms.update(formData/*objeto já com as informações do input */, event.target.name/*campo da cainha
+            do input que estou mexendo*/, event.target.value/*valor que
+            digitar*/); /* destruturamos
+        o formData para aproveitar o que tinha nele e onde tem o cmapo com o nome name
+        vamos colocar o novo valor value que  está digitado 
+        
+        Agora novo formulário temos que preservar todo objeto, então vamos pegar tudo que já tinha no objeto, porém no campo
+   value, vamos colocar o value criado na função event.target.valu*/
+
+
+             /*chamando função que valida se o campo foi preenchido corretamente*/
+    
+             const dataValited = forms.validate(dataUpdate, event.target.name); /* 1º argumento
+             oque nós digitamos no campo, 2º argumento o nome do campo (exemplo price, name et)*/
+
+            setFormData(dataValited); /* recebe oque tá sendo  digitado no input
+            que é q primeira função dataUpdate e valdia se for executado corretamente
+            que é e a segunda função dataValited  (dataUpdate já está dentro da dataValited),
+            por que aqui só colocamos  dataValited*/
         }
 
 
@@ -92,12 +104,14 @@ export default function ProductForm() {
                                 className="dsc-form-control"
                                 onChange={handleInputChange} 
                                 />
+                                <div className="dsc-form-error">{formData.name.message}</div>
                             </div>
                             <div>
                             <FormInput {...formData.price} 
                                 className="dsc-form-control"
                                 onChange={handleInputChange} 
                                 />
+                               <div className="dsc-form-error">{formData.price.message}</div> 
                             </div>
                             <div>
                             <FormInput {...formData.imgUrl} 

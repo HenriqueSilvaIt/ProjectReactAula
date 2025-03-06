@@ -301,10 +301,17 @@ utilizamos o min-width semp */
   border: 1px solid var(--color-card-border);
 }
 
-.dsc-form-control :focus {
+.dsc-form-control:focus {
   outline: none; /* removendo
     contorno bord quando tiver clicado
     na caix de text*/
+}
+
+
+/*estamos dizendo que quando o atributo do objeto input que tem essa classe 
+for igul true vai retorna essa formatação*/
+.dsc-form-control[data-invalid="true"] {
+  border: 1px solid var(--dsc-color-error);
 }
 
 .dsc-form-control::placeholder {
@@ -312,14 +319,16 @@ utilizamos o min-width semp */
     do place holder*/
 }
 
-.dsc-input-error {
-  border: 1px solid var(--dsc-color-error);
+
+.dsc-form-control[data-invalid="true"] ~div {
+  display: unset;
 }
 
 .dsc-form-error {
   color: var(--dsc-color-error);
   font-size: 12px;
   padding-left: 4px;
+  display: none;
 }
 
 .dsc-select:invalid {

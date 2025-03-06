@@ -50,7 +50,7 @@ export function validate(inputs: any, name: string) {
     a função de validation no própio value do input, para saber se o valor que o usuário 
     está digitando invalido*/
 
-    return { ...inputs, [name]: { ...inputs[name], inValid: isInvalid.toString()}}; /*acrescentando um
+    return { ...inputs, [name]: { ...inputs[name], invalid: isInvalid.toString()}}; /*acrescentando um
     campo invalid dentro do input que a função validade vai fazer o check se o value ta ok
     usamos o toString no final, porque no objeto n queremos salvar na forma de booleano o  valo do
     isValid e sim na forma de texto*/
