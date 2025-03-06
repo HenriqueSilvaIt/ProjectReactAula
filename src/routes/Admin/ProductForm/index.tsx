@@ -41,11 +41,17 @@ export default function ProductForm() {
 
 
     useEffect(() => {
-        if(isEditing)/* se for verdade o iediting*/ {
+        if(isEditing)/* se for verdade o iediting quer
+        dizer que a rota n é create, é de edição de produto */ {
             productervice.findById(Number(params.productId)) /*number para converter para número
             se n vai reclamara*/ 
                 .then(response => {
-                    console.log(response.data);
+                    console.log(response.data); /* vai retornar o produto(objeto)
+                    ou seja se for uma rota diferente de create, ele vai trazer o formulário
+                    já com os dados do produto preenchido porque é editação*/
+                    const newFormData = forms.updateAll(formData,response.data)
+                   setFormData(newFormData); /*deixando os campos fo formulário já preenchido -  gerando
+                    um novo objeto e no campo value vai colocar o valor que estava no banco de dados */
                 })
         }
     }, [])
