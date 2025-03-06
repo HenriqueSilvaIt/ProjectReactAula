@@ -9,6 +9,8 @@ import SerachBar from '../../../components/SearchBar';
 import ButtonNextPage from '../../../components/ButtonNextPage';
 import DialogInfo from '../../../components/DialogInfo';
 import DialogConfirmation from '../../../components/DialogConfirmation';
+import ButtonSecondy from '../../../components/ButtonSecondy';
+import { useNavigate } from 'react-router-dom';
 
 type QueryParams = {
     page: number,
@@ -18,6 +20,8 @@ type QueryParams = {
 export default function ProductListing() {
 
     const [isLastPage, setIsLastPage] = useState(false);
+
+    const navigate = useNavigate();
 
     const [dialogInfoData, setDialogInfoData] = useState({
         visable: false,
@@ -58,64 +62,68 @@ export default function ProductListing() {
 
 
     function handleNextPageClick() {
-        setQueryParams({...queryParams, page: queryParams.page + 1}); /*
+        setQueryParams({ ...queryParams, page: queryParams.page + 1 }); /*
         ao clicar no botão, ele ta dizendo que vai receber os produtos que já tinha na página
         ...queryParams + page: queryParama.page + 1, e mais o produto da página seguinte */
-   }
+    }
     /*como estamos chamando o componente      <HeaderClient /> temos o html todo mais esse compoenente
     como é dois tem que colocar dentro do fragment <>  </*/
 
 
 
-   function handleDialogInfoClose() {
-        setDialogInfoData({...dialogInfoData, visable: false});
+    function handleDialogInfoClose() {
+        setDialogInfoData({ ...dialogInfoData, visable: false });
 
-   }
-
-
-   function handleDeleteClick(productId: number) {
-    setDialogConfirmationData({...dialogConfirmationData, id: productId, visable: true});
-}
+    }
 
 
+    function handleDeleteClick(productId: number) {
+        setDialogConfirmationData({ ...dialogConfirmationData, id: productId, visable: true });
+    }
 
 
-   /* Funação que responde a resposta se quer deletar o item ou não*/
 
-   function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
+
+    /* Funação que responde a resposta se quer deletar o item ou não*/
+
+    function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
         if (answer === true) {
             productService.deleteById(productId)
-            .then(() => {
-                /*depois que deleta ele vai atualizar página de produtos*/
-                setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
+                .then(() => {
+                    /*depois que deleta ele vai atualizar página de produtos*/
+                    setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
         começar denovo na primeria página*/
-        setQueryParams({...queryParams, page: 0}); /* o queryParams vai receber oque tinha nele
+                    setQueryParams({ ...queryParams, page: 0 }); /* o queryParams vai receber oque tinha nele
         ... , page = 0 para quando ele for pequisar zerar a página o nome dele vai receber oque for atualizado na variavel searchText(que puxa do que está sendo
         escrito no input) quando for realizdo uma busca no SearchBar com
         a função onSearch, automaticamente ele vai chamar essa função handleSearch que vai atualizar o
         estado do productName (utilizando o setProductName e atualizar na request do useEffect) com o valor que estiver digitado lá no SearchBar
         que é o argumento (searchText) dessa função handleSearch */
-            }).catch(error => {
-                setDialogInfoData({
-                    visable: true,
-                    message: error.response.data.error
+                }).catch(error => {
+                    setDialogInfoData({
+                        visable: true,
+                        message: error.response.data.error
+                    })
                 })
-            })
         }
-        setDialogConfirmationData({...dialogConfirmationData, visable: false});
-   }
+        setDialogConfirmationData({ ...dialogConfirmationData, visable: false });
+    }
+
+    function handleNewProductClick() {
+        navigate("/admin/products/create");
+    }
 
 
     function handleSearch(searchText: string) {
         setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
         começar denovo na primeria página*/
-        setQueryParams({...queryParams, page: 0, name: searchText}) /* o queryParams vai receber oque tinha nele
+        setQueryParams({ ...queryParams, page: 0, name: searchText }) /* o queryParams vai receber oque tinha nele
         ... , page = 0 para quando ele for pequisar zerar a página o nome dele vai receber oque for atualizado na variavel searchText(que puxa do que está sendo
         escrito no input) quando for realizdo uma busca no SearchBar com
         a função onSearch, automaticamente ele vai chamar essa função handleSearch que vai atualizar o
         estado do productName (utilizando o setProductName e atualizar na request do useEffect) com o valor que estiver digitado lá no SearchBar
         que é o argumento (searchText) dessa função handleSearch */
-        
+
     }
 
 
@@ -124,21 +132,23 @@ export default function ProductListing() {
             <section id="product-listing-section" className="dsc-container">
                 <h2 className="dsc-section-title dsc-mb20">Cadastro de produtos</h2>
                 <div className="dsc-btn-page-container dsc-mb20">
-                    <div className="dsc-btn dsc-btn-white">
-                        Novo
+                    <div >
+                        <div onClick={handleNewProductClick}>
+                            <ButtonSecondy text="Novo" />
+                        </div>
                     </div>
                 </div>
-              <SerachBar onSearch={handleSearch}/>
+                <SerachBar onSearch={handleSearch} />
 
                 <table className="dsc-table dsc-mb20 dsc-mt20">
                     <thead>
-                        <tr> 
-                        <th className="dsc-tb576">Id</th>
-                        <th></th>
-                        <th className="dsc-tb768">Preço</th>
-                        <th className="dsc-text-left">Nome</th>
-                        <th></th>
-                        <th></th>
+                        <tr>
+                            <th className="dsc-tb576">Id</th>
+                            <th></th>
+                            <th className="dsc-tb768">Preço</th>
+                            <th className="dsc-text-left">Nome</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -171,21 +181,21 @@ export default function ProductListing() {
                                     </td>
                                 </tr>
                             ))
-                        }   
+                        }
                     </tbody>
                 </table>
-                { !isLastPage && 
-                <ButtonNextPage onNextPage={handleNextPageClick}/>
+                {!isLastPage &&
+                    <ButtonNextPage onNextPage={handleNextPageClick} />
 
-            }
+                }
             </section>
-            {dialogInfoData.visable && 
-            <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>}
-            
-            {dialogConfirmationData.visable && 
-            <DialogConfirmation id={dialogConfirmationData.id} 
-                message={dialogConfirmationData.message}
-             onDialogAnswer={handleDialogConfirmationAnswer}/>
+            {dialogInfoData.visable &&
+                <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose} />}
+
+            {dialogConfirmationData.visable &&
+                <DialogConfirmation id={dialogConfirmationData.id}
+                    message={dialogConfirmationData.message}
+                    onDialogAnswer={handleDialogConfirmationAnswer} />
             }
 
         </main>
