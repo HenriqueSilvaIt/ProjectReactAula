@@ -4,6 +4,7 @@ import { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service';
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/context-token';
+import FormInput from '../../../components/FormInput';
 export default function Login() {
     const navigate = useNavigate();
 
@@ -70,25 +71,17 @@ export default function Login() {
                         <h2>Login</h2>
                         <div className="dsc-form-controls-container">
                             <div>
-                                <input
-                                name="username" /* tem que ser igual ao atributo que está no useState*/
-                                value={formData.username.value} /*valor vai ser o formData.username
-                                sempre que faz valu tem que faze onChan tb
-                                agora commo estamos colocando um objeto completo para username e password
- temos que passa no input dessa forma com value no finl value={formData.username.value}  */
+                                <FormInput
+                                {...formData.username}
                                 className="dsc-form-control" 
-                                type="text" 
-                                placeholder="Email"
                                 onChange={handleInputChange}/> 
                                 <div className="dsc-form-error"></div>
                             </div>
                             <div>
-                                <input
-                                name="password"
-                                value={formData.password.value} 
+                                <FormInput
+                                { ...formData.password } /* todo os dados
+                                já estão nor form data do objeto username */
                                 className="dsc-form-control" 
-                                type="password" 
-                                placeholder="Senha"
                                 onChange={handleInputChange}/>
                             </div>
                         </div>
