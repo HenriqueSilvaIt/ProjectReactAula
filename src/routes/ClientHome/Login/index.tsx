@@ -9,23 +9,45 @@ export default function Login() {
 
     const { setContextTokenPayload } = useContext(ContextToken);
 
-    const [formData, setFormData] = useState<CredentialsDTO> ({
-        username: '',
-        password: ''
+    const [formData, setFormData] = useState<any>({ /* any é para o type script
+        n reclemar dos valores, para objeto ser um objeto livre e ter qualquer atributo dentro dele
+        de qualquer tipo */
+        username: {
+            value: "",
+            id: "username",
+            name: "username",
+            type: "text",
+            placeholder: "Email",
+            validation: function (value: string) {
+                return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());
+            },
+            message: "Favor informar um email válido",
+        },
+        password: {
+            value: "",
+            id: "password",
+            name: "password",
+            type: "password",
+            placeholder: "Senha",
+        }
     })
 
     function handleInputChange(event: any) {
         const value = event.target.value; /* para pegar o valor que está digitado na caixinha de texto*/
-        const name = event.target.name; /* para pegar o nome da caixinha */
-        setFormData({...formData, [name]: value}); /* destruturamos
+        const name = event.target.name; /* para pegar o nome da caixinha, é o mesmo nome que você coloca
+         no input name=" */
+        setFormData({...formData, [name]: { ...formData[name], value: value}}); /* destruturamos
         o formData para aproveitar o que tinha nele e onde tem o cmapo com o nome name
-        vamos colocar o novo valor value que  está digitado l */
+        vamos colocar o novo valor value que  está digitado 
+        
+        Agora novo formulário temos que preservar todo objeto, então vamos pegar tudo que já tinha no objeto, porém no campo
+   value, vamos colocar o value criado na função event.target.valu*/
     }
 
 
     function handleSubmit(event: any) {
         event.preventDefault();/*mesmo o formData tendo 2 informações  ele puxo argumento */
-        authService.loginRequest(formData)
+        authService.loginRequest({username: formData.username.value, password: formData.password.value})
         .then(response => {
                 authService.saveAcessToken(response.data.access_token); /* response.data e pega o campo
                 acess token do postman*/
@@ -50,8 +72,10 @@ export default function Login() {
                             <div>
                                 <input
                                 name="username" /* tem que ser igual ao atributo que está no useState*/
-                                value={formData.username} /*valor vai ser o formData.username
-                                sempre que faz valu tem que faze onChan tb*/
+                                value={formData.username.value} /*valor vai ser o formData.username
+                                sempre que faz valu tem que faze onChan tb
+                                agora commo estamos colocando um objeto completo para username e password
+ temos que passa no input dessa forma com value no finl value={formData.username.value}  */
                                 className="dsc-form-control" 
                                 type="text" 
                                 placeholder="Email"
@@ -61,7 +85,7 @@ export default function Login() {
                             <div>
                                 <input
                                 name="password"
-                                value={formData.password} 
+                                value={formData.password.value} 
                                 className="dsc-form-control" 
                                 type="password" 
                                 placeholder="Senha"
