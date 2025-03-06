@@ -47,7 +47,8 @@ export default function ProductForm() {
 
     useEffect(() => {
 
-      
+      const result = forms.toDirty(formData, "price");
+      console.log(result);
 
         if(isEditing)/* se for verdade o iediting quer
         dizer que a rota n é create, é de edição de produto */ {
@@ -91,6 +92,10 @@ export default function ProductForm() {
             por que aqui só colocamos  dataValited*/
         }
 
+        function handleTurnDirty(name: string) {
+            const newFormData = forms.toDirty(formData, name);
+            setFormData(newFormData);
+        }
 
     return (
         <main>
@@ -102,6 +107,7 @@ export default function ProductForm() {
                             <div>
                                 <FormInput {...formData.name} 
                                 className="dsc-form-control"
+                                onTurnDirty={handleTurnDirty}
                                 onChange={handleInputChange} 
                                 />
                                 <div className="dsc-form-error">{formData.name.message}</div>
@@ -109,14 +115,16 @@ export default function ProductForm() {
                             <div>
                             <FormInput {...formData.price} 
                                 className="dsc-form-control"
-                                onChange={handleInputChange} 
+                                onChange={handleInputChange}
+                                onTurnDirty={handleTurnDirty} 
                                 />
                                <div className="dsc-form-error">{formData.price.message}</div> 
                             </div>
                             <div>
                             <FormInput {...formData.imgUrl} 
                                 className="dsc-form-control"
-                                onChange={handleInputChange} 
+                                onChange={handleInputChange}
+                                onTurnDirty={handleTurnDirty} 
                                 />
                             </div>
                         </div>

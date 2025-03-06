@@ -54,4 +54,12 @@ export function validate(inputs: any, name: string) {
     campo invalid dentro do input que a função validade vai fazer o check se o value ta ok
     usamos o toString no final, porque no objeto n queremos salvar na forma de booleano o  valo do
     isValid e sim na forma de texto*/
+
+
+
+}
+
+export function toDirty(inputs: any, name: string) {
+
+    return {...inputs, [name]: {...inputs[name], dirty: "true"}} /* acrestando atributo dirty*/
 }

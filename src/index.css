@@ -310,7 +310,8 @@ utilizamos o min-width semp */
 
 /*estamos dizendo que quando o atributo do objeto input que tem essa classe 
 for igul true vai retorna essa formatação*/
-.dsc-form-control[data-invalid="true"] {
+.dsc-form-control[data-dirty="true"][data-invalid="true"] { /*  só vai pintar de vermelho
+  quando tiver sujo sem preenchimento ou invaliado */
   border: 1px solid var(--dsc-color-error);
 }
 
@@ -319,8 +320,13 @@ for igul true vai retorna essa formatação*/
     do place holder*/
 }
 
-
-.dsc-form-control[data-invalid="true"] ~div {
+/* quando tiver inválido ele mostra mensagem,
+ ~div quer dizer que o próximo elemento div na frente desse
+ elemento selecionado, vamos dar o display unset, que no caso 
+ o próximo elemento do input é o div d mensagem de erro*/
+.dsc-form-control[data-dirty="true"][data-invalid="true"] ~div {
+  /*  só vai pintar de vermelho
+  quando tiver sujo sem preenchimento ou invaliado */
   display: unset;
 }
 
