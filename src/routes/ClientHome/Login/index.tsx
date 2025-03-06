@@ -50,12 +50,13 @@ export default function Login() {
 
     function handleSubmit(event: any) {
         event.preventDefault();/*mesmo o formData tendo 2 informações  ele puxo argumento */
-        authService.loginRequest({username: formData.username.value, password: formData.password.value})
+        authService.loginRequest(forms.toValues(formData))
         .then(response => {
                 authService.saveAcessToken(response.data.access_token); /* response.data e pega o campo
                 acess token do postman*/
                 navigate("/cart");
                 setContextTokenPayload(authService.getAccessTokenPayload());
+                console.log(forms.toValues(formData));
             
         })
         .catch(error =>{
