@@ -17,7 +17,7 @@ export default function HeaderClient() { /* por organização a função java sc
     <header className="dsc-header-client">
       <nav className="dsc-container">
         <Link to="/">
-          <h1>E-commerce</h1>
+          <h1>DSCommerce</h1>
         </Link>
         <div className="dsc-nav-bar-right">
           <div className="dsc-menu-itens-container">
