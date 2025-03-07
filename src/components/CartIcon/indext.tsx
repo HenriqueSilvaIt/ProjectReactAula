@@ -1,7 +1,6 @@
 import cartIcon from '../../assets/cart.svg';
 import './style.css';
-import * as cartService from '../../services/cart-services';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { ContextCartCount } from '../../utils/context-cart';
 
 

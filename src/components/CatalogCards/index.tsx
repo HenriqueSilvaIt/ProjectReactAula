@@ -1,7 +1,5 @@
-import './styles.css'
-import computerImg from '../../assets/compute.png'
+import './styles.css';
 import { ProductDTO } from '../../models/product';
-import ProductCategory from '../ProductCategory';
 import { Link } from 'react-router-dom';
 
 type Props = {

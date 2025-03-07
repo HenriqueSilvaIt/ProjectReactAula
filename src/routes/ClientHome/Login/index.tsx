@@ -92,7 +92,7 @@ export default function Login() {
                 console.log(forms.toValues(formData));
 
             })
-            .catch(error => {
+            .catch(() => {
                 setSubmitResponseFail(true); /* para aparecer a mensagem de login e senha inválido*/
             })
     }

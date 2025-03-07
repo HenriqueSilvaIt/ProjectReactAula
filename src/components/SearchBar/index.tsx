@@ -40,7 +40,7 @@ export default function SerachBar({onSearch} : Props) {
             <button type="submit">🔎︎</button>
             <input value={text}  type="text" placeholder="Nome do produto" 
             onChange={handleInputChange} /> 
-            <button  onClick={handleResetClick}>🗙</button>
+            <button  name="reset" onClick={handleResetClick}>🗙</button>
         </form>
     
  

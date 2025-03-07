@@ -2,7 +2,7 @@ import './style.css';
 import { useContext, useState } from 'react';
 import * as cartService from '../../../services/cart-services';
 import * as orderService from '../../../services/order-service';
-import { OrderDTO, OrderItemDTO } from '../../../models/order';
+import { OrderDTO } from '../../../models/order';
 import { Link, useNavigate } from 'react-router-dom';
 import { ContextCartCount } from '../../../utils/context-cart';
 
