@@ -1,9 +1,9 @@
 import './style.css';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import FormInput from '../../../components/FormInput';
 import * as forms from '../../../utils/form';
-import * as productervice from '../../../services/product-services';
+import * as productService from '../../../services/product-services';
 import * as categoryService from '../../../services/category-service';
 import FormTextArea from '../../../components/FormTextArea';
 import Select from 'react-select';
@@ -17,6 +17,8 @@ import { selectStyles } from '../../../utils/select';
 export default function ProductForm() {
 
     const params = useParams(); /* para colocara rota ul */
+             
+    const navigate = useNavigate();
 
     const isEditing = params.productId !== 'create'; /* se a rota for dirente de create significa que estou editando um
     produto e não criando um novo, se for create está editando  */
@@ -98,7 +100,7 @@ export default function ProductForm() {
 
         if (isEditing)/* se for verdade o iediting quer
         dizer que a rota n é create, é de edição de produto */ {
-            productervice.findById(Number(params.productId)) /*number para converter para número
+            productService.findById(Number(params.productId)) /*number para converter para número
             se n vai reclamara*/
                 .then(response => {
                     console.log(response.data); /* vai retornar o produto(objeto)
@@ -164,11 +166,22 @@ export default function ProductForm() {
             setFormData(formDataValidated);
            
             return; /* esse return vai corta e não vai deixa salvar*/
-
-
-         
+      
         }
-        console.log(formDataValidated);
+       
+        const requestBody = forms.toValues(formData);
+        if (isEditing) {
+            requestBody.id = params.productId; /* vamos setar o Id
+            porque estamos editando o produto, caso n tiver editando n
+            colocamos o id porque ele pega automatico do banco */
+        }
+
+
+        productService.updateRequest(requestBody)
+            .then(() => {
+                navigate("/admin/products");
+            });
+
        /* console.log(forms.toValues(formData)); to values 
         converte todo objeto  do formData somente para os dados do formulário 
         para enviarmos para nosso backend */

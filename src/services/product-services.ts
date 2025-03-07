@@ -4,6 +4,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "../utils/system";
 import { requestBackend } from "../utils/requests";
+import { ProductDTO } from "../models/product";
 
 /* retorna todos os produtos */
 
@@ -56,4 +57,19 @@ export function deleteById(id: number) {
     }
 
     return requestBackend(config);
+}
+
+/* salvar novo produto no estoque */
+
+export function updateRequest(obj: ProductDTO) {
+
+    const config: AxiosRequestConfig = {
+        method: "PUT", /* para atualizar na tabela*/
+        url: `/products/${obj.id}`,
+        withCredentials: true,
+        data: obj /*corpo da requisição*, que é o objeto*/
+    }
+
+    return requestBackend(config);
+
 }
