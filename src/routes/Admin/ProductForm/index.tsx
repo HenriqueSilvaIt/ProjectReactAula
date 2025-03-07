@@ -7,9 +7,11 @@ import * as productervice from '../../../services/product-services';
 import * as categoryService from '../../../services/category-service';
 import FormTextArea from '../../../components/FormTextArea';
 import Select from 'react-select';
-import { CategoryDTO } from '../../../models/category';
 /*o import é só import Select from 'react-select';, se você importa automatico vai trazer errado
  tem que fica igual no import da documentação ficial*/
+import { CategoryDTO } from '../../../models/category';
+import FormSelect from '../../../components/FormSelect';
+
 
 export default function ProductForm() {
 
@@ -64,6 +66,18 @@ export default function ProductForm() {
             },
             message: "Favor informar um nome de 3 a 80 caracteres"
 
+        },
+        categories: {
+            value: [], /* valor inicial lista vazia, e depois o usuário 
+            vai escolher uma ou mais categoria*/
+            id: "categories",
+            name: "categories",
+            /*type n precisa porque já é um select do react*/
+            placeholder: "Categorias",
+            validation: function(value: CategoryDTO[] /* do tipo lista de categoria */) {
+                return value.length > 0;   /* tem que ter pelo menos uma categoria*/
+            },
+            message: "Escolha ao menos uma categoria",
         }
     });
 
@@ -167,13 +181,27 @@ export default function ProductForm() {
                                 />
                             </div>
                             <div>
-                                <Select 
+                                <FormSelect /*Select, porém customizado em um componente ta sendo chamado lá*/ 
+                                {...formData.categories} /* vamos pegar tudo que tinha já
+                                no formData do categories, exceto o validate que estamos
+                                desistruturando excluindo lá no Componente FormSelect*/
+                                className="dsc-form-control"
                                 options={categories} /* passando a lista de categorias do backendo usando o usaState categorie  */
+                                onChange={(obj :any) => {
+                                    const newFormData = forms.updateAndValidate(formData, "categories", obj); /* atualizar
+                                    o formulário colocando obj(que é a lista do  id e categoria selecionada) */
+                                    setFormData(newFormData); /* vai colocar
+                                    o valor que selecionarmos no formulário no value do categories*/
+                                }}
+                                onTurnDirty={handleTurnDirty} /*turn dirty é para
+                                ficar vermelho caso o usuário n termine de escrever o que tem que ser preenchido
+                                e clique no próximo campo */
                                 isMulti
                                 getOptionLabel={(obj: any) => obj.name} /* o rótulo(labl) vai ser o nome */
                                 getOptionValue={(obj: any) => obj.id} /* e o valor vai ser o id  da categoria*//>
-                                
+                                      <div className="dsc-form-error">{formData.categories.message}</div>
                             </div>
+                      
                             <div>
                                 <FormTextArea {...formData.description}
                                     className="dsc-form-control dsc-textarea"
