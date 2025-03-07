@@ -1,6 +1,6 @@
 
 
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Catalog from './routes/ClientHome/Catalog';
 import ProductDetails from './routes/ProductDetails';
 import ClientHome from './routes/ClientHome';

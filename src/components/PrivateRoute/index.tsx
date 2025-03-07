@@ -22,7 +22,8 @@ export function PrivateRoute({ children, roles = [] }: Props) { /* roles = [] qu
         return <Navigate to="/login" />;
 
     }
-    if (!authService.hasAnyRoles(roles)) { /*se tiver logado e n tem permissão para acessar a rota específica ai redirecionamos para o catálogo*/
+    if (!authService.hasAnyRoles(roles)) { /*se tiver logado e n tem permissão para acessar 
+        a rota específica ai redirecionamos para o catálogo*/
         return <Navigate to="/catalog" />;
     }
     return children; /*caso o contrário muda na rota*/

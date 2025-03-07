@@ -6,7 +6,6 @@ import * as forms from '../../../utils/form';
 import * as productService from '../../../services/product-services';
 import * as categoryService from '../../../services/category-service';
 import FormTextArea from '../../../components/FormTextArea';
-import Select from 'react-select';
 /*o import é só import Select from 'react-select';, se você importa automatico vai trazer errado
  tem que fica igual no import da documentação ficial*/
 import { CategoryDTO } from '../../../models/category';
@@ -149,19 +148,14 @@ export default function ProductForm() {
 
     const [categories, setCategories] = useState<CategoryDTO>();
 
-    const options = [
-        {value: 'chocolate', label: 'Chocolate' },
-        {value: 'strawberry', label: 'Strawberry' },
-        {value: 'vanilla', label: 'Vanilla' }
-        ]
-
     /*salvar produto  editado ou craido no formulário */
     function handleSubmit(event: any) {
        
         event.preventDefault();
 
-        const formDataValidated = forms.dirtyAndValidateAll(formData);
+       
         /* valida qualquer erro de formulário do front end*/
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
         if (forms.hasAnyInvalid(formDataValidated)) { /* se tiver algum invalido
             deppois de validar o preenchimento de todos os campos*/
             setFormData(formDataValidated);
