@@ -113,6 +113,9 @@ export default function ProductListing() {
         navigate("/admin/products/create");
     }
 
+    function handleUpdateClick(productId: number) {
+        navigate(`/admin/products/${productId}`)
+    }
 
     function handleSearch(searchText: string) {
         setProducts([]);/* eu vou zerar a lista , para quando eu digitar ele 
@@ -168,6 +171,7 @@ export default function ProductListing() {
                                     <td>
                                         <img
                                             className="dsc-product-listing-btn"
+                                            onClick={(() => handleUpdateClick(product.id))}
                                             src={editIm}
                                             alt="edi"
                                         />

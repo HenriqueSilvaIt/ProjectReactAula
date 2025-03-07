@@ -112,6 +112,17 @@ export default function ProductForm() {
     }, [])
 
 
+    /*salvar produto  editado ou craido no formulário */
+    function handleSubmit(event: any) {
+        event.prevenDefault();
+
+        console.log(forms.toValues(formData)); /* to values 
+        converte todo objeto  do formData somente para os dados do formulário 
+        para enviarmos para nosso backend */
+
+    }
+
+
     function handleInputChange(event: any) {
 
 
@@ -155,7 +166,7 @@ export default function ProductForm() {
         <main>
             <section id="product-form-section" className="dsc-container">
                 <div className="dsc-product-form-container">
-                    <form className="dsc-card dsc-form">
+                    <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
                         <h2>Dados do produto</h2>
                         <div className="dsc-form-controls-container">
                             <div>
@@ -186,7 +197,7 @@ export default function ProductForm() {
                                 {...formData.categories} /* vamos pegar tudo que tinha já
                                 no formData do categories, exceto o validate que estamos
                                 desistruturando excluindo lá no Componente FormSelect*/
-                                style={selectStyles} /* pegando do utl select style*/
+                                styles={selectStyles} /* pegando do utl select style*/
                                 className="dsc-form-control dsc-form-select-container"
                                 options={categories} /* passando a lista de categorias do backendo usando o usaState categorie  */
                                 onChange={(obj :any) => {
