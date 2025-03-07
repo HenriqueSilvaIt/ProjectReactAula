@@ -30,10 +30,11 @@ export default function Login() {
             name: "password",
             type: "password",
             placeholder: "Senha",
-            validation: function (value: string) {
+           /* validation: function (value: string) {
                 return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/.test(value);
             },
             message: "Favor informar  uma senha com pelo menos 1 letra, 1 número e 1 caractere especial"
+            */
         }
     });
 

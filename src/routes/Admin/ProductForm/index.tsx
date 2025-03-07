@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import FormInput from '../../../components/FormInput';
 import * as forms from '../../../utils/form';
 import * as productervice from '../../../services/product-services';
+import FormTextArea from '../../../components/FormTextArea';
 
 export default function ProductForm() {
 
@@ -45,8 +46,21 @@ export default function ProductForm() {
             name: "imgUrl",
             type: "text",
             placeholder: "Imagem",
+        },
+        description: {  
+            
+            value: "",
+            id: "description",
+            name: "description",
+            type: "text",
+            placeholder: "Descrição",
+            validation: function(value: string) {
+                return /^.{10,}$/.test(value); /* expressão regez que pega o mínimo 10 caractere */
+            },
+              message: "Favor informar um nome de 3 a 80 caracteres"
+         
         }
-    })
+});
 
 
     useEffect(() => {
@@ -127,6 +141,14 @@ export default function ProductForm() {
                                 onChange={handleInputChange}
                                 onTurnDirty={handleTurnDirty} 
                                 />
+                            </div>
+                            <div>
+                                <FormTextArea {...formData.description} 
+                                className="dsc-form-control dsc-textarea"
+                                onTurnDirty={handleTurnDirty}
+                                onChange={handleInputChange} 
+                                />
+                                <div className="dsc-form-error">{formData.description.message}</div>
                             </div>
                         </div>
 
