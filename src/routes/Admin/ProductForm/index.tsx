@@ -11,6 +11,7 @@ import Select from 'react-select';
  tem que fica igual no import da documentação ficial*/
 import { CategoryDTO } from '../../../models/category';
 import FormSelect from '../../../components/FormSelect';
+import { selectStyles } from '../../../utils/select';
 
 
 export default function ProductForm() {
@@ -185,7 +186,8 @@ export default function ProductForm() {
                                 {...formData.categories} /* vamos pegar tudo que tinha já
                                 no formData do categories, exceto o validate que estamos
                                 desistruturando excluindo lá no Componente FormSelect*/
-                                className="dsc-form-control"
+                                style={selectStyles} /* pegando do utl select style*/
+                                className="dsc-form-control dsc-form-select-container"
                                 options={categories} /* passando a lista de categorias do backendo usando o usaState categorie  */
                                 onChange={(obj :any) => {
                                     const newFormData = forms.updateAndValidate(formData, "categories", obj); /* atualizar

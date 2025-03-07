@@ -288,6 +288,10 @@ utilizamos o min-width semp */
   width: 100%;
 }
 
+.dsc-form-controls-container::placeholder {
+  color: var(--color-font-placeholder);
+}
+
 .dsc-form-control {
   width: 100%;
   height: 40px;
@@ -337,23 +341,31 @@ for igul true vai retorna essa formatação*/
   display: none;
 }
 
+.dsc-form-select-container {
+  padding: unset; /* para que n tenha nenhuma configuração especial
+    de padding do próprio React selecy*/
+    height: unset; /*para React selector n colocar própia altura*/
+
+}
+
+ /*
 .dsc-select:invalid {
   /* invalid
      é para dizer enquanto no for
-     clicacado fica com essa formatação */
+     clicacado fica com essa formatação 
   color: var(--color-font-placeholder);
 }
 
 .dsc-select option[disabled] {
   display: none; /* quando clicar na listinha de categoria
     a categoria para de aparecer na lista de opções por
-    causa do disabled*/
+    causa do disabled
 }
 
 .des-select-option {
   color: var(--color-font-primary);
 }
-
+*/
 .dsc-textarea {
   resize: none; /*retira a opção
     de redimencionar o tamanho da caixinha com o mouse*/
