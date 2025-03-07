@@ -9,7 +9,7 @@ export const selectStyles = {
         border: "none",
         boxShadow: "none",
        /* para n sobrescrever formatação da nossa borda*/
-        
+   
     }),
     placeholder: (provided: any) => ({
         ...provided,
