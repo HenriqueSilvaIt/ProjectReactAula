@@ -231,7 +231,7 @@ export default function ProductForm() {
                                 styles={selectStyles} /* pegando do utl select style*/
                                 className="dsc-form-control dsc-form-select-container"
                                 options={categories} /* passando a lista de categorias do backend usando o usaState categorie  */
-                                onChange={(obj :any) => {
+                                onChange={(obj: any) => {
                                     const newFormData = forms.updateAndValidate(formData, "categories", obj); /* atualizar
                                     o formulário colocando obj(que é a lista do  id e categoria selecionada) */
                                     setFormData(newFormData); /* vai colocar
