@@ -161,11 +161,12 @@ export default function ProductForm() {
         event.preventDefault();
 
         const formDataValidated = forms.dirtyAndValidateAll(formData);
+        /* valida qualquer erro de formulário do front end*/
         if (forms.hasAnyInvalid(formDataValidated)) { /* se tiver algum invalido
             deppois de validar o preenchimento de todos os campos*/
-            //setFormData(formDataValidated);
+            setFormData(formDataValidated);
            
-           // return; /* esse return vai corta e não vai deixa salvar*/
+           return; /* esse return vai corta e não vai deixa salvar*/
       
         }
        
@@ -175,6 +176,8 @@ export default function ProductForm() {
             porque estamos editando o produto, caso n tiver editando n
             colocamos o id porque ele pega automatico do banco */
         }
+
+        /*valida erro de formulário do backend caso o front n pega*/
 
         const request = isEditing
          ?   productService.updateRequest(requestBody) /*editar produto */

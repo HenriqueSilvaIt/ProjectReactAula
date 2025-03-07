@@ -10,6 +10,9 @@ export default function Login() {
 
     const { setContextTokenPayload } = useContext(ContextToken);
 
+    const [submitResponseFail, setSubmitResponseFail] = useState(false); /* usestate
+    para aparecer  usuário e senha inválido caso  preencha se n fica false*/
+
     const [formData, setFormData] = useState<any>({ /* any é para o type script
         n reclemar dos valores, para objeto ser um objeto livre e ter qualquer atributo dentro dele
         de qualquer tipo */
@@ -30,11 +33,11 @@ export default function Login() {
             name: "password",
             type: "password",
             placeholder: "Senha",
-           /* validation: function (value: string) {
-                return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/.test(value);
-            },
-            message: "Favor informar  uma senha com pelo menos 1 letra, 1 número e 1 caractere especial"
-            */
+            /* validation: function (value: string) {
+                 return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/.test(value);
+             },
+             message: "Favor informar  uma senha com pelo menos 1 letra, 1 número e 1 caractere especial"
+             */
         }
     });
 
@@ -53,30 +56,50 @@ export default function Login() {
     }
 
 
-        function handleTurnDirty(name: string) {
-                setFormData(forms.dirtAndValidate(formData, name));
-            }
+    function handleTurnDirty(name: string) {
+        setFormData(forms.dirtAndValidate(formData, name));
+    }
+
 
 
     function handleSubmit(event: any) {
         event.preventDefault();/*mesmo o formData tendo 2 informações  ele puxo argumento */
+
+
+        setSubmitResponseFail(false) /* para n aparecer mensagem de erro
+    de usuário e senha antes de validar campo a campo */
+
+        /* valida qualquer erro campo a campo de formulário do front end*/
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
+        if (forms.hasAnyInvalid(formDataValidated)) { /* se tiver algum invalido
+                    deppois de validar o preenchimento de todos os campos*/
+            setFormData(formDataValidated);
+
+            return; /* esse return vai corta e não vai deixa salvar*/
+
+        }
+
+
+
+/* valida usuário e senha no backend para ver se está preenchido com sucesso */
+
         authService.loginRequest(forms.toValues(formData))
-        .then(response => {
+            .then(response => {
                 authService.saveAcessToken(response.data.access_token); /* response.data e pega o campo
                 acess token do postman*/
                 navigate("/cart");
                 setContextTokenPayload(authService.getAccessTokenPayload());
                 console.log(forms.toValues(formData));
-            
-        })
-        .catch(error =>{
-            console.log("Erro de no login", error);
-        })
+
+            })
+            .catch(error => {
+                setSubmitResponseFail(true); /* para aparecer a mensagem de login e senha inválido*/
+            })
     }
 
     return (
-/* no input tem que ter o fecha / elemento aqui no tsx é diferente do html que n precisa fechar
- no dsc-form erro depois tem que colocar erro caso não preencha campo */
+        /* no input tem que ter o fecha / elemento aqui no tsx é diferente do html que n precisa fechar
+         no dsc-form erro depois tem que colocar erro caso não preencha campo */
         <main>
             <section id="login-section" className="dsc-container">
                 <div className="dsc-login-form-container">
@@ -85,23 +108,31 @@ export default function Login() {
                         <div className="dsc-form-controls-container">
                             <div>
                                 <FormInput
-                                { ...formData.username}
-                                className="dsc-form-control" 
-                                onTurnDirty={handleTurnDirty}
-                                onChange={handleInputChange}
-                                /> 
+                                    {...formData.username}
+                                    className="dsc-form-control"
+                                    onTurnDirty={handleTurnDirty}
+                                    onChange={handleInputChange}
+                                />
                                 <div className="dsc-form-error">{formData.username.message}</div>
                             </div>
                             <div>
                                 <FormInput
-                                { ...formData.password } /* todo os dados
+                                    {...formData.password} /* todo os dados
                                 já estão nor form data do objeto username */
-                                className="dsc-form-control" 
-                                onTurnDirty={handleTurnDirty} /* o password n tem validação
+                                    className="dsc-form-control"
+                                    onTurnDirty={handleTurnDirty} /* o password n tem validação
                             , mas estamos colocando para ficar pradonizado*/
-                                onChange={handleInputChange}/>
+                                    onChange={handleInputChange} />
                             </div>
                         </div>
+
+                        {submitResponseFail /* useState caso for preenchido 
+                        o login ou senha de forma errado*/  &&
+
+                            <div className="dsc-form-global-error">
+                                Usuário ou senha inválido
+                            </div>
+                        }
 
                         <div className="dsc-login-form-buttons dsc-mt20">
                             <button type="submit" className="dsc-btn dsc-btn-blue">Entrar</button>
