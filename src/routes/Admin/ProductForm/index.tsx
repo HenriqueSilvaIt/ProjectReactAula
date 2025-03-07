@@ -47,9 +47,6 @@ export default function ProductForm() {
 
     useEffect(() => {
 
-      const result = forms.toDirty(formData, "price");
-      console.log(result);
-
         if(isEditing)/* se for verdade o iediting quer
         dizer que a rota n é create, é de edição de produto */ {
             productervice.findById(Number(params.productId)) /*number para converter para número
@@ -69,11 +66,11 @@ export default function ProductForm() {
      function handleInputChange(event: any) {
 
         
-        /* chamando função para atualizar oque o usuário ta escrevendo no input*/
+        /* chamando função para atualizar oque o usuário ta escrevendo no input
 
-           const dataUpdate = forms.update(formData/*objeto já com as informações do input */, event.target.name/*campo da cainha
-            do input que estou mexendo*/, event.target.value/*valor que
-            digitar*/); /* destruturamos
+           const dataUpdate = forms.update(formData/*objeto já com as informações do input , event.target.name/*campo da cainha
+            do input que estou mexendo, event.target.value/*valor que
+            digitar); /* destruturamos
         o formData para aproveitar o que tinha nele e onde tem o cmapo com o nome name
         vamos colocar o novo valor value que  está digitado 
         
@@ -83,18 +80,17 @@ export default function ProductForm() {
 
              /*chamando função que valida se o campo foi preenchido corretamente*/
     
-             const dataValited = forms.validate(dataUpdate, event.target.name); /* 1º argumento
+           ; /* 1º argumento
              oque nós digitamos no campo, 2º argumento o nome do campo (exemplo price, name et)*/
 
-            setFormData(dataValited); /* recebe oque tá sendo  digitado no input
+            setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value)); /* recebe oque tá sendo  digitado no input
             que é q primeira função dataUpdate e valdia se for executado corretamente
             que é e a segunda função dataValited  (dataUpdate já está dentro da dataValited),
             por que aqui só colocamos  dataValited*/
         }
 
         function handleTurnDirty(name: string) {
-            const newFormData = forms.toDirty(formData, name);
-            setFormData(newFormData);
+            setFormData(forms.dirtAndValidate(formData, name));
         }
 
     return (

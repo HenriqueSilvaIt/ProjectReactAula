@@ -48,6 +48,11 @@ export default function Login() {
     }
 
 
+        function handleTurnDirty(name: string) {
+                setFormData(forms.dirtAndValidate(formData, name));
+            }
+
+
     function handleSubmit(event: any) {
         event.preventDefault();/*mesmo o formData tendo 2 informações  ele puxo argumento */
         authService.loginRequest(forms.toValues(formData))
@@ -77,6 +82,7 @@ export default function Login() {
                                 <FormInput
                                 {...formData.username}
                                 className="dsc-form-control" 
+                                onTurnDirty={handleTurnDirty}
                                 onChange={handleInputChange}/> 
                                 <div className="dsc-form-error"></div>
                             </div>
@@ -85,6 +91,8 @@ export default function Login() {
                                 { ...formData.password } /* todo os dados
                                 já estão nor form data do objeto username */
                                 className="dsc-form-control" 
+                                onTurnDirty={handleTurnDirty} /* o password n tem validação
+                            , mas estamos colocando para ficar pradonizado*/
                                 onChange={handleInputChange}/>
                             </div>
                         </div>
