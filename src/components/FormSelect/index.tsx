@@ -1,5 +1,7 @@
-import Select from "react-select";/*o import é só import Select from 'react-select';, se você importa automatico vai trazer errado
+/*o import é só import Select from 'react-select';, se você importa automatico vai trazer errado
 tem que fica igual no import da documentação ficial*/
+
+import Select from "react-select/base";
 
 export default function FormSelect(props: any) { /* n colocamos
      o prop em cima com type, porque vamos passar dados variados aqui dentro, text,
