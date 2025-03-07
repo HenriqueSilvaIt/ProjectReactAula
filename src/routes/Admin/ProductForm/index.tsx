@@ -22,6 +22,10 @@ export default function ProductForm() {
             name: "name",
             type: "text",
             placeholder: "Nome",
+            validation: function(value: string) {
+                return /^.{3,80}$/.test(value);
+            },
+            message: "Favor informar um nome de 3 a 80 caracteres"
         },
         price: {
             value: "",
@@ -90,7 +94,8 @@ export default function ProductForm() {
         }
 
         function handleTurnDirty(name: string) {
-            setFormData(forms.dirtAndValidate(formData, name));
+            setFormData(forms.dirtAndValidate(formData, name)); /* agora 
+            com função dirty and validate, ele fica vermelho */
         }
 
     return (

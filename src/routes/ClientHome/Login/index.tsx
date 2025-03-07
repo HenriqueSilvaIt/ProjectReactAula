@@ -30,8 +30,12 @@ export default function Login() {
             name: "password",
             type: "password",
             placeholder: "Senha",
+            validation: function (value: string) {
+                return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/.test(value);
+            },
+            message: "Favor informar  uma senha com pelo menos 1 letra, 1 número e 1 caractere especial"
         }
-    })
+    });
 
     function handleInputChange(event: any) {
         const value = event.target.value; /* para pegar o valor que está digitado na caixinha de texto*/
@@ -80,11 +84,12 @@ export default function Login() {
                         <div className="dsc-form-controls-container">
                             <div>
                                 <FormInput
-                                {...formData.username}
+                                { ...formData.username}
                                 className="dsc-form-control" 
                                 onTurnDirty={handleTurnDirty}
-                                onChange={handleInputChange}/> 
-                                <div className="dsc-form-error"></div>
+                                onChange={handleInputChange}
+                                /> 
+                                <div className="dsc-form-error">{formData.username.message}</div>
                             </div>
                             <div>
                                 <FormInput

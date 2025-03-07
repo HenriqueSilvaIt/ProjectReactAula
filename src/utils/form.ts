@@ -73,7 +73,6 @@ export function updateAndValidate(inputs: any, name: string, newValue:any) {
 }
 
 export function dirtAndValidate(inputs: any, name: string) {
-
     const dataDirty = toDirty(inputs, name);
     return  validate(dataDirty, name);
 
