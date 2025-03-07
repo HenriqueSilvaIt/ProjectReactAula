@@ -176,12 +176,17 @@ export default function ProductForm() {
             colocamos o id porque ele pega automatico do banco */
         }
 
+        const request = isEditing
+         ?   productService.updateRequest(requestBody) /*editar produto */
+         :   productService.insertRequest(requestBody) /* salvar novo produto */
 
-        productService.updateRequest(requestBody)
-            .then(() => {
-                navigate("/admin/products");
-            });
+         request 
+         .then(() => {
+            navigate("/admin/products");
+        })
 
+
+    
        /* console.log(forms.toValues(formData)); to values 
         converte todo objeto  do formData somente para os dados do formulário 
         para enviarmos para nosso backend */

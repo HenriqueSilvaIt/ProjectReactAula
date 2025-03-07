@@ -59,13 +59,28 @@ export function deleteById(id: number) {
     return requestBackend(config);
 }
 
-/* salvar novo produto no estoque */
+/* editando produto no estoque */
 
 export function updateRequest(obj: ProductDTO) {
 
     const config: AxiosRequestConfig = {
-        method: "PUT", /* para atualizar na tabela*/
+        method: "PUT", /* para update na tabela*/
         url: `/products/${obj.id}`,
+        withCredentials: true,
+        data: obj /*corpo da requisição*, que é o objeto*/
+    }
+
+    return requestBackend(config);
+
+}
+
+/* salvar novo produto no estoque */
+
+export function insertRequest(obj: ProductDTO) {
+
+    const config: AxiosRequestConfig = {
+        method: "POST", /* para salvar novo produto na tabela*/
+        url: "/products/",
         withCredentials: true,
         data: obj /*corpo da requisição*, que é o objeto*/
     }
