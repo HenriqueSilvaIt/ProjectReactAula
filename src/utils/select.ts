@@ -8,9 +8,8 @@ export const selectStyles = {
         minHeight: "40px",
         border: "none",
         boxShadow: "none",
-        "&:hover": {
-            border: "none", /* para n sobrescrever formatação da nossa borda*/
-        },
+       /* para n sobrescrever formatação da nossa borda*/
+        
     }),
     placeholder: (provided: any) => ({
         ...provided,
