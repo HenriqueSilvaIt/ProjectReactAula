@@ -135,6 +135,20 @@ export function hasAnyInvalid(inputs: any) {
     return false; /* caso n tenha nenhum campo invalido*/
 }
 
+
+/* função para capturar os erros do backend*/
+export function setBackendErrors(inputs: any, errors: any[] /* lista de erros do backend*/) {
+    const newInputs = { ...inputs}; /* criando novo input pegando oque já tinha nele, ou seja todos os itens*/
+    errors.forEach(item => {
+        newInputs[item.fieldName].message = item.message; /*como no backend no http ele retorna fieldname(campo)  +
+        mesagem de erro, nós estamos atualizando com a mensagem de erro do backed*/
+        newInputs[item.fieldName].dirty = "true";
+        newInputs[item.fieldName].invalid = "true";
+    });
+    
+    return newInputs;
+}
+
 export function dirtAndValidate(inputs: any, name: string) {
     const dataDirty = toDirty(inputs, name);
     return  validate(dataDirty, name);

@@ -163,9 +163,9 @@ export default function ProductForm() {
         const formDataValidated = forms.dirtyAndValidateAll(formData);
         if (forms.hasAnyInvalid(formDataValidated)) { /* se tiver algum invalido
             deppois de validar o preenchimento de todos os campos*/
-            setFormData(formDataValidated);
+            //setFormData(formDataValidated);
            
-            return; /* esse return vai corta e não vai deixa salvar*/
+           // return; /* esse return vai corta e não vai deixa salvar*/
       
         }
        
@@ -183,7 +183,10 @@ export default function ProductForm() {
          request 
          .then(() => {
             navigate("/admin/products");
-        })
+        }).catch(erro => {
+            const newInputs = forms.setBackendErrors(formData, erro.response.data.errors);
+            setFormData(newInputs); 
+            })
 
 
     
