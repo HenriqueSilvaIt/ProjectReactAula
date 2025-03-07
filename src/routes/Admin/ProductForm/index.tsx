@@ -11,9 +11,13 @@ import FormTextArea from '../../../components/FormTextArea';
 import { CategoryDTO } from '../../../models/category';
 import FormSelect from '../../../components/FormSelect';
 import { selectStyles } from '../../../utils/select';
+import { isMobile } from 'react-device-detect';
+
 
 
 export default function ProductForm() {
+
+
 
     const params = useParams(); /* para colocara rota ul */
              
@@ -193,6 +197,12 @@ export default function ProductForm() {
 
     }
 
+    const isDesktopOrAdvancedFeaturesAreEnabled = !isMobile;
+    if (isDesktopOrAdvancedFeaturesAreEnabled) {
+      return <FormSelect options={categories} />;
+    }
+  
+
     return (
 
         
@@ -228,6 +238,7 @@ export default function ProductForm() {
                                 />
                             </div>
                             <div>
+                          
                                 <FormSelect  /*Select, porém customizado em um componente ta sendo chamado lá*/ 
                                 {...formData.categories} /* vamos pegar tudo que tinha já
                                 no formData do categories, exceto o validate que estamos
@@ -247,7 +258,7 @@ export default function ProductForm() {
                                 isMulti
                                 getOptionLabel={(obj: any) => obj.name} /* o rótulo(labl) vai ser o nome */
                                 getOptionValue={(obj: any) => obj.id} /* e o valor vai ser o id  da categoria*//>
-                                      <div className="dsc-form-error">{formData.categories.message}</div>
+                                <div className="dsc-form-error">{formData.categories.message}</div>
                             </div>
                       
                             <div>

@@ -20,6 +20,7 @@
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",
+    "react-responsive-select": "^7.0.7",
     "react-router-dom": "6.4.1",
     "react-select": "^5.10.1"
   },
