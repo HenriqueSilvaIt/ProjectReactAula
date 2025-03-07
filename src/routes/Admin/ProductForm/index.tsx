@@ -194,7 +194,11 @@ export default function ProductForm() {
     }
 
     return (
+
+        
         <main>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
             <section id="product-form-section" className="dsc-container">
                 <div className="dsc-product-form-container">
                     <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
@@ -224,17 +228,17 @@ export default function ProductForm() {
                                 />
                             </div>
                             <div>
-                                <FormSelect /*Select, porém customizado em um componente ta sendo chamado lá*/ 
+                                <FormSelect  /*Select, porém customizado em um componente ta sendo chamado lá*/ 
                                 {...formData.categories} /* vamos pegar tudo que tinha já
                                 no formData do categories, exceto o validate que estamos
                                 desistruturando excluindo lá no Componente FormSelect*/
                                 styles={selectStyles} /* pegando do utl select style*/
-                                className="dsc-form-control dsc-form-select-container"
+                                className="dsc-form-control dsc-form-select-container react-select_menu"
                                 options={categories} /* passando a lista de categorias do backend usando o usaState categorie  */
                                 onChange={(obj: any) => {
-                                    const newFormData = forms.updateAndValidate(formData, "categories", obj); /* atualizar
+                                    /* atualizar
                                     o formulário colocando obj(que é a lista do  id e categoria selecionada) */
-                                    setFormData(newFormData); /* vai colocar
+                                    setFormData(forms.updateAndValidate(formData, "categories", obj)); /* vai colocar
                                     o valor que selecionarmos no formulário no value do categories*/
                                 }}
                                 onTurnDirty={handleTurnDirty} /*turn dirty é para
