@@ -112,15 +112,6 @@ export default function ProductForm() {
     }, [])
 
 
-    /*salvar produto  editado ou craido no formulário */
-    function handleSubmit(event: any) {
-        event.prevenDefault();
-
-        console.log(forms.toValues(formData)); /* to values 
-        converte todo objeto  do formData somente para os dados do formulário 
-        para enviarmos para nosso backend */
-
-    }
 
 
     function handleInputChange(event: any) {
@@ -161,6 +152,28 @@ export default function ProductForm() {
         {value: 'strawberry', label: 'Strawberry' },
         {value: 'vanilla', label: 'Vanilla' }
         ]
+
+    /*salvar produto  editado ou craido no formulário */
+    function handleSubmit(event: any) {
+       
+        event.preventDefault();
+
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
+        if (forms.hasAnyInvalid(formDataValidated)) { /* se tiver algum invalido
+            deppois de validar o preenchimento de todos os campos*/
+            setFormData(formDataValidated);
+           
+            return; /* esse return vai corta e não vai deixa salvar*/
+
+
+         
+        }
+        console.log(formDataValidated);
+       /* console.log(forms.toValues(formData)); to values 
+        converte todo objeto  do formData somente para os dados do formulário 
+        para enviarmos para nosso backend */
+
+    }
 
     return (
         <main>

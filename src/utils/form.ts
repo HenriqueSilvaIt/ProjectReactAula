@@ -39,7 +39,7 @@ export function updateAll(inputs: any, newValues: any) {
 export function validate(inputs: any, name: string) {
 
 
-    if(!inputs[name].validation === true) /* valida se existe a função validation
+    if(!inputs[name].validation) /* valida se existe a função validation
     no objeto do input em determinado campo, exmplo price,name etc
     porque essa função validade só funciona se tiver a função validation
     que tem o parâmetro de validação no objeto */ {
@@ -64,12 +64,75 @@ export function toDirty(inputs: any, name: string) {
     return {...inputs, [name]: {...inputs[name], dirty: "true"}} /* acrestando atributo dirty*/
 }
 
+/*u deixar todos os campos  em vermelho caso clique em salvar sem preencher os campos*/
+
+export function toDirtyAll(inputs: any) {
+
+    const newInputs: any = {};
+    for ( var  name in inputs) {
+        newInputs[name] = { ...inputs[name], dirty: "true"};
+    } 
+
+    return newInputs; /* função que pega todos os inputs e inseri dirty true; para
+    deixar todos os campos do formulário em vermelho*/
+}
+
+
+
+
+
+/* validar todos inputs, para quando clicar em salvar ele validar se for criado */
+
+export function validateAll(inputs: any) {
+    const newInputs: any = {};
+
+
+    for (var name in inputs) {
+        if (inputs[name].validation) { /* se n inpu existi atributo validation faça*/
+            const isInvalid = !inputs[name].validation(inputs[name].value); /* testa
+            se o valor que o usuário está digitando nos campos são valido*/
+            newInputs[name] = {...inputs[name], invalid: isInvalid.toString()};/* vai pegar esses
+            cara que foram preenchido de forma errado e colocar verdadeiro no campo invaliad,
+            então primeiro ele já pega tudo que já tinha no inputs[name] (name é os campos categoria
+            nome, preço etc) e  muda só o campo invalid*/
+        }
+
+        else { /* se n existir o campo validate, ele recebe o atributo o name[campo] sem mudar nada*/
+            newInputs[name] = {...inputs[name]}
+        }
+
+    
+    }
+
+    return newInputs;
+}
+
+
+/* função auxiliar para quando clicar em salvar sujar todos campo de vemelho e depois validar
+todos os campos, então vamos chamar as outras funções*/
+export function dirtyAndValidateAll(inputs: any) {
+    return validateAll(toDirtyAll(inputs)); /* ele vai pegar  toDirtyAll  para deixar tudo vermelho
+     e depois validaAll para validar se ta tudo preenchdio*/
+}
+
 
 export function updateAndValidate(inputs: any, name: string, newValue:any) {
 
     const dataUpdated = update(inputs, name, newValue);
     return  validate(dataUpdated, name);
+}
 
+
+
+export function hasAnyInvalid(inputs: any) {
+    for (var name in inputs) {
+        if (inputs[name].dirty === "true" && inputs[name].invalid === "true") {
+            return true; /*vai em campo por campo e verificar se tem algum  preenchido invaliado
+            ou seja o invalid e dirty( vermleho) está true*/
+        }
+    }
+
+    return false; /* caso n tenha nenhum campo invalido*/
 }
 
 export function dirtAndValidate(inputs: any, name: string) {
