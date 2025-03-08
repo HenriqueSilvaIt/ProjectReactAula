@@ -4,6 +4,7 @@ tem que fica igual no import da documentação ficial*/
 import Select from "react-select";
 
 
+
 export default function FormSelect(props: any) { /* n colocamos
      o prop em cima com type, porque vamos passar dados variados aqui dentro, text,
      que são as coias que estavam dentro do input*/
