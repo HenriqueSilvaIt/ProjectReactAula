@@ -269,11 +269,6 @@ utilizamos o min-width semp */
   padding: 40px 20px;
 }
 
-.react-select_menu {
-  z-index: 9999;
-  position: absolute;
-}
-
 .dsc-form h2 {
   color: var(--color-font-primary);
   font-size: 16px;

@@ -239,7 +239,7 @@ export default function ProductForm() {
                                 no formData do categories, exceto o validate que estamos
                                 desistruturando excluindo lá no Componente FormSelect*/
                                 styles={selectStyles} /* pegando do utl select style*/
-                                className="dsc-form-control dsc-form-select-container react-select_menu"
+                                className="dsc-form-control dsc-form-select-container"
                                 options={categories} /* passando a lista de categorias do backend usando o usaState categorie  */
                                 onChange={(obj: any) => {
                                     /* atualizar
