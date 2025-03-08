@@ -355,6 +355,7 @@ for igul true vai retorna essa formatação*/
   padding: unset; /* para que n tenha nenhuma configuração especial
     de padding do próprio React selecy*/
     height: unset; /*para React selector n colocar própia altura*/
+    position: absolute;
 
 }
 
