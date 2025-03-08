@@ -1,7 +1,7 @@
 /*o import é só import Select from 'react-select';, se você importa automatico vai trazer errado
 tem que fica igual no import da documentação ficial*/
 
-import { Select } from "react-responsive-select";
+import AsyncSelect from "react-select/async";
 
 
 export default function FormSelect(props: any) { /* n colocamos
@@ -29,7 +29,7 @@ export default function FormSelect(props: any) { /* n colocamos
       data-invalid={invalid}
       data-dirty={dirty}>
 
-      <Select 
+      <AsyncSelect 
       {...selectProps}
         onBlur={handleBlur}
         
