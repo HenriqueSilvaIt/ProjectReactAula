@@ -32,7 +32,7 @@ export default function FormSelect(props: any) { /* n colocamos
 
       <Select 
       {...selectProps}
-        onBlur={handleBlur}
+        onBlur={event => event.preventDefault()}
         
       />
 
