@@ -1,7 +1,7 @@
 /*o import é só import Select from 'react-select';, se você importa automatico vai trazer errado
 tem que fica igual no import da documentação ficial*/
 
-import { isMobile } from "react-device-detect";
+import { isMobile, isMobileOnly } from "react-device-detect";
 import Select from "react-select";
 
 
@@ -22,7 +22,7 @@ export default function FormSelect(props: any) { /* n colocamos
   function handleBlur(event :any) {
     event.preventDefault();
     
-    if (!isMobile) {
+    if (!isMobileOnly) {
     onTurnDirty(props.name);
     }
   }
@@ -40,7 +40,6 @@ export default function FormSelect(props: any) { /* n colocamos
       <Select 
       {...selectProps}
         onBlur={handleBlur}
-        blurInputOnSelect
         
         
       />
