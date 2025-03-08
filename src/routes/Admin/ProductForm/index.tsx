@@ -69,7 +69,7 @@ export default function ProductForm() {
             validation: function (value: string) {
                 return /^.{10,}$/.test(value); /* expressão regez que pega o mínimo 10 caractere */
             },
-            message: "Favor informar um nome de 3 a 80 caracteres"
+            message: "Favor informar uma descrição de no minímo 10 caracteres"
 
         },
         categories: {

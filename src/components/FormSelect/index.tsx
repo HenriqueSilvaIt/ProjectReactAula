@@ -19,7 +19,7 @@ export default function FormSelect(props: any) { /* n colocamos
 
   function handleBlur(event :any) {
     event.preventDefault();
-  //  onTurnDirty(props.name);
+    onTurnDirty(props.name);
   }
 
   return (
