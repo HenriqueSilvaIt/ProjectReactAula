@@ -1,7 +1,8 @@
 /*o import é só import Select from 'react-select';, se você importa automatico vai trazer errado
 tem que fica igual no import da documentação ficial*/
 
-import Select from "react-select";
+import { Select } from "react-responsive-select";
+
 
 export default function FormSelect(props: any) { /* n colocamos
      o prop em cima com type, porque vamos passar dados variados aqui dentro, text,
@@ -31,6 +32,7 @@ export default function FormSelect(props: any) { /* n colocamos
       <Select 
       {...selectProps}
         onBlur={handleBlur}
+        
       />
 
     </div> /*nesse input vamos passar os props acima

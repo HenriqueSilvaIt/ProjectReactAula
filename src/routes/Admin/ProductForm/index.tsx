@@ -11,7 +11,6 @@ import FormTextArea from '../../../components/FormTextArea';
 import { CategoryDTO } from '../../../models/category';
 import FormSelect from '../../../components/FormSelect';
 import { selectStyles } from '../../../utils/select';
-import { isMobile } from 'react-device-detect';
 
 
 
@@ -197,11 +196,7 @@ export default function ProductForm() {
 
     }
 
-    const isDesktopOrAdvancedFeaturesAreEnabled = !isMobile;
-    if (isDesktopOrAdvancedFeaturesAreEnabled) {
-      return <FormSelect options={categories} />;
-    }
-  
+
 
     return (
 
