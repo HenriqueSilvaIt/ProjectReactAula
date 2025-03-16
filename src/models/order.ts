@@ -17,6 +17,16 @@ export class OrderDTO {
         })
         return sum;
     }
+
+    get troco(): number{
+        let sum = 0;
+        this.items.forEach(item => {
+            sum -= item.subTotal;
+        })
+        return sum;
+    }
+
+
 }
 
 
@@ -28,7 +38,8 @@ export class OrderItemDTO {
         public quantity: number,
         public name: string,
         public price: number,
-        public imgUrl: string
+        public imgUrl: string,
+        public barCode: string
     ) {}
 
         /* colocamos tudo como classe porque tem dado calculado */

@@ -5,6 +5,8 @@ import * as forms from '../../../utils/form';
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/context-token';
 import FormInput from '../../../components/FormInput';
+import ButtonNextPage from '../../../components/ButtonNextPage';
+import { Link } from 'react-router-dom';
 export default function Login() {
     const navigate = useNavigate();
 
@@ -81,7 +83,7 @@ export default function Login() {
 
 
 
-/* valida usuário e senha no backend para ver se está preenchido com sucesso */
+        /* valida usuário e senha no backend para ver se está preenchido com sucesso */
 
         authService.loginRequest(forms.toValues(formData))
             .then(response => {
@@ -95,6 +97,12 @@ export default function Login() {
             .catch(() => {
                 setSubmitResponseFail(true); /* para aparecer a mensagem de login e senha inválido*/
             })
+    }
+
+
+    function handleButtonRegister(event: any) {
+
+        navigate("/register")
     }
 
     return (
@@ -124,6 +132,7 @@ export default function Login() {
                             , mas estamos colocando para ficar pradonizado*/
                                     onChange={handleInputChange} />
                             </div>
+                           
                         </div>
 
                         {submitResponseFail /* useState caso for preenchido 
@@ -136,8 +145,17 @@ export default function Login() {
 
                         <div className="dsc-login-form-buttons dsc-mt20">
                             <button type="submit" className="dsc-btn dsc-btn-blue">Entrar</button>
+
+                            <Link to="/register">
+                                <div className="dsc-btn dsc-btn-white dsc-mt20">
+                                    Registrar
+                                </div>
+                            </Link>    
                         </div>
+                    
                     </form>
+
+                    
                 </div>
             </section>
         </main>

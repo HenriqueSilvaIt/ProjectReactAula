@@ -20,6 +20,7 @@ import { ContextToken } from './utils/context-token.ts';
 import Confirmation from './routes/ClientHome/Confirmation/index.tsx';
 import ProductListing from './routes/Admin/ProductListing/index.tsx';
 import ProductForm from './routes/Admin/ProductForm/index.tsx';
+import RegisterForm from './routes/ClientHome/RegisterForm/index.tsx';
 
 export default function App() { /*export default quer dizer que estamos exportando e o default quer dizer que desse
   documento só estamos exportando essa função */
@@ -62,6 +63,8 @@ export default function App() { /*export default quer dizer que estamos exportan
             <Route path="product-details/:productId" element={<ProductDetails />} />
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login />} />
+            <Route path="/register" element={<RegisterForm/>} />
+    
             <Route path="confirmation/:orderId" element={<PrivateRoute><Confirmation/></PrivateRoute>} />
           </Route>
           <Route path="/admin/" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>

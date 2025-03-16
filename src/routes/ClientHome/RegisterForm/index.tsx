@@ -10,13 +10,11 @@ import FormTextArea from '../../../components/FormTextArea';
  tem que fica igual no import da documentação ficial*/
 import { CategoryDTO } from '../../../models/category';
 import FormSelect from '../../../components/FormSelect';
-import { selectStyles } from '../../../utils/select';
 
 
 
-export default function ProductForm() {
 
-
+export default function RegisterForm() {
 
     const params = useParams(); /* para colocara rota ul */
 
@@ -40,60 +38,61 @@ export default function ProductForm() {
             },
             message: "Favor informar um nome de 3 a 80 caracteres"
         },
-        price: {
+        email: {
             value: "",
-            id: "price",
-            name: "price",
-            type: "number", /* para aceitar somente númeroes*/
-            placeholder: "Preço",
+            id: "email",
+            name: "email",
+            type: "text", /* para aceitar somente númeroes*/
+            placeholder: "Email",
             validation: function (value: any) {
-                return Number(value)/*v convertido para Number*/ > 0;
+                return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());/*v convertido para Number*/ 
             },
             /*messagem de erro caso essa função de falso*/
-            message: "Favor informar um valor positivo"
+            message: "Favor informar o seu email"
         },
-        imgUrl: {
+        phone: {
             value: "", // Alterado para null, pois agora será um arquivo
-            id: "imgUrl",
-            name: "imgUrl",
-            type: "file", // Mantém o tipo como "file"
-            placeholder: "Imagem"    
+            id: "phone",
+            name: "phone",
+            type: "Number", // Mantém o tipo como "file"
+            placeholder: "Telefone",
+            validation: function (value: number) {
+                return  Number(value);
+            },   
+            message: "Favor informar um telefone válido"
 
         },
-    
-    barCode: {
-
-        value: "",
-        id: "barCode",
-        name: "barCode",
-        type: "text",
-        placeholder: "Código de barras",
-        validation: function (value: string) {
-            return /^.{10,}$/.test(value); /* expressão regez que pega o mínimo 10 caractere */
-        },
-        message: "Favor informar uma descrição de no minímo 10 caracteres"
-
-    },
-        description: {
+        password: {
 
             value: "",
-            id: "description",
-            name: "description",
-            type: "text",
-            placeholder: "Descrição",
+            id: "password",
+            name: "password",
+            type: "password",
+            placeholder: "Senha",
             validation: function (value: string) {
-                return /^.{10,}$/.test(value); /* expressão regez que pega o mínimo 10 caractere */
+                return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/.test(value);
             },
-            message: "Favor informar uma descrição de no minímo 10 caracteres"
-
+            message: "Favor informar uma senha com pelo menos 1 letra, 1 número e 1 caracterer especial"
         },
-        categories: {
+        birthdate: {
+            value: "", /* valor inicial lista vazia, e depois o usuário 
+            vai escolher uma ou mais categoria*/
+            id: "birthdate",
+            name: "birthdate",
+            /*type n precisa porque já é um select do react*/
+            placeholder: "DD/MM/YYYY",
+            validation: function (value: number /* do tipo lista de categoria */) {
+                return value;   /* tem que ter pelo menos uma categoria*/
+            },
+            message: "Digite a data de nascimento"  
+        },
+        role: {
             value: [], /* valor inicial lista vazia, e depois o usuário 
             vai escolher uma ou mais categoria*/
-            id: "categories",
-            name: "categories",
+            id: "role",
+            name: "role",
             /*type n precisa porque já é um select do react*/
-            placeholder: "Categorias",
+            placeholder: "Perfil",
             validation: function (value: CategoryDTO[] /* do tipo lista de categoria */) {
                 return value.length > 0;   /* tem que ter pelo menos uma categoria*/
             },
@@ -262,7 +261,7 @@ export default function ProductForm() {
             <section id="product-form-section" className="dsc-container">
                 <div className="dsc-product-form-container">
                     <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
-                        <h2>Dados do produto</h2>
+                        <h2>Novo usuário</h2>
                         <div className="dsc-form-controls-container">
                             <div>
                                 <FormInput {...formData.name}
@@ -273,66 +272,47 @@ export default function ProductForm() {
                                 <div className="dsc-form-error">{formData.name.message}</div>
                             </div>
                             <div>
-                                <FormInput {...formData.price}
+                                <FormInput {...formData.email}
                                     className="dsc-form-control"
                                     onChange={handleInputChange}
                                     onTurnDirty={handleTurnDirty}
                                 />
-                                <div className="dsc-form-error">{formData.price.message}</div>
+                                <div className="dsc-form-error">{formData.email.message}</div>
                             </div>
 
-
                             <div>
-                                <FormInput {...formData.imgUrl}
-                                    type="file" 
-                                    className="dsc-form-control" 
+                                <FormInput {...formData.phone}
+                                    className="dsc-form-control"
                                     onChange={handleInputChange}
-                                     onTurnDirty={handleImagemTurnDirty} 
-                                     onImageChange={handleImagemChange} 
-                                     accept="image/*" preview={imagemPreview} />
-
+                                    onTurnDirty={handleTurnDirty}
+                                />
+                                <div className="dsc-form-error">{formData.phone.message}</div>
                             </div>
                             <div>
 
-                                <FormSelect  /*Select, porém customizado em um componente ta sendo chamado lá*/
-                                    {...formData.categories} /* vamos pegar tudo que tinha já
+                                <FormInput  /*Select, porém customizado em um componente ta sendo chamado lá*/
+                                    {...formData.password} /* vamos pegar tudo que tinha já
                                 no formData do categories, exceto o validate que estamos
                                 desistruturando excluindo lá no Componente FormSelect*/
-                                    styles={selectStyles} /* pegando do utl select style*/
-                                    className="dsc-form-control dsc-form-select-container"
-                                    options={categories} /* passando a lista de categorias do backend usando o usaState categorie  */
-                                    onChange={(obj: any) => {
-                                        /* atualizar
-                                        o formulário colocando obj(que é a lista do  id e categoria selecionada) */
-                                        setFormData(forms.updateAndValidate(formData, "categories", obj)); /* vai colocar
-                                    o valor que selecionarmos no formulário no value do categories*/
-                                    }}
-                                    onTurnDirty={handleTurnDirty} /*turn dirty é para
+                                    className="dsc-form-control "
+                                onTurnDirty={handleTurnDirty} 
+                                onChange={handleInputChange}/*turn dirty é para
                                 ficar vermelho caso o usuário n termine de escrever o que tem que ser preenchido
                                 e clique no próximo campo */
-                                    isMulti
-                                    getOptionLabel={(obj: any) => obj.name} /* o rótulo(labl) vai ser o nome */
-                                    getOptionValue={(obj: any) => obj.id} /* e o valor vai ser o id  da categoria*/ />
-                                <div className="dsc-form-error">{formData.categories.message}</div>
+                                />
+                                <div className="dsc-form-error">{formData.password.message}</div>
                             </div>
+
                             <div>
-                                <FormInput {...formData.barCode}
+                                <FormInput {...formData.birthdate}
                                     className="dsc-form-control"
                                     onTurnDirty={handleTurnDirty}
                                     onChange={handleInputChange}
                                 />
-                                <div className="dsc-form-error">{formData.barCode.message}</div>
-                            </div>
-                            <div>
-                                <FormTextArea {...formData.description}
-                                    className="dsc-form-control dsc-textarea"
-                                    onTurnDirty={handleTurnDirty}
-                                    onChange={handleInputChange}
-                                />
-                                <div className="dsc-form-error">{formData.description.message}</div>
+                                <div className="dsc-form-error">{formData.birthdate.message}</div>
                             </div>
                         </div>
-
+                      
                         <div className="dsc-product-form-buttons">
                             <Link to="/admin/products">
                                 <button type="reset" className="dsc-btn dsc-btn-white">Cancelar</button>

@@ -3,6 +3,7 @@ import homeIm from '../../assets/home.svg';
 import productsIcon from '../../assets/products.svg'
 import LoggedUser from '../LoggedUser';
 import { NavLink } from 'react-router-dom';
+import cart from '../../assets/cart.svg'
 
 
 
@@ -32,7 +33,16 @@ export default function HeaderAdmin() { /* por organização a função java scr
                 <img src={productsIcon} alt="cadastro de produtos" />
                 <p >Produtos</p>
               </div>
-            </NavLink>
+              </NavLink>
+              <NavLink
+                to="/home "
+                className={({isActive}) => isActive ? "dsc-menu-item-active" : ""}>
+              <div className="dsc-menu-item">
+                <img src={cart} alt="cadastro de produtos" />
+                <p >Cátalogo</p>
+              </div>
+              </NavLink>
+         
           </div>
 
           <LoggedUser />

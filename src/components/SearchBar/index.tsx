@@ -12,9 +12,10 @@ export default function SerachBar({onSearch} : Props) {
 
     /* limpar formulário quando clicar no x */
 
-        function handleResetClick() {
+        function handleResetClick(event: any) {
+            event.preventDefault();
             setText("");
-            onSearch(text);
+          //  onSearch(text);
         }
 
     /* função para popular a variavel formData quando for preenchida*/

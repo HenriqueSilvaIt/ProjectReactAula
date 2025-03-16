@@ -14,6 +14,10 @@
     left: -5px; /* isso com o position relativ, coloca o item mais para esquerda */
 }
 
+.dsc-cart-count img {
+    color: var(--color-font-tertiary);
+}
+
 .dsc-menu-cart{
     display: flex;
 }

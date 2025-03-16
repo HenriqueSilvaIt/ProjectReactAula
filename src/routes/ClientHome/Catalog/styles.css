@@ -11,3 +11,8 @@ catalog-section{
     então quando a tela for expandindo e ating a largura minima do card
      ele acrescenta mais um, e máximo colocamndo a fração que é 1*/ 
 }
+
+.dsc-section-title  {
+    text-align: center;
+    color: var(--color-font-primary);
+}

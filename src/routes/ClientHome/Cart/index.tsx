@@ -1,14 +1,29 @@
 import './style.css';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import * as cartService from '../../../services/cart-services';
 import * as orderService from '../../../services/order-service';
 import { OrderDTO } from '../../../models/order';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ContextCartCount } from '../../../utils/context-cart';
+import SerachBar from '../../../components/SearchBar';
+import * as productService from '../../../services/product-services';
+import { ProductDTO } from '../../../models/product';
+
+
+type QueryParams = {
+    name: string;
+}
 
 export default function Cart() {
+
+    const params = useParams;
+
     const [cart, setCart] = useState<OrderDTO>(cartService.getCart()); /* já estamos iniciando
     o use state pegando p rimeiro valor que está lá no localStorage */
+
+    const [products, setProducts] = useState<ProductDTO>();
+
+    const [pay, setPay] = useState();
 
     const { setContextCartCount } = useContext(ContextCartCount);
 
@@ -17,9 +32,9 @@ export default function Cart() {
     function handleClearClick() {
         cartService.clearCart(); /* aqui limpa no localstorage */
         updateCart();
-    /* a variavel cart no use state vai pegar
-        o resultado local storage e atualizar o no vizual, e a função que renderiza o carrinho lá em baixo 
-        length === 0 vai atualziar também, porque vai ver que está zerado o carrinho  */
+        /* a variavel cart no use state vai pegar
+            o resultado local storage e atualizar o no vizual, e a função que renderiza o carrinho lá em baixo 
+            length === 0 vai atualziar também, porque vai ver que está zerado o carrinho  */
     }
 
     /* função para acrescentar novo produto no carrinho */
@@ -33,7 +48,7 @@ export default function Cart() {
     function handleDecreaseItem(productId: number) {
         cartService.decreaseItem(productId); // incrementa o item no local storage
         updateCart();
-       // atualizar no use state para atualizar no visual
+        // atualizar no use state para atualizar no visual
 
     }
 
@@ -41,27 +56,64 @@ export default function Cart() {
     function updateCart() {
 
         const newCart = cartService.getCart();
-        setCart(newCart); 
+        setCart(newCart);
         setContextCartCount(newCart.items.length);
     }
 
     function handlePlaceOrderClick() {
         orderService.placeOrderRequest(cart)
-        .then(response=> {
-            cartService.clearCart();/*se salvou o produto agora vamos usa clear para limpar o carrinho*/
-            setContextCartCount(0); /* é importante colocar isso porque uma
+            .then(response => {
+                cartService.clearCart();/*se salvou o produto agora vamos usa clear para limpar o carrinho*/
+                setContextCartCount(0); /* é importante colocar isso porque uma
              vez que vocÊ fez o pedido e limpo o carrinho tem que zerar aquela quantidade de items 
-             no carrinho do cabeçalho*/ 
-             navigate(`/confirmation/${response.data.id}`) /*uma vez que já fez o pedido
+             no carrinho do cabeçalho*/
+                navigate(`/confirmation/${response.data.id}`) /*uma vez que já fez o pedido
              agora ele direciona para  o confirmation do id específico*/
-        })
+            })
     }
 
+
+
+    
+    const [queryParams, setQueryParams] = useState<QueryParams>();
+
+    useEffect(() => {
+
+        if (queryParams && queryParams.name) {
+            
+            productService.findByBarCode(queryParams.name)
+                .then(response => {
+                   
+                    const content = response.data.content;
+                    setProducts(content[0]);
+                    console.log(content[0]);
+                  
+                });
+        }
+    }, [queryParams]);
+
+    function handleSearch(searchText: string) {
+
+
+        
+        setQueryParams( {...queryParams, name: searchText});
+        products &&
+        cartService.addProduct(products);
+        
+        updateCart();
+    }
+
+    function handleInputChange(event: any) {
+        event.preventDefault();
+
+        setPay(event.target.value);
+    }
 
     return (/* quando abrimos chaves dentro do return é uma expressão do react */
         /* no primeiro elemento dentro da função map tem que colocar o key
         que ai pegamos o id do objeto porrque tem que ser um elemento único */
-        <main>
+        <main className="dsc-container" >
+            <SerachBar onSearch={handleSearch} />
             <section id="cart-container-section" className="dsc-container">
                 {
                     cart.items.length === 0
@@ -99,6 +151,26 @@ export default function Cart() {
                                 <h4>Total:</h4>
                                 <h3>R$ {cart.total.toFixed(2)}</h3>
                             </div>
+
+                            <div className="dsc-cart-total-container   dsc-pay ">
+                                <h4>Pago:</h4>
+                                <input
+                                    name="pag"
+                                    value={pay}
+                                    type="text"
+                                    onChange={handleInputChange}>
+
+                                </input>
+                            </div>
+
+                            <div className="dsc-cart-total-container ">
+                                
+                                <h4>Troco</h4>
+                                { pay && pay < cart.total &&
+                                <h3 className="dsc-troco">R$ {Number(cart.total - pay).toFixed(2)}</h3>
+                              
+                            }
+                            </div>
                         </div>
                         )
                 }
@@ -111,11 +183,11 @@ export default function Cart() {
                     </div>
                     <Link to="/catalog">
                         <div className="dsc-btn dsc-btn-white">
-                            Continuar comprando
+                            Produtos
                         </div>
                     </Link>
                     <div onClick={handleClearClick} className="dsc-btn dsc-btn-white">
-                        Limpar Carrinho
+                        Limpar Caixa
                     </div>
                 </div>
 

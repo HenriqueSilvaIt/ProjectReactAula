@@ -44,7 +44,7 @@ export function findById(id: number) {
 }
 
 export function findByBarCode(code:string) {
-    return requestBackend({url: `/products/?barCode=${code}`});
+    return requestBackend({url: `/products/?size=1?barCode&barCode=${code}`});
 }
 
 

@@ -44,7 +44,7 @@
 
 .dsc-cart-item-right {
     padding-bottom: 10px;
-    font-size: 12px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--color-font-secondary);
 }
@@ -91,13 +91,29 @@
     }
 
     .dsc-cart-total-container {
-        font-size: 16px;
+        font-size: 24px;
         justify-content: right;
         
     }
 
     .dsc-cart-total-container h4 {
-        font-size: 14px;
+        font-size: 20px;
     }
 
+    .dsc-troco{
+        color: #f00;
+    }
+
+
+    .dsc-pay input {
+        border: 1px solid var(--color-card-border);
+        height: 30px;
+        font-size: 20px;
+        width: 160px;
+
+      }
+    .dsc-pay input:focus {
+        outline: none;
+    }
+      
 }
