@@ -166,8 +166,8 @@ export default function Cart() {
                             <div className="dsc-cart-total-container ">
                                 
                                 <h4>Troco</h4>
-                                { pay && pay < cart.total &&
-                                <h3 className="dsc-troco">R$ {Number(cart.total - pay).toFixed(2)}</h3>
+                                {  pay  != undefined && pay > cart.total &&
+                                <h3 className="dsc-troco">R$ {Number(pay - cart.total).toFixed(2)}</h3>
                               
                             }
                             </div>
