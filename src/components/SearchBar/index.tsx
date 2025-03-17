@@ -32,6 +32,7 @@ export default function SerachBar({onSearch} : Props) {
     function handleFormSubmit(event: any) {
         event.preventDefault(); // para não  recarregar a página quando eu aperta o boã
         onSearch(text); // informar o texto que é nome que está informado na caixinha
+        setText("");
     }
 
     return (
@@ -39,7 +40,7 @@ export default function SerachBar({onSearch} : Props) {
         <form  onSubmit={handleFormSubmit}
                 className="dsc-search-bar dsc-mt20">
             <button type="submit">🔎︎</button>
-            <input value={text}  type="text" placeholder="Nome do produto" 
+            <input value={text}  type="text" placeholder="Código de barras" 
             onChange={handleInputChange} /> 
             <button  name="reset" onClick={handleResetClick}>🗙</button>
         </form>

@@ -71,8 +71,7 @@ export default function Cart() {
              agora ele direciona para  o confirmation do id específico*/
             })
     }
-
-
+   
 
     
     const [queryParams, setQueryParams] = useState<QueryParams>();
@@ -92,15 +91,24 @@ export default function Cart() {
         }
     }, [queryParams]);
 
+/*Adicionei um segundo useEffect que observa a mudança de products. Quando products é definido,
+ ele adiciona o produto ao carrinho e atualiza o carrinho. Depois, ele reseta products para undefined para que não seja adicionado novamente.*/
+    useEffect(() => {
+        if (products) {
+            cartService.addProduct(products);
+            updateCart();
+            setProducts(undefined);
+        }
+    }, [products])
+
+
     function handleSearch(searchText: string) {
 
-
-        
-        setQueryParams( {...queryParams, name: searchText});
+        setQueryParams( {name: searchText});
         products &&
         cartService.addProduct(products);
-        
         updateCart();
+    
     }
 
     function handleInputChange(event: any) {
@@ -120,7 +128,7 @@ export default function Cart() {
                         ? /* caso a quantidade de itens no carrinho foir 0 */
                         (
                             <div>
-                                <h2 className="dsc-section-title dsc-mb20">Seu carrinho está vazio</h2>
+                                <h2 className="dsc-section-title dsc-mb20">Caixa livre</h2>
                             </div>
 
                         )
@@ -140,6 +148,7 @@ export default function Cart() {
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <div className="dsc-cart-item-right">R$ {(item.subTotal.toFixed(2))}</div>
                                 </div>
                             ))
@@ -148,12 +157,12 @@ export default function Cart() {
 
 
                             <div className="dsc-cart-total-container">
-                                <h4>Total:</h4>
+                                <h4>Total da Compra:</h4>
                                 <h3>R$ {cart.total.toFixed(2)}</h3>
                             </div>
 
                             <div className="dsc-cart-total-container   dsc-pay ">
-                                <h4>Pago:</h4>
+                                <h4>Valor Recebido:</h4>
                                 <input
                                     name="pag"
                                     value={pay}
@@ -165,7 +174,7 @@ export default function Cart() {
 
                             <div className="dsc-cart-total-container ">
                                 
-                                <h4>Troco</h4>
+                                <h4>Troco:</h4>
                                 {  pay  != undefined && pay > cart.total &&
                                 <h3 className="dsc-troco">R$ {Number(pay - cart.total).toFixed(2)}</h3>
                               
@@ -179,7 +188,7 @@ export default function Cart() {
                 <div className="dsc-btn-page-container">
 
                     <div onClick={handlePlaceOrderClick} className="dsc-btn dsc-btn-blue">
-                        Finalizar Pedido
+                        Finalizar Venda
                     </div>
                     <Link to="/catalog">
                         <div className="dsc-btn dsc-btn-white">
