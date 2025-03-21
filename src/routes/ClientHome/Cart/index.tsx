@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import * as cartService from '../../../services/cart-services';
 import * as orderService from '../../../services/order-service';
 import { OrderDTO } from '../../../models/order';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ContextCartCount } from '../../../utils/context-cart';
 import SerachBar from '../../../components/SearchBar';
 import * as productService from '../../../services/product-services';
@@ -16,7 +16,6 @@ type QueryParams = {
 
 export default function Cart() {
 
-    const params = useParams;
 
     const [cart, setCart] = useState<OrderDTO>(cartService.getCart()); /* já estamos iniciando
     o use state pegando p rimeiro valor que está lá no localStorage */
@@ -105,8 +104,7 @@ export default function Cart() {
     function handleSearch(searchText: string) {
 
         setQueryParams( {name: searchText});
-        products &&
-        cartService.addProduct(products);
+
         updateCart();
     
     }

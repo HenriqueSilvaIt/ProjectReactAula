@@ -4,11 +4,15 @@ import './style.css'
 type Props = {
     onSearch: Function;
 }
+
+
+
 export default function SerachBar({onSearch} : Props) {
 
     /*useState*/
 
     const [text, setText] = useState("");
+    
 
     /* limpar formulário quando clicar no x */
 

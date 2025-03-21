@@ -160,11 +160,11 @@ export default function ProductListing() {
                                 <tr key={product.id}>
                                     <td className="dsc-tb576">{product.id}</td>
                                     <td>
-                                        <img
+                                    {product.imgUrl && (   <img
                                             className="dsc-product-listing-image"
                                             src={product.imgUrl}
                                             alt={product.name}
-                                        />
+                                        /> )}
                                     </td>
                                     <td className="dsc-tb768">R$ {product.price.toFixed(2)}</td>
                                     <td className="dsc-text-left">{product.name}</td>

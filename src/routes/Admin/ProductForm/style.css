@@ -19,10 +19,23 @@
     botões um do lado do outro quando chega no 576*/
 }
 
+.dsc-imagem-form{
+    
+    padding-top: 8px;
+}
+
 @media (min-width: 576px){
     #product-form-section {
         padding: 40px 0;
     }
     
     
+}
+
+.dsc-product-form-image  { /* imagem do computador da tabela*/
+    width: 200px;
+    height: 200px;
+    display: block; /* desconta
+    espaço  da imagem do interno e n do externo */
+    margin-top: 10px;
 }
