@@ -4,10 +4,14 @@
 
 
 .dsc-product-listing-image { /* imagem do computador da tabela*/
+
+    width: 100%;
+    height: 100%;
     width: 69px;
-    height: 69 px;
+    height: 69px;
     display: block; /* desconta
     espaço  da imagem do interno e n do externo */
+    
 }
 
 .dsc-product-listing-btn { /*formatação

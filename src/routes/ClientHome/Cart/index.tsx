@@ -1,5 +1,5 @@
 import './style.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import * as cartService from '../../../services/cart-services';
 import * as orderService from '../../../services/order-service';
 import { OrderDTO } from '../../../models/order';
@@ -22,6 +22,14 @@ export default function Cart() {
 
     const [products, setProducts] = useState<ProductDTO>();
 
+    const inputRef = useRef<HTMLInputElement>(null); // Cria a referência
+
+    useEffect(() => {
+        if (inputRef.current) {
+          inputRef.current.focus(); // Define o foco no input
+        }
+      }, []); // Executa apenas uma vez após a renderização inicial
+    
     const [pay, setPay] = useState();
 
     const { setContextCartCount } = useContext(ContextCartCount);
@@ -119,7 +127,7 @@ export default function Cart() {
         /* no primeiro elemento dentro da função map tem que colocar o key
         que ai pegamos o id do objeto porrque tem que ser um elemento único */
         <main className="dsc-container" >
-            <SerachBar onSearch={handleSearch} />
+            <SerachBar onSearch={handleSearch} inputRef={inputRef!} />
             <section id="cart-container-section" className="dsc-container">
                 {
                     cart.items.length === 0

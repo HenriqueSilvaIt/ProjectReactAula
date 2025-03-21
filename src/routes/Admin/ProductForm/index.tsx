@@ -118,7 +118,7 @@
                 }
         
                 const data = await response.json();
-                let imageUrl = data.secure_url.replace("/upload/", "/upload/f_auto,q_auto,w_500,h_500,c_fill/");
+                let imageUrl = data.secure_url.replace("/upload/", "/upload/f_auto,q_auto,w_500,h_500,c_fit/");
                 setLoading(true);
                 //console.log(data.secure_url);
                 return imageUrl;
