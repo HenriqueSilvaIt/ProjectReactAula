@@ -15,8 +15,8 @@ import { CategoryDTO } from "./category";
     /* como é um array dentro do JSON do backend fazemos a chamada
     do outro arquivo dessa forma */
     barCode: string;
-    dateBuy: Date;
-    dueDate: Date;
+    dateBuy: string | Date;
+    dueDate: string | Date;
     quantity: number;
     categories: CategoryDTO[]; /* CTRL + espaço para
     importa o objeto do outro arquivo, Tem que colocar o [] porque é um array */

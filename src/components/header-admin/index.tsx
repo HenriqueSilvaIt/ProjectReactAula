@@ -16,7 +16,7 @@ export default function HeaderAdmin() { /* por organização a função java scr
     <header className="dsc-header-admin">
       <nav className="dsc-container">
 
-        <h1>DSCommerce Admin</h1>
+        <h1 className="dsc-tb768">Administração</h1>
         <div className="dsc-nav-bar-right">
           <div className="dsc-menu-itens-container">
             <NavLink 

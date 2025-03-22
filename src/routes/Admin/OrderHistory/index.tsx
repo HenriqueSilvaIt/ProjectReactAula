@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OrderDTO } from '../../../models/order';
 import * as ordeService from '../../../services/order-service'
-import { formatDate } from '../../../services/product-services';
 import moment from 'moment'; // Importe moment.js
 import { formatDateToFilter } from '../../../services/product-services';
 
@@ -91,11 +90,11 @@ export default function OrderHistory() {
                             order.items.map((item) => (
                                 <tr key={`${order.id}-${item.productId}`}>
                                     <td className="dsc-tb576">{order.id}</td>
-                                    <td className="dsc-tb768">{item.name}</td>
+                                    <td>{item.name}</td>
                                     <td className="dsc-tb768">{moment(order.moment).format('DD/MM/YYYY')}</td>
                                     <td className="dsc-tb768">{item.quantity}</td>
                                     <td className="dsc-tb768">R$ {item.subTotal.toFixed(2)}</td>
-                                    <td className="dsc-tb768">R$ {order.total.toFixed(2)}</td>
+                                    <td>R$ {order.total.toFixed(2)}</td>
                                 </tr>))
                         )}
                     </tbody>
