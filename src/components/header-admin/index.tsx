@@ -3,7 +3,7 @@ import homeIm from '../../assets/home.svg';
 import productsIcon from '../../assets/products.svg'
 import LoggedUser from '../LoggedUser';
 import { NavLink } from 'react-router-dom';
-import history from '../../assets/unnamed-removebg-preview.png'
+import history from '../../assets/history-svgrepo-com (1).svg'
 import product from '../../assets/cart-shopping-regular.svg'
 
 
