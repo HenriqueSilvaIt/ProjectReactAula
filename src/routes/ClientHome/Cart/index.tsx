@@ -149,7 +149,7 @@ export default function Cart() {
                                             <h3>{item.name}</h3>
                                             <div className="dsc-cart-item-quantity-container">
                                                 <div onClick={() => handleDecreaseItem(item.productId)} className="dsc-cart-item-quantity-btn">-</div>
-                                                <p>{item.quantity}</p>
+                              \                  <p>{item.quantity}</p>
                                                 <div onClick={() => handleIncreaseItem(item.productId)} className="dsc-cart-item-quantity-btn">+</div>
                                             </div>
                                         </div>

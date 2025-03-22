@@ -36,3 +36,9 @@
 .dsc-catalog-product-quantity{
     color: var(--color-font-primary);
 }
+
+.dsc-dueDate-invalid {
+    color: red; /* Define a cor do texto como vermelho */
+    font-weight: bold; /* Opcional: torna o texto em negrito */
+    /* Outros estilos opcionais, como background-color, etc. */
+}

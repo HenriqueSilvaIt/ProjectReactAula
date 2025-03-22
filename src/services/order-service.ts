@@ -30,3 +30,17 @@ export function placeOrderRequest(cart: OrderDTO) {
 
     return requestBackend(config);
 }
+
+export function findAll() {
+    
+    const config : AxiosRequestConfig = {
+        url: `/orders`,
+        method: "GET",
+        withCredentials: true, /*precisa de autorização token para acesasr essa página ur
+        isso é configurado no backend*/
+   
+    }
+
+    return requestBackend(config);
+}
+

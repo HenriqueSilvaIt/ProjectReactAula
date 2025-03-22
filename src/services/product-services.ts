@@ -5,7 +5,7 @@ import  { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "../utils/system";
 import { requestBackend } from "../utils/requests";
 import { ProductDTO } from "../models/product";
-
+import moment from "moment";
 /* retorna todos os produtos */
 
 export function findPageRequest(page: number, name: string, size = 12, sort = "name") { /* 1º argumento número da página, 2º nome
@@ -91,19 +91,20 @@ export function insertRequest(obj: ProductDTO) {
 
 // função que converte  data no formato DD/MM/AAAA
 
- export function formatDate(dateString : any) {
+export function formatDate(dateString: string | Date | undefined): string {
     if (!dateString) return 'Data não disponível';
 
-    const parts = dateString.split('-');
-    if (parts.length !== 3) return 'Data inválida';
+    const date = moment(dateString);
+    if (!date.isValid()) return 'Data inválida';
 
-    const year = parseInt(parts[0], 10);
-    const month = parseInt(parts[1], 10) - 1; // Mês é baseado em zero (0-11)
-    const day = parseInt(parts[2], 10);
+    return date.format('DD/MM/YYYY');
+}
 
-    const date = new Date(year, month, day);
+export function formatDateToFilter(dateString: string | Date | undefined): string {
+    if (!dateString) return '';
 
-    if (isNaN(date.getTime())) return 'Data inválida'; // Verifica se a data é válida
+    const date = moment(dateString);
+    if (!date.isValid()) return '';
 
-    return date.toLocaleDateString();
+    return date.format('YYYY-MM-DD');
 }

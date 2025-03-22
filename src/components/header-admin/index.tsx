@@ -3,6 +3,7 @@ import homeIm from '../../assets/home.svg';
 import productsIcon from '../../assets/products.svg'
 import LoggedUser from '../LoggedUser';
 import { NavLink } from 'react-router-dom';
+import history from '../../assets/unnamed-removebg-preview.png'
 import product from '../../assets/cart-shopping-regular.svg'
 
 
@@ -26,6 +27,14 @@ export default function HeaderAdmin() { /* por organização a função java scr
                 <p>Início</p>
               </div>
             </NavLink>
+            <NavLink 
+            to="/admin/history"
+             className={({isActive}) => isActive ? "dsc-menu-item-active" : ""}>
+              <div className="dsc-menu-item">
+                <img src={history} alt="cadastro de produtos" />
+                <p >Histórico de vendas</p>
+              </div>
+              </NavLink>
             <NavLink 
             to="/admin/products"
              className={({isActive}) => isActive ? "dsc-menu-item-active" : ""}>

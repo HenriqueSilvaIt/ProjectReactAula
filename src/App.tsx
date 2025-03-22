@@ -21,6 +21,7 @@ import Confirmation from './routes/ClientHome/Confirmation/index.tsx';
 import ProductListing from './routes/Admin/ProductListing/index.tsx';
 import ProductForm from './routes/Admin/ProductForm/index.tsx';
 import RegisterForm from './routes/ClientHome/RegisterForm/index.tsx';
+import OrderHistory from './routes/Admin/OrderHistory/index.tsx';
 
 export default function App() { /*export default quer dizer que estamos exportando e o default quer dizer que desse
   documento só estamos exportando essa função */
@@ -72,6 +73,7 @@ export default function App() { /*export default quer dizer que estamos exportan
             <Route path="home" element={<AdminHome />} />
             <Route path="products" element={<ProductListing/>} />
             <Route path="products/:productId" element={<ProductForm/>} />
+            <Route path="history" element={<OrderHistory/>} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />  
         </Routes>

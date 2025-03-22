@@ -27,6 +27,9 @@ export default function ProductForm() {
 
     const navigate = useNavigate();
 
+    const [novoArquivoImagem, setNovoArquivoImagem] = useState<File | null>(null);
+
+
     const isEditing = params.productId !== 'create'; /* se a rota for dirente de create significa que estou editando um
         produto e não criando um novo, se for create está editando  */
 
@@ -194,6 +197,9 @@ export default function ProductForm() {
                     const newFormData = forms.updateAll(formData, response.data)
                     setFormData(newFormData); /*deixando os campos fo formulário já preenchido -  gerando
                         um novo objeto e no campo value vai colocar o valor que estava no banco de dados */
+                        console.log("URL da imagem:", response.data.imgUrl); // Adicionado para verificar a URL
+                        setImagemUrl(response.data.imgUrl);
+                        console.log(newFormData);
                     console.log(newFormData);
                 })
         }
@@ -244,14 +250,13 @@ value, vamos colocar o value criado na função event.target.valu*/
         if (loading === false) {
             return;
         }
-
         const requestBody = forms.toValues(formData);
-        if (imagemUrl) {
-            requestBody.imgUrl = imagemUrl; // Usa o URL do estado imagemUrl
-        }
+
+       
 
         /* valida qualquer erro de formulário do front end*/
         const formDataValidated = forms.dirtyAndValidateAll(formData);
+
         if (forms.hasAnyInvalid(formDataValidated)) { /* se tiver algum invalido
                 deppois de validar o preenchimento de todos os campos*/
             setFormData(formDataValidated);
@@ -267,6 +272,16 @@ value, vamos colocar o value criado na função event.target.valu*/
             requestBody.id = params.productId; /* vamos setar o Id
                 porque estamos editando o produto, caso n tiver editando n
                 colocamos o id porque ele pega automatico do banco */
+              
+        }  
+        
+
+        if (novoArquivoImagem) {
+            // Usar o novo URL do Cloudinary
+            requestBody.imgUrl = imagemUrl;
+        } else {
+            // Manter o URL existente
+            requestBody.imgUrl = imagemUrl;
         }
 
         /*valida erro de formulário do backend caso o front n pega*/
@@ -304,6 +319,7 @@ value, vamos colocar o value criado na função event.target.valu*/
 
     async function handleImagemChange(file: File) {
         setImagem(file);
+        setNovoArquivoImagem(file);
         console.log(file);
         setImagemPreview(URL.createObjectURL(file));
         setImagemInvalida(file.size > 1000000); // 1MB de limite
@@ -379,7 +395,10 @@ value, vamos colocar o value criado na função event.target.valu*/
                                 <div className="dsc-form-error">{formData.price.message}</div>
                             </div>
                             <div>
-                                <input
+                            {imagemUrl && (
+                            <p>Imagem existente: {imagemUrl.substring(imagemUrl.lastIndexOf('/') + 1)}</p>
+                        )}
+                            <input
                                     type="file"
                                     id="imgUrl"
                                     name="imgUrl"
@@ -388,7 +407,7 @@ value, vamos colocar o value criado na função event.target.valu*/
                                     onChange={(event: any) => handleImagemChange(event.target.files[0])}
                                     onBlur={() => handleImagemTurnDirty('imgUrl')}
 
-                                />
+                                /> 
                                 {imagemPreview && <img className="dsc-product-form-image" src={imagemPreview} alt="Preview da Imagem" />}
                                 {loading === false && <div className="dsc-form-error">imagem carregando</div>}
                             </div>

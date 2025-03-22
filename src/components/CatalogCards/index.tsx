@@ -2,12 +2,26 @@ import './styles.css';
 import { ProductDTO } from '../../models/product';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../services/product-services';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 type Props = {
     product: ProductDTO;
 }
 
 export default function CatalogCards({ product }: Props) {
+
+    const [dirty, setDirty] = useState<boolean>(false);
+
+    useEffect(() => {
+        const now = moment(); // Obtém a data e hora atual usando moment.js
+        const dueDate = moment(product.dueDate); // Converte product.dueDate para um objeto moment.js
+
+        if (dueDate.isBefore(now, 'day')) { // Compara as datas usando moment.js
+            setDirty(true);
+        }
+    }, [product.dueDate]);
+
     return ( /* tem que importa o link abaixo */
         <Link to={`/product-details/${product.id}`}> 
             <div className="dsc-card">
@@ -23,7 +37,7 @@ export default function CatalogCards({ product }: Props) {
                    Data de Compra
                    <p>{formatDate(product.dateBuy)}</p>
                    Data de vencimento
-                   <p>{formatDate(product.dateBuy)}</p>
+                   <p className={dirty ? "dsc-dueDate-invalid" : ""} > {formatDate(product.dueDate)}</p>
                     </div>
                 </div>
             </div>

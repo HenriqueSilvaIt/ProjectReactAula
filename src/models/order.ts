@@ -6,6 +6,7 @@ export class OrderDTO {
     porque antes do pedido ser um pedido, ele é um carrinho apena */
     items: OrderItemDTO[] = []; /* é uma lista da classe order item abaixo*/
 
+    moment?: Date;
 
     /* colocamos tudo como classe porque tem dado calculado */
     get total(): number{
@@ -39,7 +40,7 @@ export class OrderItemDTO {
         public name: string,
         public price: number,
         public imgUrl: string,
-        public barCode: string
+        public barCode: string,
     ) {}
 
         /* colocamos tudo como classe porque tem dado calculado */
