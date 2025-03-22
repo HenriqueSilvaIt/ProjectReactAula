@@ -37,6 +37,7 @@ export default function HeaderClient() { /* por organização a função java sc
               }
         
               <Link to="/cart">
+            
                 <CartIcon />
               </Link>
             </div>

@@ -26,10 +26,10 @@
 }
 
 .dsc-cart-item-container img{ /* formatando imagem */
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     margin: 10px 10px;
-    
+
 
 }
 
@@ -119,4 +119,12 @@
         outline: none;
     }
       
+}
+
+
+.dsc-pay input{
+    border-radius: 5px;
+    border: 2px solid var(--color-card-border);
+    font-size: 28px;
+    padding: 5px;
 }

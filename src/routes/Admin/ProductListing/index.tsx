@@ -141,7 +141,7 @@ export default function ProductListing() {
                         </div>
                     </div>
                 </div>
-                <SerachBar onSearch={handleSearch} />
+                <SerachBar onSearch={handleSearch} placeholder="Nome do produto" />
 
                 <table className="dsc-table dsc-mb20 dsc-mt20">
                     <thead>

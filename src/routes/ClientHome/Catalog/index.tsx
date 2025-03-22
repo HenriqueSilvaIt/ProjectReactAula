@@ -84,7 +84,7 @@ export default function Catalog() {
        <h2 className="dsc-section-title  dsc-container dsc-mb20 dsc-mt20">Estoque</h2>
 
             <section id="catalog-section" className="dsc-container">
-                <SerachBar onSearch={handleSearch} />
+                <SerachBar onSearch={handleSearch} placeholder="Nome do produto" />
                 <div className="dsc-catalog-cards dsc-mb20 dsc-mt20">
 
                     {

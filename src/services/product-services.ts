@@ -88,3 +88,22 @@ export function insertRequest(obj: ProductDTO) {
     return requestBackend(config);
 
 }
+
+// função que converte  data no formato DD/MM/AAAA
+
+ export function formatDate(dateString : any) {
+    if (!dateString) return 'Data não disponível';
+
+    const parts = dateString.split('-');
+    if (parts.length !== 3) return 'Data inválida';
+
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // Mês é baseado em zero (0-11)
+    const day = parseInt(parts[2], 10);
+
+    const date = new Date(year, month, day);
+
+    if (isNaN(date.getTime())) return 'Data inválida'; // Verifica se a data é válida
+
+    return date.toLocaleDateString();
+}

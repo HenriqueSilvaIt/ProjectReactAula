@@ -1,6 +1,7 @@
 import './styles.css';
 import { ProductDTO } from '../../models/product';
 import { Link } from 'react-router-dom';
+import { formatDate } from '../../services/product-services';
 
 type Props = {
     product: ProductDTO;
@@ -16,6 +17,14 @@ export default function CatalogCards({ product }: Props) {
                 <div className="dsc-catalog-card-bottom">
                     <h3>R$ {product.price.toFixed(2)}</h3>
                     <h4>{product.name}</h4>
+
+                    <p className="dsc-catalog-product-quantity">{product.quantity}</p>
+                    <div className="dsc-catalog-card-date"> 
+                   Data de Compra
+                   <p>{formatDate(product.dateBuy)}</p>
+                   Data de vencimento
+                   <p>{formatDate(product.dateBuy)}</p>
+                    </div>
                 </div>
             </div>
         </Link>

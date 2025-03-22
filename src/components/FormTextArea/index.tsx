@@ -9,8 +9,8 @@ export default function FormTextArea(props: any) { /* n colocamos
            ...textareaProps } = props; /* tiramos o validation, toTur invalid do objeto input para n fazer
     parte da props */
 
-    function handleBlur() {
-
+    function handleBlur(event: any) {
+      event.preventDefault();
         onTurnDirty(props.name); /* se você n termina de escrever e clicar fora*/
     }
   

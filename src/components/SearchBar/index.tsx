@@ -4,11 +4,12 @@ import './style.css'
 type Props = {
     onSearch: Function;
     inputRef?: React.RefObject<HTMLInputElement | null>; // Permite null// Adiciona a prop inputRef
+    placeholder?: string;
 }
 
 
 
-export default function SerachBar({onSearch, inputRef} : Props) {
+export default function SerachBar({onSearch, inputRef, placeholder} : Props) {
 
     /*useState*/
 
@@ -45,7 +46,9 @@ export default function SerachBar({onSearch, inputRef} : Props) {
         <form  onSubmit={handleFormSubmit}
                 className="dsc-search-bar dsc-mt20">
             <button type="submit">🔎︎</button>
-            <input value={text}  type="text" placeholder="Código de barras" 
+            <input value={text}  
+            type="text" 
+            placeholder={placeholder || "Código de barras"}
             onChange={handleInputChange} 
             ref={inputRef || null}/> 
             <button  name="reset" onClick={handleResetClick}>🗙</button>

@@ -27,3 +27,12 @@
     color: var(--color-font-primary);
     font-size: 12px;
 }
+
+.dsc-catalog-card-date {
+    font-size: 12px;
+    font-weight: 400px;
+}
+
+.dsc-catalog-product-quantity{
+    color: var(--color-font-primary);
+}
