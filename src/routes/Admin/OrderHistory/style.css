@@ -21,3 +21,55 @@
     cursor: pointer;
     margin: 5px; /*espaçamento entre os botões */
 }
+
+.dsc-filter-date{
+    outline: none;
+    height: 40px    ;
+    border-radius: 5px;
+    border: 1px solid var(--color-btn-primary);
+    color: var(--color-font-primary);
+    padding: 5px;
+    font-size: 16px;
+    background-color: var(--color-btn-inverse);   
+    font-weight: 400;
+    text-align: center;
+ 
+}
+
+.dsc-date-container {
+    display: flex;
+}
+
+
+
+.dsc-btn-clean {
+    background-color: var(--color-btn-inverse);
+    color: var(--color-btn-primary);
+    border: 1px solid var(--color-btn-primary);
+    height: 40px;
+    cursor: pointer;
+  }
+
+  .dsc-total-sales {
+        background-color: var(--color-bg-primary);
+        text-align: right;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+  }
+
+
+  .dsc-total-sales  h3 {
+    color: var(--color-font-primary);
+    font-size: 14px;
+    margin: 0 10px 0 0;
+}
+
+
+  .dsc-total-sales  h4 {
+    color: var(--color-font-secondary);
+    margin: 0 10px 0 0;
+    font-size: 20px;
+}
+

@@ -69,53 +69,53 @@ export default function ProductForm() {
             name: "barCode",
             type: "text",
             placeholder: "Código de barras",
-      /*      validation: function () {
-                // Verifica se o código de barras já existe
-               if (this.value === ()) {
-
+            /*      validation: function () {
+                      // Verifica se o código de barras já existe
+                     if (this.value === ()) {
+      
+              },
+              message: "Esse produto já foi cadastrado"*/
         },
-        message: "Esse produto já foi cadastrado"*/
-    },
-    dateBuy: {
-        value: "",
-        id: "dateBuy",
-        name: "dateBuy",
-        type: "Date", /* para aceitar somente númeroes*/
-        placeholder: "Data de compra",
-        validation: function (value: string) {
-            const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-           if (dateRegex.test(value)) {
-                return true;
-           } /*v convertido para Number*/
+        dateBuy: {
+            value: "",
+            id: "dateBuy",
+            name: "dateBuy",
+            type: "Date", /* para aceitar somente númeroes*/
+            placeholder: "Data de compra",
+            validation: function (value: string) {
+                const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                if (dateRegex.test(value)) {
+                    return true;
+                } /*v convertido para Number*/
+            },
         },
-    },
-    dueDate: {
-        value: "",
-        id: "dueDate",
-        name: "dueDate",
-        type: "Date", /* para aceitar somente númeroes*/
-        placeholder: "Data de vencimento",
-        validation: function (value: string) {
-            const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-           if (dateRegex.test(value)) {
-                return true;
-           } /*v convertido para Number*/
+        dueDate: {
+            value: "",
+            id: "dueDate",
+            name: "dueDate",
+            type: "Date", /* para aceitar somente númeroes*/
+            placeholder: "Data de vencimento",
+            validation: function (value: string) {
+                const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                if (dateRegex.test(value)) {
+                    return true;
+                } /*v convertido para Number*/
+            },
+            /*messagem de erro caso essa função de falso*/
+            message: "Favor informar uma data"
         },
-        /*messagem de erro caso essa função de falso*/
-        message: "Favor informar uma data"
-    },
-    quantity: {
-        value: "",
-        id: "quantity",
-        name: "quantity",
-        type: "Number", /* para aceitar somente númeroes*/
-        placeholder: "Quantidade",
-        validation: function (value: any) {
-            return Number(value)/*v convertido para Number*/;
+        quantity: {
+            value: "",
+            id: "quantity",
+            name: "quantity",
+            type: "Number", /* para aceitar somente númeroes*/
+            placeholder: "Quantidade",
+            validation: function (value: any) {
+                return Number(value)/*v convertido para Number*/;
+            },
+            /*messagem de erro caso essa função de falso*/
+            message: "Favor informar um valor positivo"
         },
-        /*messagem de erro caso essa função de falso*/
-        message: "Favor informar um valor positivo"
-    },
         description: {
 
             value: "",
@@ -197,9 +197,10 @@ export default function ProductForm() {
                     const newFormData = forms.updateAll(formData, response.data)
                     setFormData(newFormData); /*deixando os campos fo formulário já preenchido -  gerando
                         um novo objeto e no campo value vai colocar o valor que estava no banco de dados */
-                        console.log("URL da imagem:", response.data.imgUrl); // Adicionado para verificar a URL
-                        setImagemUrl(response.data.imgUrl);
-                        console.log(newFormData);
+                    console.log("URL da imagem:", response.data.imgUrl); // Adicionado para verificar a URL
+                    setImagemUrl(response.data.imgUrl);
+
+                    console.log(newFormData);
                     console.log(newFormData);
                 })
         }
@@ -247,12 +248,10 @@ value, vamos colocar o value criado na função event.target.valu*/
 
         event.preventDefault();
 
-        if (loading === false) {
-            return;
-        }
+
         const requestBody = forms.toValues(formData);
 
-       
+
 
         /* valida qualquer erro de formulário do front end*/
         const formDataValidated = forms.dirtyAndValidateAll(formData);
@@ -272,9 +271,13 @@ value, vamos colocar o value criado na função event.target.valu*/
             requestBody.id = params.productId; /* vamos setar o Id
                 porque estamos editando o produto, caso n tiver editando n
                 colocamos o id porque ele pega automatico do banco */
-              
-        }  
-        
+            setLoading(true);
+            event.target.value === "" ? setLoading(false) : setLoading(true);
+
+        }
+        if (loading === false) {
+            return;
+        }
 
         if (novoArquivoImagem) {
             // Usar o novo URL do Cloudinary
@@ -287,7 +290,8 @@ value, vamos colocar o value criado na função event.target.valu*/
         /*valida erro de formulário do backend caso o front n pega*/
 
         const request = isEditing
-            ? productService.updateRequest(requestBody) /*editar produto */
+            ? productService.updateRequest(requestBody)
+            /*editar produto */
             : productService.insertRequest(requestBody) /* salvar novo produto */
 
         request
@@ -395,10 +399,10 @@ value, vamos colocar o value criado na função event.target.valu*/
                                 <div className="dsc-form-error">{formData.price.message}</div>
                             </div>
                             <div>
-                            {imagemUrl && (
-                            <p>Imagem existente: {imagemUrl.substring(imagemUrl.lastIndexOf('/') + 1)}</p>
-                        )}
-                            <input
+                                {imagemUrl && (
+                                    <p>Imagem existente: {<img src={imagemUrl} alt="img" style={{ maxWidth: '100px' }} />}</p>
+                                )}
+                                <input
                                     type="file"
                                     id="imgUrl"
                                     name="imgUrl"
@@ -407,8 +411,8 @@ value, vamos colocar o value criado na função event.target.valu*/
                                     onChange={(event: any) => handleImagemChange(event.target.files[0])}
                                     onBlur={() => handleImagemTurnDirty('imgUrl')}
 
-                                /> 
-                                {imagemPreview && <img className="dsc-product-form-image" src={imagemPreview} alt="Preview da Imagem" />}
+                                />
+                                {!isEditing && imagemPreview && <img className="dsc-product-form-image" src={imagemPreview} alt="Preview da Imagem" />}
                                 {loading === false && <div className="dsc-form-error">imagem carregando</div>}
                             </div>
                             <div className="dsc-form-error">{imagemInvalida}</div>

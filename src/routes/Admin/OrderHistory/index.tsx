@@ -11,17 +11,17 @@ type QueryParams = {
 }
 
 
-
-
-
 export default function OrderHistory() {
-
-    const navigate = useNavigate();
-
-
 
     const [order, setOrder] = useState<OrderDTO[]>([]);
     const [filterDate, setFilterDate] = useState<string>('');
+    const [totalSales, setTotalSales] = useState<number>(0); // Novo estado para o total de vendas
+
+    useEffect(() => {
+    // Definir a data atual no formato "YYYY-MM-DD"
+    setFilterDate(moment().format('YYYY-MM-DD'));
+  }, []); // Executar apenas na montagem do componente
+
 
     useEffect(() => {
         ordeService.findAll().then((response: any) => {
@@ -38,27 +38,32 @@ export default function OrderHistory() {
             .then((response: any) => {
                 let filteredOrders = response.data;
 
-        
-        
+
+
                 if (filterDate) {
                     filteredOrders = filteredOrders.filter((order: OrderDTO) => {
                         return formatDateToFilter(order.moment) === filterDate;
                     });
                 }
-    
+
                 const sortedOrders = filteredOrders.sort((a: OrderDTO, b: OrderDTO) => {
                     return moment(b.moment).valueOf() - moment(a.moment).valueOf();
                 });
                 setOrder(sortedOrders);
-            });
-        }, [filterDate]);
 
-    function handleFilterDateChange (event: any)  {
+                // Calcular o total de vendas
+                const salesTotal = sortedOrders.reduce((acc: any, order: any) => acc + order.total, 0);
+                setTotalSales(salesTotal);
+
+            });
+    }, [filterDate]);
+
+    function handleFilterDateChange(event: any) {
         event.preventDefault();
         setFilterDate(event.target.value);
     };
 
-    function handleCleanFilter (event:any) {
+    function handleCleanFilter(event: any) {
         event.preventDefault();
         setFilterDate('');
     }
@@ -69,8 +74,9 @@ export default function OrderHistory() {
 
                 <h2 className="dsc-section-title dsc-mb20">Histórico de vendas</h2>
                 <div className="dsc-btn-page-container dsc-mb20">
-                    <input type="date" value={filterDate} onChange={handleFilterDateChange} />
-                    <button onClick={handleCleanFilter}>Limpar Filtro</button>
+                    <input className="dsc-filter-date" type="date" value={filterDate} onChange={handleFilterDateChange}
+                    />
+                    <button className="dsc-btn-clean" onClick={handleCleanFilter}>Limpar Filtro</button>
 
                 </div>
                 <table className="dsc-table dsc-mb20 dsc-mt20">
@@ -80,25 +86,26 @@ export default function OrderHistory() {
                             <th>Nome da Produto</th>
                             <th className="dsc-tb768">Data</th>
                             <th className="dsc-tb768">Quantidade de produtos</th>
-                            <th className="dsc-tb768">SubTotal</th>
-                            <th className="dsc-text-right">Total</th>
-
+                            <th className="dsc-tb768">Valor</th>
                         </tr>
                     </thead>
                     <tbody>
                         {order.map((order) =>
                             order.items.map((item) => (
-                                <tr key={`${order.id}-${item.productId}`}>
+                                <tr key={`${order.id}`}>
                                     <td className="dsc-tb576">{order.id}</td>
                                     <td>{item.name}</td>
                                     <td className="dsc-tb768">{moment(order.moment).format('DD/MM/YYYY')}</td>
                                     <td className="dsc-tb768">{item.quantity}</td>
                                     <td className="dsc-tb768">R$ {item.subTotal.toFixed(2)}</td>
-                                    <td>R$ {order.total.toFixed(2)}</td>
                                 </tr>))
                         )}
                     </tbody>
                 </table>
+                <div className="dsc-total-sales">
+                    <h3>Total de vendas: </h3>
+                    <h4> R$ {totalSales.toFixed(2)}</h4>
+                </div>
                 {
 
                 }

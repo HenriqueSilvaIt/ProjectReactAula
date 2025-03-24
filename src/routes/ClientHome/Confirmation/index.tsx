@@ -50,7 +50,7 @@ export default function Confirmation() {
                 </div>
 
                 <div className="dsc-confirmation-message dsc-mb20">
-                    Pedido realizado! Número {order?.id}
+                    Venda número {order?.id} realizada!
                 </div>
                 <div className="dsc-btn-page-container">
 
